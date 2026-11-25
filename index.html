@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>ABC Park · 字母乐园</title>
+<meta name="theme-color" content="#aee3ff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ABC Park">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
+<link rel="stylesheet" href="css/style.css?v=62">
+<link rel="stylesheet" href="css/farm.css?v=62">
+<link rel="stylesheet" href="css/games.css?v=62">
+<link rel="stylesheet" href="css/child.css?v=62">
+<link rel="stylesheet" href="css/farm-life.css?v=62">
+<link rel="stylesheet" href="css/farm-map.css?v=62">
+<link rel="stylesheet" href="css/farm-growth.css?v=62">
+<link rel="stylesheet" href="css/farm-care.css?v=62">
+<link rel="stylesheet" href="css/zoo.css?v=62">
+</head>
+<body data-screen="home">
+
+<header id="topbar">
+  <button id="btn-home" class="tb-btn" title="Home" aria-label="Home">🏠</button>
+  <div id="star-box">⭐ <span id="star-count">0</span></div>
+  <button id="btn-mute" class="tb-btn" title="Sound on/off" aria-label="Sound">🔊</button>
+</header>
+
+<main>
+  <!-- 小朋友选择（有服务器时显示） -->
+  <section data-screen="gate" class="screen">
+    <h2 class="scr-title">👋 Who's playing?<small>今天谁来玩？</small></h2>
+    <div id="gate-list" class="gate-grid"></div>
+    <button id="btn-guest" class="parent-link">先随便看看（不保存进度）</button>
+  </section>
+
+  <!-- 主页 -->
+  <section data-screen="home" class="screen active">
+    <div class="hero">
+      <div class="hero-emoji">🐻🎈📚</div>
+      <h1>ABC Park</h1>
+      <p class="sub">字母乐园 · Let's learn letters!</p>
+    </div>
+    <nav class="tile-grid">
+      <button class="tile" data-target="park">
+        <span class="tile-icon">🌳</span>
+        <span class="tile-en">Letter Park</span>
+        <span class="tile-zh">点字母</span>
+      </button>
+      <button class="tile" data-target="find">
+        <span class="tile-icon">🎈</span>
+        <span class="tile-en">Find It!</span>
+        <span class="tile-zh">找字母</span>
+      </button>
+      <button class="tile" data-target="sound">
+        <span class="tile-icon">🐻🔊</span>
+        <span class="tile-en">Who Says It?</span>
+        <span class="tile-zh">听一听</span>
+      </button>
+      <button class="tile" data-target="match">
+        <span class="tile-icon">🚂</span>
+        <span class="tile-en">Big &amp; Small</span>
+        <span class="tile-zh">找朋友</span>
+      </button>
+      <button class="tile" data-target="farm">
+        <span class="tile-icon">🐣</span>
+        <span class="tile-en">My Farm</span>
+        <span class="tile-zh">养动物</span>
+      </button>
+      <button class="tile" data-target="zoo">
+        <span class="tile-icon">🦒</span>
+        <span class="tile-en">Zoo</span>
+        <span class="tile-zh">动物园</span>
+      </button>
+      <button class="tile" data-target="stickers">
+        <span class="tile-icon">⭐</span>
+        <span class="tile-en">My Stickers</span>
+        <span class="tile-zh">我的贴纸</span>
+      </button>
+    </nav>
+    <button id="btn-switch" class="switch-btn">👥 切换小朋友</button>
+    <button id="btn-parent" class="parent-link">ℹ️ 家长说明</button>
+  </section>
+
+  <!-- 字母乐园 -->
+  <section data-screen="park" class="screen">
+    <h2 class="scr-title">🌳 Letter Park<small>点一点，听字母</small></h2>
+    <div id="park-grid" class="park-grid"></div>
+  </section>
+
+  <!-- Three learning adventures share progression and voice controls. -->
+  <section data-screen="find" class="screen play-screen">
+    <header class="play-heading"><h1>🎈 找字母</h1></header>
+    <div id="find-progress" class="adventure-progress"></div>
+    <div id="find-coach" class="play-coach"></div>
+    <div id="game-stage" class="game-stage adventure-stage"></div>
+    <footer class="play-controls"><button id="btn-replay" class="replay-btn" aria-label="再听一次"><span>🔊</span> 听一听</button></footer>
+  </section>
+
+  <section data-screen="sound" class="screen play-screen">
+    <header class="play-heading"><h1>🐻 听一听</h1></header>
+    <div id="sound-progress" class="adventure-progress"></div>
+    <div id="sound-coach" class="play-coach"></div>
+    <div class="theater-scene"><div class="scene-background"></div><div class="sound-prompt-sign"><span aria-label="看字母">👀</span><div id="sound-prompt" class="match-prompt"></div></div><div id="sound-cards" class="sm-row"></div></div>
+    <footer class="play-controls"><button id="btn-sreplay" class="replay-btn" aria-label="再听一次"><span>🔊</span> 听一听</button></footer>
+  </section>
+
+  <section data-screen="match" class="screen play-screen">
+    <header class="play-heading"><h1>🚂 找朋友</h1></header>
+    <div id="match-progress" class="adventure-progress"></div>
+    <div id="match-coach" class="play-coach"></div>
+    <div class="train-scene"><div class="scene-background"></div><div class="station-sign" aria-hidden="true">🚉</div><div id="match-prompt" class="match-prompt"></div><div id="match-cards" class="card-row"></div></div>
+    <footer class="play-controls"><button id="btn-mreplay" class="replay-btn" aria-label="再听一次"><span>🔊</span> 听一听</button></footer>
+  </section>
+
+  <!-- 我的农场（全屏多场景：院子/农田/宠物/鱼塘） -->
+  <section data-screen="farm" class="screen">
+    <div id="farm-body" class="farm-root"></div>
+  </section>
+
+  <section data-screen="zoo" class="screen">
+    <div id="zoo-body"></div>
+  </section>
+
+  <!-- 商店（拼单词 + 金币购买 / 卖出换金币） -->
+  <section data-screen="shop" class="screen">
+    <header class="shop-heading"><div><h1>🧺 小商店</h1><div class="scene-cue" aria-label="听单词，拼写，带回家">🔊 → 🧩 → 🏡</div></div><div class="shop-coins"><span class="coin-icon" aria-label="金币">●</span> <span id="shop-coins">0</span></div></header>
+    <nav class="shop-tabs" id="shop-tabs" aria-label="商品分类"></nav>
+    <div id="shop-grid" class="shop-grid"></div>
+    <div id="shop-sell" class="shop-sell"></div>
+    <button id="btn-tofarm" class="farm-back picture-action" aria-label="回农场"><span>← 🏡</span><small>回家</small></button>
+  </section>
+
+  <!-- 贴纸墙 -->
+  <section data-screen="stickers" class="screen">
+    <h2 class="scr-title">⭐ My Stickers<small>学会一个字母，集到一枚贴纸</small></h2>
+    <div id="sticker-summary" class="sticker-summary"></div>
+    <div id="sticker-grid" class="sticker-grid"></div>
+  </section>
+</main>
+
+<!-- 弹层容器（字母大卡 / 胜利画面） -->
+<div id="overlay-root"></div>
+
+<!-- 家长说明弹窗 -->
+<div id="parent-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3>ℹ️ 家长说明</h3>
+    <p>这是给 3-4 岁小朋友的英语字母启蒙小游戏。全部内容本地运行：无网络请求、无广告、不收集任何数据，进度只保存在本机浏览器（localStorage）里。</p>
+    <p><b>使用建议</b></p>
+    <ul>
+      <li>每次玩 5-10 分钟即可，建议家长陪同，跟着一起大声念。</li>
+      <li>平板或触屏设备体验最佳，电脑鼠标点也可以；所有按钮都很大，孩子自己就能操作。</li>
+      <li>发音使用系统自带的英语语音（Edge / Chrome 都内置）。没有声音时先检查系统音量和浏览器是否被静音。</li>
+      <li>找字母游戏从前 6 个字母（A-F）开始，某个字母<b>连续答对 5 次</b>解锁贴纸并自动解锁下一个新字母；中途答错一次，该字母的连续计数重新开始（已拿到的贴纸不会收回）。</li>
+      <li>题目形式每题随机轮换（打气球 / 泡泡 / 破蛋孵动物），攒星星还会解锁更多玩法，换着玩不重样。</li>
+      <li>「看字选音」是反方向练习：看字形、从小动物的读音里选出对的，锻炼"见形知音"的回忆能力，与听音找字母互补。</li>
+      <li>「我的农场」：贴纸代表已掌握的字母，在商店拼出单词（如 EGG、CAT）购买小动物和饲料。每天喂食、喂水各一次，两项都完成就成长一次，按设备本地日期零点换日。牛羊需照顾五天，其他动物需三天。漏照顾不会倒退或死亡。摸摸增加好感度，满五颗心有专属亲密动作。成年动物可在照顾面板按品种固定价出售，已收取的动物产物可在仓库或商店出售。</li>
+      <li>出题按<b>遗忘曲线记忆法</b>安排：每轮前段是新字母（互不重复）、尾部复测本轮答错的字母；学过的字母按 1/2/4/7/15 天的间隔自动安排复习，答错则次日优先重现。轮长随进度 6→8 题。</li>
+      <li>答错不会有任何惩罚，只会轻声提示"再试一次"；连错两次会高亮正确答案。</li>
+    </ul>
+    <p><b>数据管理</b>：如需从头开始，点下面的按钮重置全部进度（星星、贴纸、解锁记录）。</p>
+    <button id="btn-reset" class="danger">🗑 重置当前小朋友进度</button>
+    <button id="btn-close-parent" class="plain">关闭</button>
+    <h3 style="margin-top:22px">👧👦 小朋友档案</h3>
+    <div id="pm-users"><p class="pm-note">加载中…</p></div>
+  </div>
+</div>
+
+<script src="js/data.js?v=62"></script>
+<script src="js/farm-call-recordings.js?v=62"></script>
+<script src="js/audio.js?v=62"></script>
+<script src="js/storage.js?v=62"></script>
+<script src="js/profiles.js?v=62"></script>
+<script src="js/confetti.js?v=62"></script>
+<script src="js/games/gameUI.js?v=62"></script>
+<script src="js/games/letterPark.js?v=62"></script>
+<script src="js/games/skins.js?v=62"></script>
+<script src="js/games/listenFind.js?v=62"></script>
+<script src="js/games/soundMatch.js?v=62"></script>
+<script src="js/games/matchCase.js?v=62"></script>
+<script src="js/games/farmArt.js?v=62"></script>
+<script src="js/games/farmMotion.js?v=62"></script>
+<script src="js/games/farmLife.js?v=62"></script>
+<script src="js/games/farmMap.js?v=62"></script>
+<script src="js/games/farmEconomy.js?v=62"></script>
+<script src="js/games/farmBusiness.js?v=62"></script>
+<script src="js/games/pets.js?v=62"></script>
+<script src="js/games/zooArt.js?v=62"></script>
+<script src="js/games/zoo.js?v=62"></script>
+<script src="js/games/stickers.js?v=62"></script>
+<script src="js/app.js?v=62"></script>
+</body>
+</html>

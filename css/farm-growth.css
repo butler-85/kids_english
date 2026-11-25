@@ -1,0 +1,90 @@
+/* Age changes the silhouette inside a stable, generous tap target. */
+.farm-creature[data-age="young"] { --step-time: .32s; --eat-time: .38s; --drink-time: .55s; }
+.farm-creature[data-age="adult"] { --step-time: .62s; --eat-time: .8s; --drink-time: 1.15s; }
+[data-behavior="walk"] .creature-pose { animation-duration: var(--step-time); }
+[data-age="adult"][data-behavior="walk"] .creature-pose { animation-name: grown-step; }
+[data-behavior="walk"] .creature-bee[data-age="young"] .creature-pose { animation: life-float .65s ease-in-out infinite alternate; }
+[data-behavior="walk"] .creature-bee[data-age="adult"] .creature-pose { animation: life-float 1.4s ease-in-out infinite alternate; }
+[data-behavior="walk"] .creature-fish[data-age="young"] .creature-pose { animation: life-swim .6s ease-in-out infinite alternate; }
+[data-behavior="walk"] .creature-fish[data-age="adult"] .creature-pose { animation: life-swim 2.4s ease-in-out infinite alternate; }
+[data-behavior="eat"] .creature-head { animation-duration: var(--eat-time); }
+[data-behavior="drink"] .creature-head { animation-duration: var(--drink-time); }
+.creature-chick[data-age="adult"] .creature-head { transform-origin: 41px 52px; }
+.creature-cat[data-age="adult"] .creature-head, .creature-dog[data-age="adult"] .creature-head { transform-origin: 55px 50px; }
+.creature-dog .creature-ear { transform-origin: 55px 24px; }
+.creature-antennae { transform-origin: 30px 45px; }
+.creature-pollen { transform-origin: 55px 80px; }
+[data-behavior="hop"] .creature-pose, [data-behavior="puppyhop"] .creature-pose, [data-behavior="happyhop"] .creature-pose { animation: life-hop .55s ease-out 3; }
+[data-behavior="pounce"] .creature-pose { animation: kitten-pounce .8s ease-in-out 2; }
+[data-behavior="playpaw"] .creature-feet { animation: playful-paws .5s ease-in-out 4 alternate; }
+[data-behavior="headtilt"] .creature-head { animation: puppy-tilt 1.2s ease-in-out 2; }
+[data-behavior="puppyhop"] .creature-ear { animation: puppy-ears .35s ease-in-out 5 alternate; }
+[data-behavior="ruffle"] .creature-wing { animation: life-flutter .23s ease-in-out 6 alternate; }
+[data-behavior="ruffle"] .creature-tail { animation: life-tail .3s ease-in-out 5 alternate; }
+[data-behavior="scratch"] .creature-feet { animation: hen-scratch .48s ease-in-out 4; }
+[data-behavior="scratch"] .creature-head { animation: life-peck 1s ease-in-out 2; }
+[data-behavior="watch"] .creature-head { animation: life-look 2.4s ease-in-out 2; }
+[data-behavior="shake"] .creature-pose { animation: dog-shake .25s ease-in-out 7; }
+[data-behavior="shake"] .creature-ear { animation: puppy-ears .15s ease-in-out 10 alternate; }
+[data-behavior="wobble"] .creature-pose { animation: bee-wobble 1s ease-in-out 2; }
+[data-behavior="cleanantennae"] .creature-antennae { animation: antenna-clean .4s ease-in-out 5 alternate; }
+[data-behavior="cleanantennae"] .creature-feet { animation: playful-paws .45s ease-in-out 5 alternate; }
+[data-behavior="pollendance"] .creature-pose { animation: pollen-dance .75s ease-in-out 3; }
+[data-behavior="pollendance"] .creature-pollen { animation: pollen-pulse .4s ease-in-out 5 alternate; }
+[data-behavior="dartpeek"] .creature-pose { animation: fish-peek 1s ease-in-out 2; }
+[data-behavior="dartpeek"] .creature-tail { animation: life-tail .18s ease-in-out 8 alternate; }
+[data-behavior="glide"] .creature-pose { animation: life-swim 2.6s ease-in-out 2 alternate; }
+[data-behavior="fantail"] .creature-tail, [data-behavior="fantail"] .creature-fins { animation: fish-fan .8s ease-in-out 3; }
+/* A full friendship meter unlocks a distinct response for each species and age. */
+[data-behavior="happyhop"] .creature-wing { animation: life-flutter .2s ease-in-out 10 alternate; }
+[data-behavior="winghug"] .creature-wing { animation: wing-hug 1.3s ease-in-out 2; }
+[data-behavior="winghug"] .creature-head { animation: life-look 1.3s ease-in-out 2; }
+[data-behavior="kittenroll"] .creature-pose, [data-behavior="bellyroll"] .creature-pose { transform-origin: 55px 72px; animation: cat-roll 2.6s ease-in-out; }
+[data-behavior="kittenroll"] .creature-feet { animation: playful-paws .3s ease-in-out 8 alternate; }
+[data-behavior="bellyroll"] .creature-tail { animation: life-tail .4s ease-in-out 6 alternate; }
+[data-behavior="puppydance"] .creature-pose { animation: puppy-dance .65s ease-in-out 4; }
+[data-behavior="puppydance"] .creature-tail { animation: life-tail .15s ease-in-out 16 alternate; }
+[data-behavior="loyalspin"] .creature-pose { animation: dog-spin 2.6s ease-in-out; }
+[data-behavior="loyalspin"] .creature-tail { animation: life-tail .15s ease-in-out 16 alternate; }
+[data-behavior="heartloop"] .creature-pose { animation: bee-heart 2.6s ease-in-out; }
+[data-behavior="flowerheart"] .creature-pose { animation: pollen-dance .85s ease-in-out 3; }
+[data-behavior="flowerheart"] .creature-pollen { animation: pollen-pulse .4s ease-in-out 6 alternate; }
+[data-behavior="bubblekiss"] .creature-pose { animation: fish-kiss 1.25s ease-in-out 2; }
+[data-behavior="heartfin"] .creature-tail, [data-behavior="heartfin"] .creature-fins { animation: fish-fan 1.1s ease-in-out 3; }
+:is([data-behavior="bubblekiss"],[data-behavior="heartfin"]) .animal-ripple { animation: life-ripple 1.1s ease-out 3; }
+:is([data-behavior="happyhop"],[data-behavior="winghug"],[data-behavior="kittenroll"],[data-behavior="bellyroll"],[data-behavior="puppydance"],[data-behavior="loyalspin"],[data-behavior="heartloop"],[data-behavior="flowerheart"],[data-behavior="bubblekiss"],[data-behavior="heartfin"]) .animal-emote { animation: friendship-hearts 2.8s ease both; font-size: 30px; }
+.care-growth-preview { display: flex; align-items: center; justify-content: center; gap: 12px; margin: -2px 0 12px; color: #8d9f71; }
+.care-growth-preview span { width: 44px; height: 44px; border-radius: 12px; background: #f1efdf; }
+.care-growth-preview svg { width: 100%; height: 100%; }
+.care-growth-preview i { font-style: normal; }
+.care-affection { display: flex; gap: 8px; justify-content: center; align-items: center; margin: 0 0 14px; font-size: 20px; }
+.care-affection .need-pip { font-size: 18px; }
+.farm-companion .care-listen { border: 0; border-radius: 12px; background: #f4f2e7; padding: 8px; min-height: 44px; font-size: 19px; cursor: pointer; }
+.care-needs.daily-care { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.daily-care > i { font-style: normal; font-size: 24px; }
+.care-needs.daily-care > span { align-items: center; gap: 8px; padding: 8px 10px; border-radius: 14px; background: #f4f1e8; }
+.daily-care > span.done { background: #e7f2da; }
+.daily-care b { font-size: 23px; }
+.just-grown .farm-creature { animation: growing-glow 1.6s ease-out; }
+@keyframes grown-step { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-2px) rotate(1deg); } }
+@keyframes kitten-pounce { 20% { transform: scale(1.08,.86); } 55% { transform: translate(8px,-13px) rotate(6deg); } }
+@keyframes playful-paws { to { transform: translateY(-6px) rotate(-8deg); } }
+@keyframes puppy-tilt { 45% { transform: rotate(-16deg); } 75% { transform: rotate(8deg); } }
+@keyframes puppy-ears { to { transform: rotate(7deg) translateY(-3px); } }
+@keyframes hen-scratch { 40% { transform: translate(-5px,2px) rotate(-5deg); } 70% { transform: translateX(3px); } }
+@keyframes dog-shake { 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
+@keyframes bee-wobble { 30% { transform: translate(-5px,-6px) rotate(-12deg); } 70% { transform: translate(5px,2px) rotate(9deg); } }
+@keyframes antenna-clean { to { transform: rotate(-14deg) scaleY(.8); } }
+@keyframes pollen-dance { 25% { transform: translate(-8px,-4px) rotate(-6deg); } 75% { transform: translate(8px,-4px) rotate(6deg); } }
+@keyframes pollen-pulse { to { transform: scale(1.18); } }
+@keyframes fish-peek { 30% { transform: translateX(-7px) rotate(-5deg); } 70% { transform: translateX(4px); } }
+@keyframes fish-fan { 50% { transform: scaleY(1.18) rotate(8deg); } }
+@keyframes wing-hug { 50% { transform: translate(-10px,2px) rotate(30deg); } }
+@keyframes cat-roll { 25% { transform: rotate(-25deg) scale(.9); } 55% { transform: rotate(28deg) scale(.9); } 80% { transform: rotate(-10deg); } }
+@keyframes puppy-dance { 25% { transform: translate(-5px,-8px) rotate(-9deg); } 75% { transform: translate(5px,-8px) rotate(9deg); } }
+@keyframes dog-spin { 25% { transform: scaleX(.25) translateY(-2px); } 50% { transform: scaleX(-1); } 75% { transform: scaleX(.25) translateY(-2px); } }
+@keyframes bee-heart { 20% { transform: translate(-10px,-8px) rotate(-12deg); } 40% { transform: translateY(-2px); } 65% { transform: translate(10px,-8px) rotate(12deg); } 85% { transform: translateY(5px); } }
+@keyframes fish-kiss { 40% { transform: translate(-8px,-5px) scale(1.04,.95); } 65% { transform: rotate(6deg); } }
+@keyframes friendship-hearts { 0% { opacity: 0; transform: scale(.5); } 20%,75% { opacity: 1; transform: translateY(-7px); } 100% { opacity: 0; transform: translateY(-23px) scale(1.15); } }
+@keyframes growing-glow { 30% { filter: drop-shadow(0 0 9px #f2cd58); } 65% { filter: drop-shadow(0 0 15px #f6e6a6); } }
+@media (prefers-reduced-motion: reduce) { .just-grown .farm-creature, .farm-animal *, .care-portrait * { animation: none !important; } }

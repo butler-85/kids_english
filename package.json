@@ -1,0 +1,18 @@
+{
+  "name": "abc-park",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "test:browser": "node tests/browser.cjs",
+    "test:games": "node tests/games-browser.cjs",
+    "test:farm-life": "node tests/farm-life-browser.cjs",
+    "test:farm-map": "node tests/farm-map-browser.cjs",
+    "test:animal-capacity": "node tests/animal-capacity-browser.cjs",
+    "test:animal-growth": "node tests/animal-growth-browser.cjs",
+    "test:animal-care": "node tests/animal-care-browser.cjs",
+    "test:livestock": "node tests/livestock-browser.cjs",
+    "test:zoo": "node tests/zoo-browser.cjs",
+    "preview": "node tests/preview.cjs"
+  },
+  "devDependencies": { "playwright": "1.58.2" }
+}

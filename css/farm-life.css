@@ -1,0 +1,98 @@
+/* Animals move through a bounded habitat; only their own figures animate, never the controls. */
+.farm-herd.life-area { position: relative; display: block; height: 360px; flex: none; margin: 155px 22px 20px; isolation: isolate; }
+.life-area .farm-animal { position: absolute; top: 0; left: 0; width: clamp(76px, 27%, 124px); padding: 0 3px 24px; margin: 0; border-radius: 25px; touch-action: manipulation; will-change: transform; transition: none !important; }
+.life-area .farm-animal::before { bottom: 23px; height: 18px; width: 72%; left: 14%; }
+.life-area .farm-animal svg { transition: none; overflow: visible; transform: none; pointer-events: none; }
+.life-area .farm-animal:hover svg { transform: none; }
+.life-area .animal-label { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); padding: 4px 7px; font-size: 11px; pointer-events: none; opacity: .65; }
+.life-area .farm-animal.selected .animal-label, .life-area .farm-animal:focus-visible .animal-label { opacity: 1; }
+.life-area .animal-need { top: -3px; right: 0; font-size: 15px; padding: 4px 6px; pointer-events: none; }
+.animal-emote { position: absolute; top: -18px; left: 6px; font-size: 26px; line-height: 1; pointer-events: none; z-index: 3; filter: drop-shadow(0 2px 2px #fff); }
+.animal-ripple { display: none; pointer-events: none; }
+.habitat-detail { position: absolute; pointer-events: none; z-index: -1; }
+.zone-field .farm-herd.life-area { height: 180px; margin: 0 20px 18px; }
+.zone-field .life-area .farm-animal { width: clamp(64px, 22%, 84px); }
+.zone-field .habitat-detail { inset: auto 6px 8px; display: flex; justify-content: space-between; text-align: center; word-spacing: 60px; color: #bd9959; font-size: 24px; }
+.zone-pond .life-area { height: 320px; margin-top: 170px; }
+.zone-pond .life-area .farm-animal { width: clamp(72px, 24%, 94px); }
+.zone-pond .habitat-detail { inset: -8px -8px 0; border-radius: 47% 44% 46% 41%; border: 9px solid #9db79a; background: radial-gradient(ellipse at 28% 28%, #d3eeeb 0 4%, transparent 4.5%), radial-gradient(ellipse at 75% 65%, #d3eeeb 0 3%, transparent 3.5%), #a9d5cf; box-shadow: inset 0 8px 0 #91c3bc; }
+.zone-pond .farm-animal::before { background: #528f8e25; }
+.zone-pond .animal-ripple { display: block; position: absolute; inset: 30% 0 20%; border: 2px solid #f6fff6a0; border-radius: 50%; opacity: 0; }
+.farm-quick-care { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 12px; border: 1px solid #dce1cc; border-radius: 20px; margin-top: 12px; background: #fffdf4; }
+.quick-friend { margin-right: auto; font-size: 13px; color: #627454; }
+.farm-quick-care button { min-width: 58px; height: 54px; background: #edf1df; color: #536f45; border: 1px solid #d8dfc6; border-bottom-width: 4px; border-radius: 15px; font-size: 27px; }
+.farm-quick-care button:nth-of-type(3) { background: #e5efec; }
+.farm-quick-care button:disabled { opacity: .45; }
+.farm-creature .creature-facing { transform-origin: 55px 55px; transform: scaleX(var(--facing, 1)); }
+.farm-creature .creature-pose { transform-origin: 55px 95px; }
+.farm-creature .creature-head { transform-origin: 55px 66px; }
+.farm-creature .creature-tail { transform-origin: 80px 76px; }
+.farm-creature .creature-feet { transform-origin: 55px 88px; }
+.farm-creature .creature-wing { transform-origin: 28px 58px; }
+.farm-creature .creature-wings { transform-origin: 55px 40px; }
+.farm-creature .creature-eyes { transform-origin: 55px 48px; }
+.farm-animal .creature-eyes { animation: life-blink 5.7s infinite; }
+.farm-animal:nth-of-type(2n) .creature-eyes { animation-delay: -2.1s; }
+.farm-animal .creature-bee .creature-wings { animation: life-wings .12s linear infinite alternate; }
+.farm-animal .creature-fish .creature-tail { animation: life-tail 1.2s ease-in-out infinite alternate; }
+[data-behavior="walk"] .creature-pose { animation: life-step .42s ease-in-out infinite; }
+[data-behavior="walk"] .creature-feet { animation: life-feet .28s ease-in-out infinite alternate; }
+[data-species="bee"][data-behavior="walk"] .creature-pose, [data-behavior="hover"] .creature-pose { animation: life-float .8s ease-in-out infinite alternate; }
+[data-species="fish"][data-behavior="walk"] .creature-pose, [data-behavior="drift"] .creature-pose { animation: life-swim 1.5s ease-in-out infinite alternate; }
+[data-behavior="peck"] .creature-head, [data-behavior="eat"] .creature-head { animation: life-peck .55s ease-in-out infinite; }
+[data-behavior="sniff"] .creature-head, [data-behavior="drink"] .creature-head { animation: life-sniff .8s ease-in-out infinite alternate; }
+[data-behavior="groom"] .creature-head { animation: life-groom .7s ease-in-out infinite alternate; }
+[data-behavior="nap"] .creature-pose { transform: translateY(10px) scaleY(.8); }
+[data-behavior="nap"] .creature-eyes { transform: scaleY(.12); animation: none; }
+[data-behavior="look"] .creature-head { animation: life-look 2s ease-in-out infinite alternate; }
+[data-behavior="forage"] .creature-pose { animation: life-forage 1.3s ease-in-out infinite alternate; }
+[data-behavior="eat"] .creature-bee .creature-pose { animation: life-forage .65s ease-in-out 3 alternate; }
+[data-behavior="eat"] .creature-fish .creature-pose, [data-behavior="drink"] .creature-fish .creature-pose { animation: life-swim .45s ease-in-out 4 alternate; }
+.animal-reacting[data-behavior="flutter"] .creature-wing { animation: life-flutter .18s ease-in-out 8 alternate; }
+.animal-reacting[data-behavior="flutter"] .creature-pose, .animal-reacting[data-behavior="hop"] .creature-pose { animation: life-hop .55s ease-out 3; }
+.animal-reacting[data-behavior="nuzzle"] .creature-pose { animation: life-nuzzle .65s ease-in-out 3; }
+[data-behavior="stretch"] .creature-pose { animation: life-stretch 1.8s ease-in-out; }
+.animal-reacting[data-behavior="bow"] .creature-pose { animation: life-bow .9s ease-in-out 2; }
+[data-behavior="wag"] .creature-tail, [data-behavior="bow"] .creature-tail { animation: life-tail .12s ease-in-out infinite alternate; }
+.animal-reacting[data-behavior="twirl"] .creature-pose { animation: life-twirl 1.4s ease-in-out; }
+.animal-reacting[data-behavior="splash"] .creature-pose { animation: life-splash 1.3s ease-in-out; }
+[data-behavior="splash"] .animal-ripple, [data-behavior="bubble"] .animal-ripple { animation: life-ripple 1.1s ease-out infinite; }
+[data-behavior="bubble"] .animal-emote { animation: life-bubble 1.1s ease-out infinite; color: #fff; }
+.animal-reacting .animal-emote { animation: life-emote 1.8s ease both; }
+.care-portrait[data-behavior] .creature-head, .care-portrait[data-behavior] .creature-tail { animation-iteration-count: 3; }
+.life-paused *, .life-paused *::before, .life-paused *::after { animation-play-state: paused !important; }
+@keyframes life-blink { 0%, 44%, 49%, 100% { transform: scaleY(1); } 46%, 47% { transform: scaleY(.12); } }
+@keyframes life-step { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+@keyframes life-feet { to { transform: rotate(9deg); } }
+@keyframes life-tail { from { transform: rotate(-16deg); } to { transform: rotate(22deg); } }
+@keyframes life-wings { to { transform: scaleX(.65) scaleY(.75); } }
+@keyframes life-float { to { transform: translateY(-7px) rotate(4deg); } }
+@keyframes life-swim { to { transform: translateY(-3px) rotate(4deg); } }
+@keyframes life-peck { 50% { transform: translate(6px, 15px) rotate(22deg); } }
+@keyframes life-sniff { to { transform: translateY(12px) rotate(-9deg); } }
+@keyframes life-groom { to { transform: translate(-7px, 8px) rotate(-16deg); } }
+@keyframes life-look { to { transform: rotate(10deg); } }
+@keyframes life-forage { to { transform: translateY(12px) rotate(-18deg); } }
+@keyframes life-flutter { to { transform: rotate(-65deg); } }
+@keyframes life-hop { 45% { transform: translateY(-17px) rotate(6deg); } 70% { transform: scale(1.06, .94); } }
+@keyframes life-nuzzle { 50% { transform: rotate(-12deg) translateX(-5px); } }
+@keyframes life-stretch { 50% { transform: scale(1.13, .72) translateY(12px); } }
+@keyframes life-bow { 45% { transform: rotate(9deg) scaleY(.75); } }
+@keyframes life-twirl { 30% { transform: translate(13px, -10px) rotate(15deg); } 65% { transform: translate(-13px, -14px) rotate(-16deg); } }
+@keyframes life-splash { 40% { transform: translateY(-23px) rotate(-20deg); } 75% { transform: rotate(12deg); } }
+@keyframes life-ripple { from { opacity: .9; transform: scale(.5); } to { opacity: 0; transform: scale(1.2); } }
+@keyframes life-bubble { from { transform: translateY(8px) scale(.6); opacity: 1; } to { transform: translateY(-20px) scale(1.2); opacity: 0; } }
+@keyframes life-emote { 0% { transform: scale(.4); opacity: 0; } 20%, 70% { transform: translateY(-6px); opacity: 1; } 100% { transform: translateY(-18px); opacity: 0; } }
+@media (max-width: 760px) {
+  .farm-herd.life-area { margin: 140px 12px 20px; height: 350px; }
+  .zone-field .farm-herd.life-area { height: 175px; margin: 0 12px 18px; }
+  .zone-pond .farm-herd.life-area { height: 320px; margin-top: 140px; }
+  .farm-quick-care { gap: 7px; padding: 9px; }
+  .quick-friend { font-size: 11px; }
+  .farm-quick-care button { min-width: 50px; height: 52px; font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .farm-animal *, .care-portrait * { animation: none !important; }
+  .animal-reacting .animal-emote { opacity: 1; }
+  .animal-reacting[data-behavior="nuzzle"] .creature-head, .animal-reacting[data-behavior="bow"] .creature-head { transform: rotate(-10deg); }
+}

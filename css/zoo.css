@@ -1,0 +1,644 @@
+body[data-screen="zoo"] { background: #f8f5e9; color: #3f553e; }
+body[data-screen="zoo"] main { max-width: 1060px; }
+body[data-screen="zoo"] #topbar { background: #f8f5eef5; border-bottom: 1px solid #e3e4d3; }
+body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
+.zoo-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+.zoo-header h1 { margin: 0; color: #39503a; font-size: clamp(29px, 4.8vw, 42px); line-height: 1.2; }
+#zoo-wallet { padding: 9px 13px; border: 1px solid #e6d6a9; border-radius: 15px; background: #f7ebcd; }
+.zoo-coins { display: inline-flex; align-items: center; gap: 4px; color: #634a26; font-weight: 700; white-space: nowrap; }
+.zoo-coins small { font-weight: 400; font-size: .78em; }
+.zoo-layout { display: grid; grid-template-columns: minmax(245px, .42fr) minmax(0, 1fr); align-items: start; gap: 18px; }
+.zoo-animals { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.zoo-animals button { display: grid; justify-items: center; align-content: center; gap: 3px; min-height: 83px; padding: 6px 2px; border: 1px solid #dfe4d0; border-radius: 13px; background: #fffdf4; color: #435c40; }
+.zoo-animals button[aria-pressed="true"] { border-color: #859e76; background: #e4ecd6; box-shadow: inset 0 -3px #b2c396; }
+.zoo-animal-thumb { display: block; width: 44px; height: 34px; }
+.zoo-animals button > small { color: #576b4b; font-size: 11px; }
+.zoo-animals .zoo-coins small { display: none; }
+.zoo-animals .coin-icon { width: 13px; height: 13px; font-size: 6px; }
+.zoo-resident { overflow: hidden; border: 1px solid #dfe3cd; border-radius: 20px; background: #fffdf4; }
+.zoo-resident-header { display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 6px 14px; }
+.zoo-resident-header h2 { margin: 0; font-size: clamp(20px, 4.7vw, 27px); }
+.zoo-resident-header h2 span { margin-left: 4px; color: #637950; font-size: .7em; }
+.zoo-listen { width: 44px; height: 44px; flex-shrink: 0; border: 1px solid #dfdfca; border-radius: 13px; background: #f5f4e4; font-size: 20px; }
+.zoo-stage { background: #f3ebce; overflow: hidden; position: relative; }
+.zoo-stage[data-animal="seal"] { background: #e3ebdf; }
+.zoo-scene-art { display: block; width: 100%; height: auto; }
+.zoo-scene-art .zoo-animal-art { filter: drop-shadow(0 2px 1.5px #52654e36); }
+.zoo-actions { display: flex; gap: 8px; padding: 10px; }
+.zoo-actions button { flex: 1; min-width: 0; min-height: 48px; padding: 8px 6px; border: 1px solid #ccd9bd; border-radius: 13px; }
+.zoo-paid { display: flex; flex-wrap: wrap; gap: 3px 6px; align-items: center; justify-content: center; background: #e9efd9; color: #385936; font-weight: 700; }
+.zoo-paid:is([data-zoo-action="admit"],[data-zoo-action="confirm"],[data-zoo-action="show"]) { border-color: #e5d4a9; background: #faf0d1; color: #694d2e; }
+.zoo-paid:disabled { opacity: .64; cursor: default; }
+.zoo-paid > small { flex-basis: 100%; font-size: 12px; font-weight: 400; }
+.zoo-action-icon { font-size: 21px; line-height: 1; }
+.zoo-cancel, .zoo-farm-link { border: 1px solid #dce1cd; border-radius: 13px; background: #fffdf4; color: #445942; font-weight: 700; }
+.zoo-farm-link { padding: 9px 12px; min-height: 44px; }
+.zoo-feedback { min-height: 1.5em; margin: 8px 0 6px; color: #57694f; font-weight: 700; }
+.zoo-feedback:empty { min-height: 0; }
+#zoo-body button:focus-visible { outline: 3px solid #698755; outline-offset: -3px; }
+.zoo-timeline { padding: 11px 14px 4px; }
+.zoo-timeline-label { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+#zoo-show-time { color: #58694d; font-size: 13px; font-variant-numeric: tabular-nums; }
+.zoo-timeline progress { display: block; width: 100%; height: 7px; margin: 7px 0; accent-color: #879d67; }
+.zoo-show-acts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; }
+.zoo-show-acts span { color: #58664d; padding: 4px 6px; border-radius: 7px; background: #f3efdf; font-size: 12px; }
+.zoo-show-acts .current { color: #374e34; background: #dce8cb; font-weight: 700; }
+
+.zoo-feeding, .zoo-performing, .zoo-show-layer { display: none; }
+[data-activity="feed"] .zoo-feeding, [data-activity="show"] .zoo-performing { display: block; }
+[data-phase="intro"] [data-for-phase="intro"], [data-phase="middle"] [data-for-phase="middle"], [data-phase="finale"] [data-for-phase="finale"] { display: block; }
+.zoo-stage.zoo-paused svg * { animation-play-state: paused !important; }
+.elephant-trunk { transform-origin: 154px 126px; }
+.giraffe-neck { transform-origin: 224px 136px; }
+.giraffe-head { transform-origin: 194px 66px; }
+.seal-head { transform-origin: 169px 140px; }
+.panda-head { transform-origin: 211px 132px; }
+.panda-paw { transform-origin: 253px 137px; }
+.penguin-head { transform-origin: 205px 106px; }
+.penguin-wing { transform-origin: 180px 118px; }
+.penguin-wing-far { transform-origin: 252px 123px; }
+.parrot-wing { transform-origin: 222px 112px; }
+.parrot-head { transform-origin: 191px 107px; }
+.kangaroo-tail { transform-origin: 246px 168px; }
+.kangaroo-head { transform-origin: 214px 112px; }
+.dolphin-tail { transform-origin: 284px 144px; }
+.lion-head { transform-origin: 186px 131px; }
+.lion-forepaw { transform-origin: 192px 150px; }
+.monkey-head { transform-origin: 190px 115px; }
+.monkey-hold-arm { transform-origin: 203px 114px; }
+.monkey-tail { transform-origin: 244px 150px; }
+.monkey-vine-arm, .snake-glide { display: none; }
+.snake-upper { transform-origin: 207px 161px; }
+.snake-coils { transform-origin: 234px 182px; }
+
+/* Each feeding action synchronizes the animal, the food, and the bite. */
+.zoo-feeding:is(.feed-elephant-mouth,.feed-seal-mouth,.feed-panda-mouth,.feed-panda-grip,
+  .feed-penguin-beak,.feed-parrot-beak,.feed-kangaroo-mouth,.feed-dolphin-jaw),
+.feed-parrot-kernel, .feed-parrot-shell-fall, .feed-dolphin-bubbles, .hunt-dust,
+.monkey-held-banana, .monkey-banana-flesh, .monkey-banana-peel, .monkey-cheek,
+.snake-tongue, .snake-gape, .snake-bulge, .snake-shell { opacity: 0; }
+[data-activity="feed"] .elephant-trunk path { animation: elephant-reach-and-curl var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-elephant-hay { transform-origin: 108px 188px; animation: elephant-lift-hay var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-elephant-mouth { transform-origin: 179px 137px; animation: elephant-chew var(--zoo-feed-time) both; }
+[data-activity="feed"] .giraffe-neck { animation: giraffe-reach var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-giraffe-tongue { stroke-dasharray: 1; stroke-dashoffset: 1; animation: giraffe-tongue var(--zoo-feed-time) linear both; }
+[data-activity="feed"] .feed-giraffe-leaf { transform-origin: 141px 91px; animation: giraffe-strip-leaf var(--zoo-feed-time) both; }
+[data-activity="feed"] .seal-head { animation: seal-catch-fish var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-seal-fish { transform-origin: 81px 85px; animation: seal-fish-toss var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-seal-mouth { animation: seal-gulp var(--zoo-feed-time) both; }
+[data-activity="feed"] .panda-paw { animation: panda-lift-paw var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-bamboo { transform-origin: 198px 169px; animation: panda-lift-bamboo var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-grip { animation: panda-grip var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-mouth { animation: panda-nibble var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-leaf-tip { animation: panda-eat-first-leaf var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-leaf-top { animation: panda-eat-next-leaf var(--zoo-feed-time) both; }
+[data-animal="penguin"][data-activity="feed"] .zoo-animal-art { animation: penguin-snap var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-penguin-beak { animation: penguin-open-bill var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-penguin-fish { transform-origin: 171px 125px; animation: penguin-swallow-fish var(--zoo-feed-time) both; }
+[data-activity="feed"] .parrot-free-foot { animation: parrot-lift-claw var(--zoo-feed-time) both; }
+[data-activity="feed"] .parrot-head { animation: parrot-crack-nut var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-parrot-beak { animation: parrot-open-beak var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-parrot-nut { transform-origin: 167px 167px; animation: parrot-carry-nut var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-parrot-shell { animation: parrot-split-shell var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-parrot-kernel { animation: parrot-eat-kernel var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-parrot-shell-fall { animation: parrot-drop-shell var(--zoo-feed-time) both; }
+[data-animal="kangaroo"][data-activity="feed"] .zoo-animal-art { animation: kangaroo-graze var(--zoo-feed-time) both; }
+[data-activity="feed"] .kangaroo-head { animation: kangaroo-crop-grass var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-kangaroo-blade { animation: kangaroo-pull-grass var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-kangaroo-mouth { animation: kangaroo-chew var(--zoo-feed-time) both; }
+[data-animal="dolphin"][data-activity="feed"] .zoo-animal-art { animation: dolphin-chase var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-dolphin-fish { transform-origin: 62px 167px; animation: dolphin-catch-fish var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-dolphin-jaw { animation: dolphin-gulp var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-dolphin-bubbles { animation: dolphin-feed-wake var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-hold-arm { animation: monkey-lift-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-served-banana { animation: monkey-take-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-held-banana { animation: monkey-grip-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-peel-arm path { animation: monkey-peel-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-peel-hand { animation: monkey-pull-peel var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-banana-tip { animation: monkey-open-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-banana-flesh { animation: monkey-eat-banana var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-banana-peel { animation: monkey-unfold-peel var(--zoo-feed-time) both; }
+[data-activity="feed"] .monkey-cheek { animation: monkey-chew var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-neck path { animation: snake-extend-neck var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-head { animation: snake-reach-egg var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-gape { animation: snake-open-jaw var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-egg { transform-origin: 110px 145px; animation: snake-swallow-egg var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-bulge { transform-origin: 170px 123px; animation: snake-egg-bulge var(--zoo-feed-time) both; }
+[data-activity="feed"] .snake-shell { transform-origin: 110px 151px; animation: snake-drop-shell var(--zoo-feed-time) both; }
+
+/* Keep the chase readable as a static tableau when reduced motion is enabled. */
+[data-animal="lion"][data-activity="feed"] .zoo-animal-art {
+  transform-origin: 216px 195px;
+  transform: translateX(88px) scale(.72);
+  animation: lion-hunt var(--zoo-feed-time) both;
+}
+[data-activity="feed"] .lion-front-face { display: none; }
+[data-activity="feed"] .lion-head { animation: lion-hunt-head var(--zoo-feed-time) both; }
+[data-activity="feed"] .lion-tail { transform-origin: 296px 139px; animation: lion-hunt-tail var(--zoo-feed-time) both; }
+[data-activity="feed"] .lion-forepaw { animation: lion-hunt-forepaw var(--zoo-feed-time) both; }
+[data-activity="feed"] .lion-hindpaw { transform-origin: 280px 151px; animation: lion-hunt-hindpaw var(--zoo-feed-time) both; }
+[data-activity="feed"] .lion-foreleg-far { transform-origin: 208px 151px; animation: lion-hunt-hindpaw var(--zoo-feed-time) both; }
+[data-activity="feed"] .lion-hindleg-far { transform-origin: 282px 149px; animation: lion-hunt-forepaw var(--zoo-feed-time) both; }
+.hunt-rabbit { transform-origin: 208px 194px; animation: rabbit-bound var(--zoo-feed-time) both; }
+.hunt-rabbit-ears { transform-origin: 201px 172px; animation: rabbit-ears var(--zoo-feed-time) both; }
+.hunt-rabbit-legs { transform-origin: 206px 184px; animation: rabbit-kick var(--zoo-feed-time) both; }
+.hunt-chicken { transform-origin: 208px 195px; animation: chicken-dash var(--zoo-feed-time) both; }
+.hunt-chicken-wing { transform-origin: 212px 177px; animation: chicken-flap var(--zoo-feed-time) both; }
+.hunt-chicken-foot { transform-origin: 208px 187px; animation: chicken-step var(--zoo-feed-time) both; }
+.hunt-chicken-foot-far { transform-origin: 218px 185px; animation: chicken-step var(--zoo-feed-time) both reverse; }
+.hunt-dust { transform-origin: 63px 192px; animation: hunt-landing-dust var(--zoo-feed-time) both; }
+
+/* The three acts use separate motion and props. Each one runs until the show clock advances. */
+[data-phase="intro"] :is(.zoo-spray,.zoo-parade) { display: none; }
+[data-phase="intro"] .elephant-trunk { animation: elephant-fill 2.7s ease-in-out infinite; }
+[data-phase="middle"] .elephant-trunk { animation: elephant-spray 2.2s ease-in-out infinite; }
+[data-phase="middle"] .zoo-spray { stroke-dasharray: 8 5; animation: zoo-water-arc 2.2s linear infinite; }
+[data-phase="finale"] .elephant-trunk { animation: elephant-finale 3.2s ease-in-out infinite; }
+[data-phase="finale"] .zoo-spray { animation: zoo-water-arc 3.2s ease infinite; }
+[data-phase="intro"] .giraffe-neck { animation: giraffe-look 3s ease-in-out infinite; }
+[data-animal="giraffe"][data-phase="middle"] .zoo-animal-art { animation: giraffe-parade 4s ease-in-out infinite; }
+[data-phase="middle"] .giraffe-head { animation: giraffe-nod .8s ease-in-out infinite; }
+[data-phase="middle"] .zoo-parade { animation: zoo-parade-marks 4s linear infinite; }
+[data-phase="finale"] .giraffe-neck { animation: giraffe-bow 3.2s ease-in-out infinite; }
+[data-phase="intro"] .seal-head { animation: seal-catch 2.6s ease-in-out infinite; }
+[data-phase="intro"] .zoo-ball { animation: zoo-toss 2.6s ease-in-out infinite; }
+[data-phase="middle"] .seal-head { animation: seal-balance 2.8s ease-in-out infinite; }
+[data-phase="middle"] .zoo-ball { animation: zoo-bounce .85s ease-in-out infinite; }
+[data-phase="finale"] .seal-head { animation: seal-finale 3.4s ease-in-out infinite; }
+[data-phase="finale"] .zoo-ball { animation: zoo-ball-balance 3.4s ease-in-out infinite; }
+
+[data-phase] .zoo-ripple { transform-box: fill-box; transform-origin: center; animation: zoo-ripple 1.9s ease-out infinite; }
+[data-phase="intro"] .panda-paw { animation: panda-hold 2.7s ease-in-out infinite; }
+[data-animal="panda"] .zoo-animal-art { transform-origin: 222px 132px; }
+[data-animal="panda"][data-phase="middle"] .zoo-animal-art { animation: panda-roll 3.8s ease-in-out infinite; }
+[data-phase="finale"] .panda-paw { animation: panda-wave 1.4s ease-in-out infinite; }
+[data-animal="penguin"] .zoo-animal-art { transform-origin: 217px 171px; }
+[data-animal="penguin"][data-phase="intro"] .zoo-animal-art { animation: penguin-walk 2.8s ease-in-out infinite; }
+[data-animal="penguin"][data-phase="middle"] .zoo-animal-art { animation: penguin-slide 4s ease-in-out infinite; }
+[data-animal="penguin"][data-phase="finale"] .zoo-animal-art { animation: penguin-jump 2.3s ease-in-out infinite; }
+[data-phase="finale"] .penguin-wing { animation: zoo-wingbeat 1.15s ease-in-out infinite; }
+[data-phase="intro"] .parrot-wing { animation: parrot-stretch 2.6s ease-in-out infinite; }
+[data-animal="parrot"][data-phase="middle"] .zoo-animal-art { transform-origin: 205px 112px; animation: parrot-flight 4s ease-in-out infinite; }
+[data-phase="middle"] .parrot-wing { animation: zoo-wingbeat .46s ease-in-out infinite; }
+[data-phase="finale"] .parrot-head { animation: parrot-settle 2.7s ease-in-out infinite; }
+[data-animal="kangaroo"] .zoo-animal-art { transform-origin: 228px 195px; }
+[data-animal="kangaroo"][data-phase="intro"] .zoo-animal-art { animation: kangaroo-crouch 2.8s ease-in-out infinite; }
+[data-animal="kangaroo"][data-phase="middle"] .zoo-animal-art { animation: kangaroo-bounds 4s ease-in-out infinite; }
+[data-phase="finale"] .kangaroo-tail { animation: kangaroo-tail 2s ease-in-out infinite; }
+[data-animal="dolphin"] .zoo-animal-art { transform-origin: 225px 134px; }
+[data-animal="dolphin"][data-phase="intro"] .zoo-animal-art { animation: dolphin-swim 3.3s ease-in-out infinite; }
+[data-animal="dolphin"][data-phase="middle"] .zoo-animal-art { animation: dolphin-leap 3.8s ease-in-out infinite; }
+[data-animal="dolphin"][data-phase="finale"] .zoo-animal-art { animation: dolphin-splash 2.7s ease-in-out infinite; }
+[data-phase="finale"] .dolphin-tail { animation: dolphin-fluke .75s ease-in-out infinite; }
+[data-animal="lion"][data-phase="intro"] .zoo-animal-art { animation: lion-step 3.3s ease-in-out infinite; }
+[data-animal="lion"][data-phase="middle"] .zoo-animal-art { transform-origin: 258px 190px; animation: lion-stretch 3.5s ease-in-out infinite; }
+[data-phase="middle"] .lion-forepaw { animation: lion-paw 3.5s ease-in-out infinite; }
+[data-phase="finale"] .lion-head { animation: lion-mane 2.8s ease-in-out infinite; }
+
+[data-animal="monkey"] .zoo-animal-art { transform-origin: 207px 19px; }
+[data-animal="monkey"][data-phase="intro"] .zoo-animal-art { animation: monkey-climb 4.4s ease-in-out infinite; }
+[data-animal="monkey"][data-phase="intro"] .monkey-hold-arm { animation: monkey-grab-branch 1.1s ease-in-out infinite; }
+[data-animal="monkey"][data-phase="middle"] .zoo-animal-art {
+  --monkey-swing-lift: -20px;
+  transform: translateY(var(--monkey-swing-lift));
+  animation: monkey-swing 3.6s ease-in-out infinite;
+}
+[data-phase="middle"] .monkey-vine { transform-origin: 207px 19px; animation: monkey-swing 3.6s ease-in-out infinite; }
+[data-phase="middle"] .monkey-vine-arm { display: block; }
+[data-phase="middle"] .monkey-peel-arm { display: none; }
+[data-phase="middle"] .monkey-tail { animation: monkey-tail-sway 1.8s ease-in-out infinite; }
+[data-phase="finale"] .monkey-hold-arm { animation: monkey-wave 2s ease-in-out infinite; }
+[data-phase="intro"] .snake-upper { animation: snake-peek 3s ease-in-out infinite; }
+[data-animal="snake"] .zoo-animal-art { transform-origin: 234px 182px; }
+[data-animal="snake"][data-phase="middle"] .zoo-animal-art { animation: snake-slither 4.8s ease-in-out infinite; }
+[data-phase="middle"] .snake-coils { display: none; }
+[data-phase="middle"] .snake-glide { display: block; }
+[data-phase="middle"] .snake-glide path { animation: snake-wave-body 1.6s ease-in-out infinite; }
+[data-phase="finale"] .snake-coils { animation: snake-coil-up 3s ease-in-out infinite; }
+[data-phase="finale"] .snake-tongue { transform-origin: 134px 119px; animation: snake-flick-tongue 1.5s ease-in-out infinite; }
+@keyframes elephant-reach-and-curl {
+  0%,100% { d: path("M154 126C152 146 139 172 117 155"); }
+  24%,33% { d: path("M154 126C150 161 123 173 108 188"); }
+  47% { d: path("M154 126C143 153 121 181 126 166"); }
+  57% { d: path("M154 126C139 149 146 185 153 152"); }
+  66%,72% { d: path("M154 126C141 164 171 164 173 139"); }
+}
+@keyframes elephant-lift-hay {
+  0%,33% { transform: none; }
+  47% { transform: translate(18px,-22px) rotate(42deg); }
+  57% { transform: translate(45px,-36px) rotate(84deg); }
+  66%,69% { transform: translate(69px,-50px) rotate(102deg); opacity: 1; }
+  75%,100% { transform: translate(72px,-51px) rotate(105deg) scale(.1); opacity: 0; }
+}
+@keyframes elephant-chew {
+  0%,61%,76%,87%,96%,100% { opacity: 0; transform: scaleY(.3); }
+  68%,80%,91% { opacity: 1; transform: scaleY(1); }
+}
+@keyframes giraffe-reach {
+  25%,48% { transform: rotate(-12deg); }
+  65% { transform: rotate(-5deg); }
+  76% { transform: rotate(-7deg); }
+  87% { transform: rotate(-3deg); }
+}
+@keyframes giraffe-tongue {
+  0%,24%,54%,100% { opacity: 0; stroke-dashoffset: 1; }
+  26% { opacity: 1; stroke-dashoffset: .92; }
+  38%,42% { opacity: 1; stroke-dashoffset: 0; }
+  53% { opacity: 1; stroke-dashoffset: .95; }
+}
+@keyframes giraffe-strip-leaf {
+  0%,42% { transform: none; opacity: 1; }
+  50% { transform: translate(15px,1px) rotate(32deg) scale(.72); opacity: 1; }
+  55%,100% { transform: translate(26px,1px) rotate(55deg) scale(.2); opacity: 0; }
+}
+@keyframes seal-catch-fish {
+  22% { transform: translateX(-4px) rotate(8deg); }
+  36%,49% { transform: translateX(-6px) rotate(17deg); }
+  57% { transform: translateY(-4px) rotate(28deg); }
+  69% { transform: translateY(3px) rotate(9deg); }
+  82% { transform: rotate(12deg); }
+}
+@keyframes seal-fish-toss {
+  0% { transform: none; }
+  20% { transform: translate(23px,-11px) rotate(-7deg); }
+  38% { transform: translate(43px,20px) rotate(36deg); }
+  48% { transform: translate(45px,43px) rotate(42deg); opacity: 1; }
+  55%,100% { transform: translate(53px,43px) rotate(36deg) scale(.22); opacity: 0; }
+}
+@keyframes seal-gulp {
+  0%,29%,58%,100% { opacity: 0; }
+  37%,51% { opacity: 1; }
+}
+@keyframes panda-lift-paw {
+  21% { transform: translate(-8px,7px) rotate(-7deg); }
+  47%,58% { transform: translate(-5px,-18px) rotate(6deg); }
+  67%,82% { transform: translate(-1px,-15px) rotate(1deg); }
+}
+@keyframes panda-lift-bamboo {
+  0%,21% { transform: none; opacity: 1; }
+  46%,59% { transform: translate(23px,-26px) rotate(-3deg); opacity: 1; }
+  70%,83% { transform: translate(20px,-23px) rotate(-10deg); opacity: 1; }
+  100% { transform: translate(14px,11px) rotate(-6deg); opacity: 0; }
+}
+@keyframes panda-grip {
+  0%,20%,96%,100% { opacity: 0; }
+  25%,87% { opacity: 1; }
+}
+@keyframes panda-nibble {
+  0%,43%,54%,64%,75%,87%,100% { opacity: 0; }
+  49%,59%,70%,80%,92% { opacity: 1; }
+}
+@keyframes panda-eat-first-leaf { 0%,50% { opacity: 1; } 54%,100% { opacity: 0; } }
+@keyframes panda-eat-next-leaf { 0%,68% { opacity: 1; } 73%,100% { opacity: 0; } }
+@keyframes penguin-snap {
+  21% { transform: translate(-4px,2px) rotate(-7deg); }
+  33%,43% { transform: translate(-8px,6px) rotate(-15deg); }
+  55%,63% { transform: translate(1px,-7px) rotate(9deg); }
+  72% { transform: translateY(-3px) rotate(4deg); }
+}
+@keyframes penguin-open-bill {
+  0%,26%,45%,59%,77%,100% { opacity: 0; }
+  32%,39%,64%,71% { opacity: 1; }
+}
+@keyframes penguin-swallow-fish {
+  0%,20% { transform: none; }
+  37%,43% { transform: translate(11px,-12px) rotate(-4deg); }
+  55%,64% { transform: translate(45px,-30px) rotate(-64deg); opacity: 1; }
+  74%,100% { transform: translate(46px,-31px) rotate(-84deg) scale(.2); opacity: 0; }
+}
+@keyframes parrot-lift-claw {
+  0%,100% { d: path("M204 152Q210 164 209 172M202 174L212 172"); }
+  24%,30% { d: path("M204 152Q187 156 168 165M161 164L170 160"); }
+  54%,79% { d: path("M204 152Q173 151 161 135M153 135L162 130"); }
+}
+@keyframes parrot-crack-nut {
+  16% { transform: rotate(-20deg); }
+  49%,57% { transform: rotate(-40deg); }
+  63% { transform: rotate(-47deg); }
+  72% { transform: rotate(-41deg); }
+  79% { transform: rotate(-36deg); }
+}
+@keyframes parrot-open-beak {
+  0%,44%,60%,68%,82%,100% { opacity: 0; }
+  51%,73%,77% { opacity: 1; }
+}
+@keyframes parrot-carry-nut {
+  0%,29% { transform: none; }
+  53%,100% { transform: translate(-9px,-31px) rotate(-24deg); }
+}
+@keyframes parrot-split-shell { 0%,61% { opacity: 1; } 62%,100% { opacity: 0; } }
+@keyframes parrot-eat-kernel {
+  0%,61%,81%,100% { opacity: 0; }
+  62%,73% { opacity: 1; }
+  82%,100% { transform: translate(0,-11px); }
+}
+@keyframes parrot-drop-shell {
+  0%,61% { opacity: 0; }
+  62% { opacity: 1; transform: none; }
+  78%,100% { opacity: 0; transform: translate(-34px,44px) rotate(-7deg); }
+}
+@keyframes kangaroo-graze {
+  31%,58% { transform: translate(1px,7px) rotate(-25deg) scaleY(.73); }
+  75%,83% { transform: translateY(5px) rotate(-7deg) scaleY(.92); }
+}
+@keyframes kangaroo-crop-grass {
+  30%,43% { transform: translate(-2px,1px) rotate(-32deg); }
+  49% { transform: rotate(-21deg); }
+  57% { transform: rotate(-29deg); }
+  67% { transform: rotate(-9deg); }
+}
+@keyframes kangaroo-pull-grass {
+  0%,36% { transform: none; opacity: 1; }
+  47%,51% { transform: translate(-3px,-8px) rotate(3deg); opacity: 1; }
+  57%,100% { transform: translate(-5px,-13px) rotate(4deg); opacity: 0; }
+}
+@keyframes kangaroo-chew {
+  0%,32%,44%,55%,68%,81%,92%,100% { opacity: 0; }
+  39%,49%,61%,73%,86% { opacity: 1; }
+}
+@keyframes dolphin-chase {
+  17% { transform: translate(24px,26px) rotate(-8deg); }
+  47%,52% { transform: translate(-29px,43px) rotate(-9deg); }
+  68% { transform: translate(-44px,30px) rotate(6deg); }
+  85% { transform: translate(-9px,10px) rotate(5deg); }
+}
+@keyframes dolphin-catch-fish {
+  0% { transform: none; }
+  21% { transform: translate(16px,8px) rotate(12deg); }
+  43%,49% { transform: translate(37px,16px) rotate(3deg); opacity: 1; }
+  57%,100% { transform: translate(51px,12px) rotate(-15deg) scale(.18); opacity: 0; }
+}
+@keyframes dolphin-gulp {
+  0%,35%,58%,100% { opacity: 0; }
+  43%,52% { opacity: 1; }
+}
+@keyframes dolphin-feed-wake {
+  0%,39%,84%,100% { opacity: 0; }
+  45% { opacity: .9; transform: none; }
+  69% { opacity: .6; transform: translate(-7px,-10px); }
+  84% { transform: translate(-16px,-20px); }
+}
+@keyframes monkey-lift-banana {
+  23%,30% { transform: rotate(-12deg); }
+  48%,58% { transform: rotate(33deg); }
+  64%,76% { transform: rotate(42deg); }
+  100% { transform: rotate(-8deg); }
+}
+@keyframes monkey-take-banana { 0%,27% { opacity: 1; } 31%,100% { opacity: 0; } }
+@keyframes monkey-grip-banana { 0%,26%,100% { opacity: 0; } 31%,91% { opacity: 1; } }
+@keyframes monkey-peel-banana {
+  0%,30%,80%,100% { d: path("M238 116C252 130 231 153 215 143"); }
+  49%,55% { d: path("M238 116C223 119 194 117 174 124"); }
+  66% { d: path("M238 116C222 130 203 145 180 138"); }
+}
+@keyframes monkey-pull-peel {
+  0%,30%,80%,100% { transform: rotate(-20deg); transform-origin: 214px 143px; }
+  49%,55% { transform: translate(-40px,-19px); }
+  66% { transform: translate(-34px,-5px); }
+}
+@keyframes monkey-open-banana { 0%,51% { opacity: 1; } 55%,100% { opacity: 0; } }
+@keyframes monkey-eat-banana { 0%,51%,74%,100% { opacity: 0; } 56%,69% { opacity: 1; } }
+@keyframes monkey-unfold-peel { 0%,52% { opacity: 0; } 60%,100% { opacity: 1; } }
+@keyframes monkey-chew { 0%,65%,73%,83%,93%,100% { opacity: 0; } 70%,79%,89% { opacity: 1; } }
+@keyframes snake-extend-neck {
+  0%,100% { d: path("M207 161C186 158 205 125 177 118"); }
+  30%,47% { d: path("M207 161C182 162 179 135 157 131"); }
+  57% { d: path("M207 161C184 159 188 130 166 125"); }
+  68% { d: path("M207 161C192 152 197 127 179 115"); }
+}
+@keyframes snake-reach-egg {
+  30%,47% { transform: translate(-20px,13px); }
+  57% { transform: translate(-11px,7px); }
+  68% { transform: translate(2px,-3px); }
+  83% { transform: translate(-5px,2px); }
+}
+@keyframes snake-open-jaw { 0%,26%,63%,100% { opacity: 0; } 36%,55% { opacity: 1; } }
+@keyframes snake-swallow-egg {
+  0%,38% { transform: none; opacity: 1; }
+  49% { transform: translate(8px,-8px) rotate(-16deg); opacity: 1; }
+  56%,100% { transform: translate(25px,-10px) rotate(-32deg) scale(.45); opacity: 0; }
+}
+@keyframes snake-egg-bulge {
+  0%,48% { transform: translate(-7px,9px) scale(.65); opacity: 0; }
+  56% { transform: translate(-2px,10px); opacity: 1; }
+  68% { transform: translate(19px,15px) scale(.85); opacity: 1; }
+  78%,100% { transform: translate(26px,24px) scale(.65); opacity: 0; }
+}
+@keyframes snake-drop-shell {
+  0%,81% { opacity: 0; transform: translate(21px,-27px) scale(.6); }
+  85% { opacity: 1; transform: translate(16px,-19px) rotate(5deg) scale(.7); }
+  95%,100% { opacity: 1; transform: translate(0,1px) rotate(-8deg) scale(.8); }
+}
+@keyframes lion-hunt {
+  0% { transform: translateX(88px) scale(.72); }
+  17% { transform: translate(84px,1px) scale(.74,.57); }
+  28% { transform: translate(60px,-14px) rotate(3deg) scale(.79,.68); }
+  37% { transform: translate(34px,1px) rotate(-4deg) scale(.75,.64); }
+  47% { transform: translate(6px,-15px) rotate(4deg) scale(.79,.69); }
+  55% { transform: translate(-20px,1px) rotate(-5deg) scale(.74,.59); }
+  64% { transform: translate(-54px,-27px) rotate(3deg) scale(.84,.69); }
+  73% { transform: translate(-103px,-4px) rotate(-11deg) scale(.77,.63); }
+  80% { transform: translate(-108px,1px) rotate(-8deg) scale(.73,.63); }
+  100% { transform: translate(-108px,1px) rotate(-6deg) scale(.72,.65); }
+}
+@keyframes lion-hunt-head {
+  16% { transform: translate(-4px,12px) rotate(-12deg); }
+  28%,47% { transform: translateX(-3px) rotate(4deg); }
+  55% { transform: translateY(9px) rotate(-9deg); }
+  64% { transform: translate(-8px,-3px) rotate(3deg); }
+  75%,82% { transform: translate(-9px,16px) rotate(-17deg); }
+  100% { transform: translate(1px,3px) rotate(-10deg); }
+}
+@keyframes lion-hunt-tail {
+  17% { transform: rotate(8deg); }
+  29%,48% { transform: rotate(-17deg); }
+  37%,55% { transform: rotate(13deg); }
+  64% { transform: rotate(-19deg); }
+  77% { transform: rotate(11deg); }
+  100% { transform: rotate(2deg); }
+}
+@keyframes lion-hunt-forepaw {
+  16% { transform: rotate(13deg); }
+  26%,45% { transform: rotate(35deg); }
+  34%,54% { transform: rotate(-32deg); }
+  65% { transform: rotate(59deg); }
+  77%,100% { transform: rotate(31deg); }
+}
+@keyframes lion-hunt-hindpaw {
+  16% { transform: rotate(-17deg); }
+  26%,45% { transform: rotate(-42deg); }
+  34%,54% { transform: rotate(29deg); }
+  66% { transform: rotate(-36deg); }
+  81%,100% { transform: rotate(9deg); }
+}
+@keyframes rabbit-bound {
+  0%,17% { transform: none; }
+  24% { transform: translate(-14px,-22px) rotate(12deg); }
+  32% { transform: translate(-33px,1px) rotate(-7deg); }
+  39% { transform: translate(-49px,-21px) rotate(10deg); }
+  47% { transform: translate(-69px,1px) rotate(-8deg); }
+  53% { transform: translate(-92px,-20px) rotate(10deg); }
+  60% { transform: translate(-114px,2px) rotate(-7deg); }
+  67% { transform: translate(-136px,-12px) rotate(8deg); }
+  73% { transform: translate(-147px,4px) scale(1,.82); }
+  81%,100% { transform: translate(-150px,8px) scale(.94,.57); }
+}
+@keyframes rabbit-ears {
+  0%,17%,32%,47%,60% { transform: none; }
+  23%,38%,53%,66% { transform: rotate(34deg); }
+  78%,100% { transform: rotate(23deg); }
+}
+@keyframes rabbit-kick {
+  0%,17%,32%,47%,61% { transform: none; }
+  24%,39%,53%,67% { transform: scaleX(1.39) rotate(-12deg); }
+  81%,100% { transform: scaleX(.75); }
+}
+@keyframes chicken-dash {
+  0%,15% { transform: none; }
+  22% { transform: translate(-14px,-5px) rotate(-7deg); }
+  30% { transform: translate(-31px,1px) rotate(-11deg); }
+  37% { transform: translate(-49px,-7px) rotate(-8deg); }
+  44% { transform: translate(-65px,1px) rotate(-12deg); }
+  51% { transform: translate(-87px,-5px) rotate(-8deg); }
+  58% { transform: translate(-110px,1px) rotate(-11deg); }
+  65% { transform: translate(-133px,-17px) rotate(5deg); }
+  73% { transform: translate(-147px,4px) rotate(-7deg); }
+  81%,100% { transform: translate(-150px,6px) scale(.91,.73); }
+}
+@keyframes chicken-flap {
+  0%,15%,30%,44%,58% { transform: none; }
+  22%,37%,51%,65% { transform: translate(-2px,-2px) rotate(-63deg) scale(1.18); }
+  81%,100% { transform: rotate(21deg); }
+}
+@keyframes chicken-step {
+  0%,14%,77%,100% { transform: none; }
+  19%,28%,37%,46%,55%,64% { transform: rotate(43deg); }
+  23%,32%,41%,50%,59%,69% { transform: rotate(-41deg); }
+}
+@keyframes hunt-landing-dust {
+  0%,70% { opacity: 0; transform: scale(.4); }
+  74% { opacity: .93; transform: scale(.86); }
+  81%,100% { opacity: 0; transform: translateY(-9px) scale(1.33); }
+}
+@keyframes elephant-spray { 18%,37% { transform: rotate(8deg); } 52%,76% { transform: rotate(2deg); } 67%,85% { transform: rotate(7deg); } }
+@keyframes zoo-water-arc { 0%,18%,92%,100% { opacity: 0; } 30%,82% { opacity: 1; } 100% { stroke-dashoffset: -70; } }
+@keyframes giraffe-parade { 26% { transform: translate(22px,-5px); } 50% { transform: translate(37px,0); } 76% { transform: translate(18px,-5px); } }
+@keyframes giraffe-nod { 48% { transform: rotate(-12deg); } }
+@keyframes zoo-parade-marks { 0%,100% { opacity: 0; } 20%,77% { opacity: .95; } }
+@keyframes seal-balance { 22%,86% { transform: translateY(-10px) rotate(13deg); } }
+@keyframes zoo-bounce { 50% { transform: translate(4px,-30px); } }
+@keyframes elephant-fill { 24%,70% { transform: rotate(-38deg); } 82% { transform: rotate(-22deg); } }
+@keyframes elephant-finale { 24%,76% { transform: rotate(10deg); } 55% { transform: rotate(2deg); } }
+@keyframes giraffe-look { 32% { transform: rotate(-9deg); } 65% { transform: rotate(6deg); } }
+@keyframes giraffe-bow { 38%,60% { transform: rotate(-19deg); } }
+@keyframes seal-catch { 25% { transform: translateY(-12px) rotate(13deg); } 60% { transform: translateY(-4px) rotate(6deg); } }
+@keyframes zoo-toss { 0%,9% { transform: translate(-17px,-68px) scale(.8); opacity: 0; } 18%,100% { opacity: 1; } 70% { transform: translate(4px,-10px); } }
+@keyframes seal-finale { 24%,80% { transform: translateY(-8px) rotate(10deg); } 52% { transform: translate(4px,-10px) rotate(13deg); } }
+@keyframes zoo-ball-balance { 20%,80% { transform: translate(3px,1px); } 55% { transform: translate(8px,-5px); } }
+@keyframes zoo-ripple { 0% { opacity: 0; transform: scale(.52); } 25% { opacity: .86; } 100% { opacity: 0; transform: scale(1.28); } }
+@keyframes panda-hold { 30%,70% { transform: rotate(15deg) translate(-8px,-4px); } }
+@keyframes panda-roll {
+  0% { transform: translateX(-18px) rotate(0); }
+  20% { transform: translateX(-5px) rotate(-18deg); }
+  72% { transform: translateX(53px) rotate(360deg); }
+  100% { transform: translateX(-18px) rotate(360deg); }
+}
+@keyframes panda-wave { 22%,76% { transform: rotate(70deg) translate(-5px,-6px); } 47% { transform: rotate(54deg); } }
+@keyframes penguin-walk {
+  0%,100% { transform: translateX(-13px) rotate(-4deg); }
+  25% { transform: translateX(-1px) rotate(6deg); }
+  50% { transform: translateX(13px) rotate(-6deg); }
+  75% { transform: translateX(2px) rotate(5deg); }
+}
+@keyframes penguin-slide {
+  0%,100% { transform: translateX(-36px); }
+  22% { transform: translate(-25px,-7px) rotate(57deg); }
+  72% { transform: translate(56px,-14px) rotate(73deg); }
+  85% { transform: translate(46px,-9px) rotate(9deg); }
+}
+@keyframes penguin-jump { 18% { transform: translateY(5px) scaleY(.95); } 49% { transform: translateY(-29px) rotate(-11deg); } 78% { transform: translateY(2px); } }
+@keyframes zoo-wingbeat { 50% { transform: rotate(-24deg) scaleY(.7); } }
+@keyframes parrot-stretch { 31%,65% { transform: rotate(-31deg) scale(1.15); } }
+@keyframes parrot-flight {
+  0%,100% { transform: translate(-52px,13px) rotate(-9deg); }
+  30% { transform: translate(24px,-31px) rotate(12deg); }
+  56% { transform: translate(94px,-29px) rotate(-13deg); }
+  75% { transform: translate(20px,-43px) rotate(-2deg); }
+}
+@keyframes parrot-settle { 27% { transform: translateY(4px) rotate(9deg); } 58% { transform: translateY(-4px) rotate(-5deg); } }
+@keyframes kangaroo-crouch { 25%,67% { transform: translateY(5px) scaleY(.87) rotate(-5deg); } }
+@keyframes kangaroo-bounds {
+  0% { transform: translateX(-72px); }
+  13% { transform: translate(-49px,-40px) rotate(-8deg); }
+  24% { transform: translate(-35px,0) scaleY(.94); }
+  36% { transform: translate(-6px,-47px) rotate(-10deg); }
+  51% { transform: translate(19px,0) scaleY(.94); }
+  64% { transform: translate(52px,-37px) rotate(-8deg); }
+  77% { transform: translateX(69px); }
+  100% { transform: translateX(-72px); }
+}
+@keyframes kangaroo-tail { 28%,75% { transform: rotate(-12deg); } 50% { transform: rotate(7deg); } }
+@keyframes dolphin-swim { 0%,100% { transform: translate(-38px,26px) rotate(-5deg); } 52% { transform: translate(42px,12px) rotate(7deg); } }
+@keyframes dolphin-leap {
+  0%,100% { transform: translate(-67px,31px) rotate(18deg); }
+  32% { transform: translate(-31px,-13px) rotate(22deg); }
+  49% { transform: translate(3px,-45px) rotate(-5deg); }
+  74% { transform: translate(69px,23px) rotate(-24deg); }
+}
+@keyframes dolphin-splash { 26% { transform: rotate(-15deg) translate(16px,16px); } 64% { transform: rotate(8deg) translate(7px,8px); } }
+@keyframes dolphin-fluke { 50% { transform: rotate(-24deg); } }
+@keyframes lion-step { 0% { transform: translate(-35px,6px); } 20% { transform: translate(-24px,0); } 44% { transform: translate(-15px,2px); } 64% { transform: translate(-8px,-3px); } }
+@keyframes lion-stretch { 31%,70% { transform: rotate(-11deg) scale(1.03,.9); } }
+@keyframes lion-paw { 36%,70% { transform: rotate(14deg) translateX(-8px); } }
+@keyframes lion-mane { 25%,68% { transform: rotate(-12deg) translateY(-6px); } 40% { transform: rotate(6deg); } 53% { transform: rotate(-6deg); } }
+@keyframes monkey-climb {
+  0%,100% { transform: translate(-50px,0); }
+  28% { transform: translate(-44px,-24px) rotate(-4deg); }
+  57%,70% { transform: translate(-30px,-39px) rotate(3deg); }
+}
+@keyframes monkey-grab-branch { 45% { transform: rotate(49deg); } }
+@keyframes monkey-swing {
+  0%,100% { transform: rotate(35deg) translateY(var(--monkey-swing-lift, 0px)); }
+  50% { transform: rotate(-35deg) translateY(var(--monkey-swing-lift, 0px)); }
+}
+@keyframes monkey-tail-sway { 25% { transform: rotate(24deg); } 75% { transform: rotate(-19deg); } }
+@keyframes monkey-wave {
+  22%,78% { transform: translateX(-8px) rotate(44deg); }
+  43% { transform: translateX(-10px) rotate(62deg); }
+  60% { transform: translateX(-8px) rotate(34deg); }
+}
+@keyframes snake-peek {
+  0%,100% { transform: translateY(8px) rotate(-21deg); }
+  37%,70% { transform: rotate(13deg); }
+}
+@keyframes snake-slither {
+  0%,100% { transform: translate(-49px,4px) scaleX(.95); }
+  52% { transform: translate(54px,-2px) scaleX(1.03); }
+}
+@keyframes snake-wave-body {
+  25% { d: path("M344 173C324 193 300 177 284 162C265 151 252 165 229 176C219 180 215 169 207 161"); }
+  75% { d: path("M344 190C318 148 302 157 284 175C261 193 246 187 229 164C221 154 216 157 207 161"); }
+}
+@keyframes snake-coil-up { 28%,80% { transform: scale(.79,1.13); } 54% { transform: scale(.86,1.06); } }
+@keyframes snake-flick-tongue {
+  0%,22%,46%,65%,100% { transform: scaleX(.1); opacity: 0; }
+  30%,53% { transform: scaleX(1); opacity: 1; }
+}
+
+@media (max-width: 760px) {
+  .farm-management-bar .management-nav { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .zoo-layout { grid-template-columns: minmax(0,1fr); gap: 10px; }
+  .zoo-animals button { grid-template-columns: auto 1fr; min-height: 46px; align-items: center; gap: 0 4px; padding: 2px 5px; }
+  .zoo-animal-thumb { width: 30px; height: 29px; grid-row: span 2; }
+  .zoo-animals button > small { font-size: 10px; }
+  .zoo-animals button > b { font-size: 13px; }
+}
+@media (max-width: 480px) {
+  .zoo-animals { gap: 5px; }
+  .zoo-paid .zoo-coins { flex-basis: 100%; justify-content: center; }
+  .zoo-show-acts span { padding: 4px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zoo-scene-art * { animation: none !important; }
+  [data-activity="show"] .seal-head { transform: translateY(-10px) rotate(13deg); }
+}

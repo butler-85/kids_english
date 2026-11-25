@@ -1,0 +1,15 @@
+start.bat
+setup_firewall.bat
+README.md
+DEPLOY.md
+.dockerignore
+Dockerfile
+docker-compose.yml
+server/data/
+node_modules/
+test-results/
+.git/
+__pycache__/
+*.py[cod]
+.env
+.env.*

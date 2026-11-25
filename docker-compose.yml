@@ -1,0 +1,12 @@
+services:
+  abc-park:
+    build: .
+    container_name: abc-park
+    ports:
+      - "8080:80"          # 宿主机端口:容器端口，按需修改
+    volumes:
+      - abc-data:/app/site/server/data   # 档案与进度数据库（备份这个卷即可）
+    restart: unless-stopped
+
+volumes:
+  abc-data:

@@ -1,0 +1,70 @@
+/* The camera moves one continuous world; animals and crops retain world coordinates. */
+.connected-farm .farm-layout { align-items: start; }
+#farm-map-viewport { position: relative; height: 600px; overflow: clip; border: 6px solid #f5efda; border-radius: 28px; background: #b6c88e; isolation: isolate; touch-action: none; user-select: none; cursor: grab; box-shadow: 0 5px 0 #a8b48b40; }
+#farm-map-viewport.is-dragging, #farm-map-viewport.is-dragging * { cursor: grabbing; }
+#farm-map-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; transition: none !important; }
+.connected-landscape { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.farm-herd.life-area.map-actors { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; pointer-events: none; z-index: 1; }
+.map-actors .farm-animal { width: 88px; height: 106px; padding: 0 3px 24px; pointer-events: auto; touch-action: none; }
+.map-actors .animal-label { opacity: 0; }
+.map-actors .farm-animal:hover .animal-label, .map-actors .farm-animal.selected .animal-label, .map-actors .farm-animal:focus-visible .animal-label { opacity: 1; }
+.map-actors [data-species="fish"]::before { background: #528f8e25; }
+.map-actors [data-species="fish"] .animal-ripple { display: block; position: absolute; inset: 30% 0 20%; border: 2px solid #f6fff6a0; border-radius: 50%; opacity: 0; }
+.map-crops { position: absolute; inset: 0; pointer-events: none; }
+.map-crops .garden-bed { position: absolute; min-height: 0; border-radius: 14px; pointer-events: auto; touch-action: none; }
+.map-crops .garden-bed .bed-icon { font-size: 29px; }
+.map-crops .garden-bed > span:last-child:not(.bed-icon) { font-size: 11px; }
+.map-drops { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.farm-ground-item {
+  position: absolute; transform: translate(-50%, -50%); isolation: isolate;
+  display: grid; place-items: center; width: 110px; height: 94px; padding: 0 0 6px;
+  background: transparent; border: 0; border-radius: 24px; pointer-events: auto; touch-action: none;
+}
+.farm-ground-item::before {
+  content: ''; position: absolute; z-index: -1; bottom: 12px; left: 17px; right: 17px; height: 20px;
+  border-radius: 50%; background: #788b4d51;
+}
+.farm-ground-item[data-pickup="egg"]::before { background: #daba76; border: 3px solid #af8d57; box-shadow: inset 0 0 0 3px #e9cb89; }
+.farm-ground-item[data-pickup="pearl"]::before { background: #90bab3; border: 2px solid #749f94; }
+.ground-item-icon { font-size: 58px; line-height: 1; filter: drop-shadow(0 3px 2px #79694165); }
+.farm-ground-item > small {
+  position: absolute; bottom: 9px; right: 6px; min-width: 40px; padding: 3px 6px;
+  border-radius: 16px; border: 2px solid #c8b477; background: #fff8de; color: #5d5030;
+  font-size: 24px; font-weight: 700; line-height: 1;
+}
+.farm-ground-item:focus-visible, .farm-ground-item:hover { outline: 3px solid #6c834d; outline-offset: -5px; background: #fff6d23b; }
+.farm-pickup-guide {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 9px; margin-top: 10px;
+  padding: 6px 9px; border: 1px solid #d9d8b5; border-radius: 14px; background: #fff9e8; color: #4f6a40;
+}
+.farm-pickup-guide[hidden] { display: none; }
+.farm-pickup-guide button {
+  min-height: 44px; padding: 5px 9px; border: 1px solid #d7d6b4; border-radius: 10px;
+  background: #f1f2d8; color: #4d6440; font-weight: 700;
+}
+.map-sign { position: absolute; font-size: 30px; border: 3px solid #d8be91; border-radius: 12px; padding: 3px 12px; background: #f9e7bc; pointer-events: none; transform: rotate(-5deg); }
+.map-controls { position: absolute; top: 14px; right: 14px; display: grid; gap: 8px; }
+.map-controls button { width: 48px; height: 48px; border-radius: 15px; background: #fffbedf5; border: 1px solid #c7cba9; border-bottom: 4px solid #b2bb94; color: #506d45; font-size: 29px; line-height: 1; }
+.map-guide { position: absolute; top: 14px; left: 14px; display: flex; gap: 16px; align-items: center; min-height: 48px; padding: 6px 14px; background: #fffbedeb; border: 1px solid #d3d7b7; border-radius: 18px; font-size: 23px; color: #516d46; }
+.map-count { position: absolute; bottom: 17px; left: 17px; border-radius: 16px; background: #fffbedeb; color: #526f48; padding: 8px 13px; font-size: 16px; pointer-events: none; }
+.farm-minimap { position: absolute; bottom: 14px; right: 14px; width: 120px; height: 86px; padding: 0; border: 4px solid #fffbeb; border-radius: 14px; overflow: hidden; background: #cbdca5; box-shadow: 0 2px 8px #5c724d40; }
+.farm-minimap > span { position: absolute; pointer-events: none; }
+.mini-yard { left: 17%; top: 9%; font-size: 18px; }
+.mini-garden { right: 17%; top: 18%; font-size: 17px; }
+.mini-meadow { left: 18%; bottom: 13%; font-size: 16px; }
+.mini-pond { right: 8%; bottom: 5%; width: 35%; height: 33%; border-radius: 50%; background: #8ebeb7; }
+.mini-road { left: 48%; top: 0; height: 100%; width: 7%; background: #e9d9ad; transform: rotate(-5deg); }
+.mini-camera { border: 2px solid #657c4c; border-radius: 4px; background: #fff5; }
+.map-bookmarks { gap: 8px; margin-top: 10px; }
+.map-bookmarks button { display: flex; justify-content: center; gap: 9px; min-height: 64px; padding: 8px; }
+.map-bookmarks button > span { font-size: 26px; }
+.map-bookmarks b { font-size: 12px; }
+@media (max-width: 1100px) and (min-width: 761px) { .connected-farm .farm-layout { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  #farm-map-viewport { height: min(560px, 66svh); min-height: 370px; border-width: 4px; border-radius: 22px; }
+  .map-controls { top: 10px; right: 10px; gap: 7px; }
+  .map-guide { top: 10px; left: 10px; padding: 5px 9px; gap: 8px; font-size: 20px; }
+  .farm-minimap { width: 96px; height: 70px; right: 10px; bottom: 10px; }
+  .map-count { left: 10px; bottom: 10px; font-size: 13px; }
+  .map-bookmarks button { flex-direction: column; gap: 2px; min-height: 65px; }
+}
