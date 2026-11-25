@@ -190,7 +190,17 @@ body[data-screen="farm"] [data-screen="farm"].screen.active { position: relative
 .garden-bed { min-width: 0; min-height: 65px; border: 2px solid #c9ac80; border-bottom: 5px solid #a88b63; border-radius: 18px; background: repeating-linear-gradient(0deg, #c8ad86 0 13px, #c2a47a 13px 16px); color: #fffdf2; display: grid; place-content: center; gap: 3px; padding: 3px; box-shadow: 0 3px 0 #a1b77d55; }
 .bed-icon { font-size: 30px; line-height: 1.1; }
 .bed-icon .crop-art { display: block; width: 63px; height: 50px; margin: auto; pointer-events: none; }
-.garden-bed > span:last-child { font-size: 9px; color: #433d29; background: #f5e6cbbb; border-radius: 8px; padding: 2px 5px; }
+.garden-bed > .bed-status { font-size: 9px; color: #433d29; background: #f5e6cbbb; border-radius: 8px; padding: 2px 5px; }
+.garden-bed > .crop-water-need {
+  top: -8px; right: 6px; width: 38px; height: 38px; padding: 5px;
+  display: grid; place-items: center; box-sizing: border-box;
+  border: 2px solid #badde3; border-radius: 19px 19px 19px 3px; background: #fffdf5;
+  box-shadow: 0 3px 5px #456b5530; pointer-events: auto;
+  transform-origin: bottom left; animation: crop-water-bob 2.6s ease-in-out infinite;
+}
+.crop-water-need svg { display: block; width: 23px; height: 26px; }
+@keyframes crop-water-bob { 50% { transform: translateY(-4px) rotate(4deg); } }
+@media (prefers-reduced-motion: reduce) { .garden-bed > .crop-water-need { animation: none; } }
 .garden-bed[aria-disabled="true"] > .bed-icon { visibility: hidden; }
 .harvest-scene { position: absolute; inset: 0; pointer-events: none; }
 .harvest-plant, .harvest-fruits, .harvest-basket, .harvest-count { position: absolute; left: 50%; }

@@ -70,8 +70,9 @@ const Pets = (() => {
   }
   function plotContent(p, state) {
     if (!state) return '<span class="bed-icon" aria-hidden="true">🌱＋</span>';
-    const status = state.mature ? '🧺 ×' + state.yieldCount : `${state.stage}/${FarmEconomy.CROP_STAGES.length} · 💧 ${state.watered ? '✓' : '＋'}`;
-    return `<span class="bed-icon ${state.mature ? 'ready' : ''}">${FarmArt.crop(p.crop, state.stage)}</span><span aria-hidden="true">${status}</span>`;
+    const need = !state.mature && !state.watered ? `<span class="animal-need crop-water-need" aria-hidden="true"><svg viewBox="0 0 32 36"><path d="M16 3C13 10 5 17 5 23a11 11 0 0 0 22 0c0-6-8-13-11-20Z" fill="#46b5e1" stroke="#2486b3" stroke-width="2"/><path d="M10 22q-1 6 5 7" fill="none" stroke="#e9faff" stroke-width="3" stroke-linecap="round"/></svg></span>` : '';
+    const harvest = state.mature ? `<span class="bed-status" aria-hidden="true">🧺 ×${state.yieldCount}</span>` : '';
+    return `<span class="bed-icon ${state.mature ? 'ready' : ''}">${FarmArt.crop(p.crop, state.stage)}</span>${harvest}${need}`;
   }
   function updatePlot(bed, p, state) {
     const status = plotStatus(p, state);

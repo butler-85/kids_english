@@ -2,9 +2,9 @@
  * 策略：字体/图标缓存优先；页面与代码网络优先（更新即时生效）+ 离线回退
  * 本地 http:// 访问时不注册（见 app.js），避免开发时缓存旧文件
  */
-const VERSION = 'v62';
+const VERSION = 'v63';
 const CACHE = 'abc-park-' + VERSION;
-const ASSET_V = '?v=62'; // 与 index.html 中的资源版本号保持一致
+const ASSET_V = '?v=63'; // 与 index.html 中的资源版本号保持一致
 const FARM_AUDIO = [
   'chick', 'hen', 'kitten', 'cat', 'puppy', 'dog', 'purr', 'bee', 'fish', 'calf', 'cow', 'lamb', 'sheep',
   ...['chick', 'cat', 'dog', 'bee', 'fish', 'cow', 'sheep'].flatMap(species =>

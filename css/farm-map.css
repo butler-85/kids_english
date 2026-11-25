@@ -13,7 +13,7 @@
 .map-crops { position: absolute; inset: 0; pointer-events: none; }
 .map-crops .garden-bed { position: absolute; min-height: 0; border-radius: 14px; pointer-events: auto; touch-action: none; }
 .map-crops .garden-bed .bed-icon { font-size: 29px; }
-.map-crops .garden-bed > span:last-child:not(.bed-icon) { font-size: 11px; }
+.map-crops .garden-bed > .bed-status { font-size: 11px; }
 .map-drops { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .farm-ground-item {
   position: absolute; transform: translate(-50%, -50%); isolation: isolate;

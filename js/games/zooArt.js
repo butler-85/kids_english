@@ -131,22 +131,34 @@ const ZooArt = (() => {
         <path d="M180 101q8 8 16 8m41-14q-2 8-10 11" fill="none" stroke="#e7ba77" stroke-width="4" stroke-linecap="round"/>
       </g>`,
     parrot: `
-      <path d="M220 145q-17 40-49 65-18-21 18-67Z" fill="#667eaf" stroke="#4a657e" stroke-width="3"/>
-      <path d="M231 148q-3 35-25 63-17-5-12-26l14-36Z" fill="#77a5b4"/>
-      <path d="M218 152v20m-5 2 10-3" stroke="#796b59" stroke-width="4" stroke-linecap="round"/>
-      <path class="parrot-free-foot" d="M204 152q6 12 5 20m-7 2 10-2" fill="none" stroke="#796b59" stroke-width="4" stroke-linecap="round"/>
-      <path d="M183 86q42-25 66 13 14 37-16 61-31 18-51-10-14-17 1-64Z" fill="#d6835c" stroke="#985948" stroke-width="3"/>
-      <path d="M207 89q21 0 32 24 8 26-8 35-13-29-42-22Z" fill="#e49b68" opacity=".82"/>
-      <g class="parrot-wing"><path d="M222 102q37-6 50 28-4 13-26 15-9 16-34 17-19-12-14-36Z" fill="#77a291" stroke="#537d75" stroke-width="3"/>
-        <path d="M223 128q20-12 41-5-8 14-24 14-11 12-27 11m24-19 8 7m-28 0 8 6" fill="none" stroke="#4c827e" stroke-width="3" stroke-linecap="round"/>
-        <path d="M205 119q9-11 21-10" fill="none" stroke="#a0bc97" stroke-width="3" stroke-linecap="round"/>
+      <g class="parrot-tail" stroke="#365e87" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M226 144q16 30 40 71-21-4-39-28l-16-34Z" fill="#329bc1"/>
+        <path d="M218 147q10 35 29 78-23-10-38-47l-7-26Z" fill="#4278b8"/>
+        <path d="M212 151q10 31 27 62" fill="none" stroke="#92d1e3" stroke-width="2"/>
       </g>
-      <g class="parrot-head"><circle cx="187" cy="87" r="30" fill="#dc875d" stroke="#985948" stroke-width="3"/>
-        <path d="M164 80q19-17 34-1 11 10-3 23-21 12-36-3Z" fill="#f5e6c0"/>
-        <circle cx="179" cy="85" r="4.4" fill="#403f3a"/><circle cx="180" cy="84" r="1.5" fill="#fff"/>
-        <path d="M160 85q-19-3-21 13 2 12 15 11-6-8 8-10Z" fill="#e8ba6b" stroke="#ac7e52" stroke-width="2.5"/>
-        <path class="zoo-feeding feed-parrot-beak" d="M145 102q9 2 16-3-1 13-9 12Z" fill="#d7965b" stroke="#96694e" stroke-width="1.5"/>
-        <path d="M183 64q11-5 20 3m-25 24 9 6" stroke="#c8835a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M188 89q31-17 51 10 20 27 2 51-13 20-35 14-23-7-26-32-2-23 8-43Z" fill="#e75f4e" stroke="#a74c43" stroke-width="3"/>
+      <path d="M189 112q-5 32 19 44 8 3 17-1-25-16-25-43Z" fill="#f99268"/>
+      <g class="parrot-wing" stroke-width="2.4" stroke-linejoin="round">
+        <path d="M221 105q27-1 31 25l15 39q-15 1-25-10-6 4-14-3-19-15-19-34Z" fill="#388bc5" stroke="#356a91"/>
+        <path d="M213 113q22-11 35 6l7 21q-12 6-20-4-10 5-22-9Z" fill="#f5cd56" stroke="#ca9c43"/>
+        <path d="M218 103q23-3 28 15-10 8-19 1-9 5-17 0 0-10 8-16Z" fill="#e96950" stroke="#b95742"/>
+        <path d="m232 139 14 17m-3-19 14 21" fill="none" stroke="#9fd4e8" stroke-linecap="round"/>
+      </g>
+      <g class="parrot-head">
+        <path d="M164 98q-11-13-4-29 8-18 28-17 27 0 34 24 5 17-7 30-8 10-23 7-17-2-28-15Z" fill="#ed6953" stroke="#a74c43" stroke-width="3"/>
+        <path d="M171 63q16-10 30 0" fill="none" stroke="#ffac80" stroke-width="4" stroke-linecap="round"/>
+        <path d="M161 82q4-13 17-13 17 0 23 15 4 13-7 20-17 9-31-5Z" fill="#fff5dc"/>
+        <circle cx="178" cy="84" r="6.3" fill="#333e45"/><circle cx="180" cy="82" r="2" fill="#fff"/>
+        <path d="m187 94 6 1m-8 4 5 1" fill="none" stroke="#e1a38a" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M160 94q7 5 4 12-4 6-11 3l-5-8Z" fill="#495864" stroke="#34454d" stroke-width="2"/>
+        <path d="M162 82q-18-7-25 7-7 17 9 29 7-9 5-17l13-2q4-8-2-17Z" fill="#f6dba1" stroke="#655747" stroke-width="2.5"/>
+        <path d="M136 98q0 12 10 20 7-9 5-17Z" fill="#3c4e5c"/>
+        <path d="M142 89q6-6 13-2" fill="none" stroke="#fff3d1" stroke-width="3" stroke-linecap="round"/>
+        <path class="zoo-feeding feed-parrot-beak" d="M147 106q9 1 16-5 1 12-8 14Z" fill="#495864" stroke="#34454d" stroke-width="1.8"/>
+      </g>
+      <g fill="none" stroke="#6b6663" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M224 158 222 172m-7 5q5-9 10-1m-3-4q7-3 10 3"/>
+        <path class="parrot-free-foot" d="M204 155Q210 164 209 174M202 177Q207 169 213 175M209 174Q214 171 218 175"/>
       </g>`,
     kangaroo: `
       <g class="kangaroo-tail"><path d="M244 158q58 10 90-14 3 25-43 44-28 11-65-5Z" fill="#b08563" stroke="#90674f" stroke-width="3"/><path d="M252 169q47 5 72-12" fill="none" stroke="#cbab84" stroke-width="4" stroke-linecap="round"/></g>
@@ -448,7 +460,7 @@ const ZooArt = (() => {
   }
   const thumbnailBounds = {
     elephant: '100 81 244 134', giraffe: '148 25 186 185', seal: '108 90 230 106', monkey: '130 39 189 164',
-    panda: '146 57 172 153', penguin: '138 42 158 172', parrot: '131 53 150 165',
+    panda: '146 57 172 153', penguin: '138 42 158 172', parrot: '124 45 153 185',
     kangaroo: '169 39 171 172', dolphin: '118 58 223 127', snake: '115 88 233 128', lion: '115 36 244 176',
   };
   function thumbnail(type) {

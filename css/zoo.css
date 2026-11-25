@@ -59,6 +59,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .penguin-wing-far { transform-origin: 252px 123px; }
 .parrot-wing { transform-origin: 222px 112px; }
 .parrot-head { transform-origin: 191px 107px; }
+.parrot-tail { transform-origin: 218px 151px; }
 .kangaroo-tail { transform-origin: 246px 168px; }
 .kangaroo-head { transform-origin: 214px 112px; }
 .dolphin-tail { transform-origin: 284px 144px; }
@@ -307,9 +308,9 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
   74%,100% { transform: translate(46px,-31px) rotate(-84deg) scale(.2); opacity: 0; }
 }
 @keyframes parrot-lift-claw {
-  0%,100% { d: path("M204 152Q210 164 209 172M202 174L212 172"); }
-  24%,30% { d: path("M204 152Q187 156 168 165M161 164L170 160"); }
-  54%,79% { d: path("M204 152Q173 151 161 135M153 135L162 130"); }
+  0%,100% { d: path("M204 155Q210 164 209 174M202 177Q207 169 213 175M209 174Q214 171 218 175"); }
+  24%,30% { d: path("M204 155Q187 156 168 165M160 165Q163 158 170 162M168 165Q172 160 176 164"); }
+  54%,79% { d: path("M204 155Q173 151 161 135M153 136Q155 128 162 132M161 135Q165 130 170 134"); }
 }
 @keyframes parrot-crack-nut {
   16% { transform: rotate(-20deg); }
