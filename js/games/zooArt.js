@@ -22,30 +22,28 @@ const ZooArt = (() => {
       <ellipse class="zoo-feeding feed-elephant-mouth" cx="179" cy="137" rx="8" ry="4" fill="#536473"/>
       <g class="elephant-trunk" fill="none" stroke-linecap="round"><path d="M154 126C152 146 139 172 117 155" stroke="#65798d" stroke-width="20"/><path d="M154 126C152 146 139 172 117 155" stroke="#aab9ca" stroke-width="15"/></g>`,
     giraffe: `
-      <path d="M312 142q15 19 10 30" stroke="#a87c53" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="m318 169 7 1-3 9Z" fill="#94684b"/>
-      <g class="zoo-walk-leg leg-far" style="transform-origin:224px 145px"><path d="M224 145v54" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/></g>
-      <g class="zoo-walk-leg" style="transform-origin:289px 147px"><path d="M289 147v52" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/></g>
-      <g class="zoo-walk-leg" style="transform-origin:213px 145px"><path d="M213 145v58" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M207 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
-      <g class="zoo-walk-leg leg-far" style="transform-origin:275px 149px"><path d="M275 149v54" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M269 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
-      <ellipse cx="250" cy="138" rx="56" ry="30" fill="#efc879" stroke="#ac8253" stroke-width="2.8"/>
-      <path d="M219 124q3-12 12-9l10 5-1 10-12 5q-11 1-9-11Zm40 10q0-12 12-13 14 0 12 12-3 12-16 12-11-1-8-11Zm-27 11q7-5 13 1 6 8-3 13-12 4-16-4-3-6 6-10ZM285 124q5-5 12 2 7 9-3 10-12-1-13-7-1-3 4-5Z" fill="#b98258"/>
-      <path d="M238 113q30-6 48 8-23-8-47-3m-15 47q24 12 59-2-25 16-59 7" fill="#f8dda1" opacity=".85"/>
-      <path d="m288 150 6-5 6 5-7 9-7-3m-32-39 10-4 6 6-8 5Z" fill="#ba8256"/>
+      <g class="giraffe-tail"><path d="M290 137q22 8 17 31" stroke="#b18b55" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M307 163q-10 7-3 16 10-5 3-16Z" fill="#825d43"/></g>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:230px 140px"><path d="M230 140q-2 31 2 62" fill="none" stroke="#d5aa67" stroke-width="8" stroke-linecap="round"/><path d="M225 201h11v6h-12Z" fill="#866346"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:282px 143px"><path d="M282 143q6 29 6 59" fill="none" stroke="#d5aa67" stroke-width="8" stroke-linecap="round"/><path d="M281 201h11v6h-12Z" fill="#866346"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:213px 137px"><path d="M207 135h12l-2 34-5 36h-8l4-37Z" fill="#edc680" stroke="#ad8556" stroke-width="2" stroke-linejoin="round"/><path d="M204 201h9v7h-13q-1-5 4-7Z" fill="#805e43"/><path d="m208 164 7 1" stroke="#c79d65" stroke-width="2.2" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:270px 143px"><path d="M264 142h12l5 26-8 37h-8l6-36Z" fill="#edc680" stroke="#ad8556" stroke-width="2" stroke-linejoin="round"/><path d="M265 201h9v7h-13q0-5 4-7Z" fill="#805e43"/><path d="m270 166 8 1" stroke="#c79d65" stroke-width="2.2" stroke-linecap="round"/></g>
+      <path d="M207 126q12-13 35-7l35 7q19 4 18 20-1 17-22 17l-37-6q-22-1-28-14Z" fill="#efca85" stroke="#ad8556" stroke-width="2.5"/>
+      <path d="M226 147q28 13 61 6-9 11-29 6l-26-4Z" fill="#f8dfa8"/>
+      <path d="M228 124q6-4 12 1l2 9-10 4-9-4Zm20 3 12-2 8 5-3 11-13 1-6-6Zm25 8 10-3 8 7-1 8-12 3-7-7Zm-29 9 8-1 7 6-4 7-13-3-3-5Z" fill="#b98656" stroke="#b98656" stroke-width="2" stroke-linejoin="round"/>
       <g class="giraffe-neck">
-        <path d="M212 135 188 72l22-9 29 65q6 17-8 23-13 4-19-16Z" fill="#efc879" stroke="#ac8253" stroke-width="2.8"/>
-        <path d="M211 74q10 27 22 51" fill="none" stroke="#ab7953" stroke-width="4" stroke-linecap="round"/>
-        <path d="m194 87 13-7 9 8-2 9-11 4m6 11 11-7 8 8-2 10-12 3" fill="#b67a52"/>
+        <path d="M206 135C200 111 195 84 192 58l16-4c3 31 8 55 22 75q-1 11-15 14Z" fill="#efca85"/>
+        <path d="M206 135C200 111 195 84 192 58m16-4c3 31 8 55 22 75" fill="none" stroke="#ad8556" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M209 62q3 33 14 58" fill="none" stroke="#9d704b" stroke-width="3" stroke-linecap="round"/>
+        <path d="m197 76 8-3 4 7-2 8-8-1Zm4 23 9-4 4 8-1 8-9-2Zm7 23 8-4 5 7-2 10-8-3Z" fill="#b98656" stroke="#b98656" stroke-width="1.7" stroke-linejoin="round"/>
         <g class="giraffe-head">
-          <path d="M181 56 176 38m20 15 4-17" stroke="#a87c53" stroke-width="5" stroke-linecap="round"/>
-          <circle cx="176" cy="37" r="4" fill="#805e47"/><circle cx="201" cy="35" r="4" fill="#805e47"/>
-          <path d="M197 56q13-17 23-8-2 14-18 17" fill="#e2ad69" stroke="#ab8255" stroke-width="2"/>
-          <path d="M180 49q-14-11-18-2 1 12 15 14" fill="#e2ad69" stroke="#ab8255" stroke-width="2"/>
-          <path d="M167 62q8-20 27-14 20 6 16 25-5 18-28 16-20-2-22-12-1-8 7-15Z" fill="#f1cc80" stroke="#ac8253" stroke-width="3"/>
-          <ellipse cx="174" cy="76" rx="15" ry="10" fill="#f8dda2"/>
-          <ellipse cx="184" cy="62" rx="5.7" ry="6.5" fill="#fff6db"/><ellipse cx="185" cy="63" rx="3.9" ry="4.7" fill="#4c493a"/><circle cx="186" cy="61" r="1.5" fill="#fff"/>
-          <path d="M166 76h1m5 4q4 3 8-1" fill="none" stroke="#8c634d" stroke-width="2" stroke-linecap="round"/>
-          <path class="zoo-feeding feed-giraffe-tongue" d="M172 81q-10 6-19 4-10-3-8-11" pathLength="1" fill="none" stroke="#685473" stroke-width="5" stroke-linecap="round"/>
+          <path d="m187 39-2-15m15 14 1-16" fill="none" stroke="#b78d55" stroke-width="4.5" stroke-linecap="round"/><circle cx="185" cy="23" r="3.8" fill="#805e43"/><circle cx="201" cy="21" r="3.8" fill="#805e43"/>
+          <path d="M182 40q-10-15-20-10-1 12 16 17m27-6q10-13 21-8-3 13-20 15" fill="#efca85" stroke="#ad8556" stroke-width="2" stroke-linejoin="round"/>
+          <path d="m168 34 9 8m31 1 11-6" stroke="#d49f7a" stroke-width="3" stroke-linecap="round"/>
+          <path d="M177 47q6-15 22-12 17 3 16 20-1 13-16 15l-24 6q-18 1-21-9-2-10 15-13Z" fill="#f1cc88" stroke="#ad8556" stroke-width="2.5"/>
+          <path d="M159 58q18-6 25 5 3 9-12 10-17 2-18-7 0-5 5-8Z" fill="#f9dfaa"/>
+          <ellipse cx="191" cy="48" rx="4.3" ry="5.5" fill="#494637"/><circle cx="192" cy="46.5" r="1.6" fill="#fff"/>
+          <path d="m160 63 2 1m0 6q6 4 13 0" fill="none" stroke="#936d4c" stroke-width="1.8" stroke-linecap="round"/>
+          <path class="zoo-feeding feed-giraffe-tongue" d="M163 70q-4 13-20 9" pathLength="1" fill="none" stroke="#78627d" stroke-width="4.5" stroke-linecap="round"/>
         </g>
       </g>`,
     seal: `
@@ -64,41 +62,49 @@ const ZooArt = (() => {
         <g class="zoo-feeding feed-seal-mouth"><path d="M126 137q12 5 21 0-3 16-15 12-6-2-6-12Z" fill="#b9cdd0" stroke="#617d87" stroke-width="2"/><path d="M126 137q12 5 21 0-10 13-19 8Z" fill="#516670"/></g>
       </g>`,
     monkey: `
-      <path class="monkey-tail" d="M244 150q22 34 50 19 17-11 15-32-2-14-15-14-14 1-12 13 1 6 8 7" fill="none" stroke="#775639" stroke-width="10" stroke-linecap="round"/>
-      <g class="monkey-legs"><path d="M230 148q22 8 22 40m-39-31q-24 5-11 31" fill="none" stroke="#866044" stroke-width="17" stroke-linecap="round"/>
-      <ellipse cx="248" cy="188" rx="14" ry="7" fill="#ba8e61" stroke="#815e48" stroke-width="2"/>
-      <ellipse cx="199" cy="189" rx="14" ry="7" fill="#c3976a" stroke="#815e48" stroke-width="2"/><path d="m190 189 2 3m4-4 1 4m45-3 1 3m4-4 1 4" fill="none" stroke="#926c4d" stroke-width="1.4" stroke-linecap="round"/></g>
-      <path d="M185 133q-1-29 23-34 27-5 42 23 10 30-10 43-19 12-38 1-21-11-17-33Z" fill="#ae7f56" stroke="#77573f" stroke-width="2.8"/>
-      <ellipse cx="217" cy="141" rx="21" ry="23" transform="rotate(-18 217 141)" fill="#d4ac79"/>
-      <path d="M225 120q14 1 19 13-4-15-14-19Z" fill="#e2be8a"/>
-      <g class="monkey-peel-arm">
-        <path d="M238 116C252 130 231 153 215 143" fill="none" stroke="#956741" stroke-width="12" stroke-linecap="round"/>
-        <ellipse class="monkey-peel-hand" cx="214" cy="143" rx="8" ry="6" transform="rotate(-20 214 143)" fill="#c79a6b" stroke="#8b684a" stroke-width="2"/>
+      <path class="monkey-tail" d="M245 166q29 22 48 2 14-15 6-29-5-9-13-4-9 6-3 14" fill="none" stroke="#8e6447" stroke-width="8" stroke-linecap="round"/>
+      <g class="monkey-legs">
+        <path d="M208 159q-25-1-30 19-2 11 15 14l23-15m20-18q25 0 31 17 7 14-12 15l-24-15" fill="#a87750" stroke="#805b43" stroke-width="2.5" stroke-linejoin="round"/>
+        <ellipse cx="188" cy="188" rx="17" ry="8" fill="#d6ac7f" stroke="#8a6348" stroke-width="2.2"/><ellipse cx="257" cy="188" rx="17" ry="8" fill="#d6ac7f" stroke="#8a6348" stroke-width="2.2"/>
+        <path d="m178 188 3 4m4-5 2 4m66-3 1 4m4-5 1 4m4-4v3" fill="none" stroke="#a17b57" stroke-width="1.5" stroke-linecap="round"/>
       </g>
-      <g class="monkey-hold-arm">
-        <path d="M203 114q-23 3-24 18-1 12-12 16" fill="none" stroke="#936544" stroke-width="13" stroke-linecap="round"/>
-        <circle cx="166" cy="148" r="7.5" fill="#c99a6d" stroke="#8b684a" stroke-width="2"/>
-        <g class="zoo-feeding monkey-held-banana">
-          <path class="monkey-banana-tip" d="M168 147q12-1 11-12l5-1q3 17-14 19Z" fill="#f5d47b" stroke="#b58c46" stroke-width="2"/>
-          <path class="monkey-banana-flesh" d="M168 148q12-3 12-13l4-1q4 13-12 18Z" fill="#fff1c4" stroke="#c6a064" stroke-width="1.5"/>
-          <path class="monkey-banana-peel" d="M172 144q-8 2-9 13 5-4 9-5 5 6 9 4-2-8-9-12Z" fill="#edc566" stroke="#bc944c" stroke-width="1.6"/>
-        </g>
-        <path d="M162 145q3 1 4 4m4-5 1 4" fill="none" stroke="#966e51" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M198 127q8-13 24-12 21 1 30 21 14 34-9 46-23 12-44-3-17-14-1-52Z" fill="#b8875c" stroke="#805b43" stroke-width="2.6"/>
+      <path d="M206 137q14-10 29 1 17 24-1 39-17 9-28-6-10-15 0-34Z" fill="#e5c398"/>
+      <path d="M239 145q7 20-7 29-9 6-17 1" fill="none" stroke="#cfaa7b" stroke-width="3" stroke-linecap="round"/>
+      <g class="monkey-head">
+        <circle cx="176" cy="93" r="16" fill="#b8875c" stroke="#805b43" stroke-width="2.6"/><circle cx="261" cy="92" r="16" fill="#b8875c" stroke="#805b43" stroke-width="2.6"/>
+        <circle cx="176" cy="93" r="9" fill="#e3b68f"/><circle cx="261" cy="92" r="9" fill="#e3b68f"/>
+        <path d="M177 96q-1-29 20-36 9-7 24-5 37-4 43 30 7 37-23 48-28 10-49-6-15-10-15-31Z" fill="#b8875c" stroke="#805b43" stroke-width="2.6"/>
+        <path d="M195 70q8-8 20-9" fill="none" stroke="#d5a579" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M190 96q-4-20 11-23 12-3 18 11 8-15 22-10 17 7 9 24 7 19-15 29-25 8-40-6-10-10-5-25Z" fill="#f1d2ac"/>
+        <ellipse cx="219" cy="117" rx="22" ry="13" fill="#f7dfbd"/>
+        <ellipse cx="205" cy="96" rx="5.4" ry="6.5" fill="#4d4033"/><ellipse cx="233" cy="96" rx="5.4" ry="6.5" fill="#4d4033"/><circle cx="206.5" cy="94" r="1.8" fill="#fff9eb"/><circle cx="234.5" cy="94" r="1.8" fill="#fff9eb"/>
+        <path d="m215 112 2 1m5-1 2-1m-15 10q10 9 20 0" fill="none" stroke="#956b4f" stroke-width="2" stroke-linecap="round"/>
+        <ellipse class="zoo-feeding monkey-cheek" cx="219" cy="123" rx="6" ry="3.5" fill="#8d624b"/>
       </g>
       <g class="monkey-vine-arm">
-        <path d="M237 116q19-2 12-11" fill="none" stroke="#976949" stroke-width="13" stroke-linecap="round"/>
-        <circle cx="248" cy="105" r="7" fill="#c99a6d" stroke="#8b684a" stroke-width="2"/>
+        <path d="M246 131Q274 125 272 96" fill="none" stroke="#a6754e" stroke-width="12" stroke-linecap="round"/>
+        <circle class="monkey-vine-hand" cx="272" cy="96" r="7.5" fill="#e5bd91" stroke="#8a6348" stroke-width="2"/>
+        <path d="m268 94 7 2m-7 2 6 2" fill="none" stroke="#a17b57" stroke-width="1.4" stroke-linecap="round"/>
       </g>
-      <g class="monkey-head">
-        <circle cx="151" cy="90" r="16" fill="#b58961" stroke="#795840" stroke-width="3"/><circle cx="224" cy="88" r="16" fill="#b58961" stroke="#795840" stroke-width="3"/>
-        <circle cx="151" cy="91" r="8" fill="#d2a181"/><circle cx="224" cy="89" r="8" fill="#d2a181"/>
-        <path d="M151 90q0-30 30-36 5-6 12-4l-1 5q30 0 36 28 7 32-27 42-38 10-49-17-3-8-1-18Z" fill="#b6845a" stroke="#795840" stroke-width="2.8"/>
-        <path d="M162 91q-2-18 12-19 10-1 14 8 7-11 19-6 14 7 6 23 4 21-23 24-29 1-31-17-1-8 3-13Z" fill="#f0cda3"/>
-        <ellipse cx="176" cy="91" rx="5.6" ry="6.5" fill="#fff4dc"/><ellipse cx="198" cy="90" rx="5.6" ry="6.5" fill="#fff4dc"/>
-        <ellipse cx="177" cy="92" rx="3.9" ry="4.8" fill="#4e4338"/><ellipse cx="197" cy="91" rx="3.9" ry="4.8" fill="#4e4338"/><circle cx="178" cy="90" r="1.4" fill="#fff"/><circle cx="198" cy="89" r="1.4" fill="#fff"/>
-        <path d="M167 64q8-5 16-5" fill="none" stroke="#d9a875" stroke-width="3" stroke-linecap="round"/>
-        <path d="m182 102 7-1m-14 8q9 8 19-1" fill="none" stroke="#9a694f" stroke-width="2.1" stroke-linecap="round"/>
-        <ellipse class="zoo-feeding monkey-cheek" cx="181" cy="111" rx="7" ry="3.6" fill="#865c45"/>
+      <g class="monkey-peel-arm">
+        <path d="M246 131C269 143 265 168 244 164" fill="none" stroke="#a6754e" stroke-width="12" stroke-linecap="round"/>
+        <ellipse class="monkey-peel-hand" cx="244" cy="164" rx="8" ry="6" fill="#e5bd91" stroke="#8a6348" stroke-width="2"/>
+      </g>
+      <g class="monkey-hold-arm">
+        <path d="M199 132C179 139 180 165 201 158" fill="none" stroke="#a6754e" stroke-width="12" stroke-linecap="round"/>
+        <ellipse cx="201" cy="158" rx="8" ry="6.5" fill="#e5bd91" stroke="#8a6348" stroke-width="2"/>
+        <g class="zoo-feeding monkey-held-banana">
+          <path class="monkey-banana-tip" d="M200 158q13-3 8-17l5-2q9 20-12 25Z" fill="#f4d17a" stroke="#b58c46" stroke-width="1.8"/>
+          <path class="monkey-banana-flesh" d="M201 158q10-4 7-17l5-2q7 16-12 23Z" fill="#fff1c4" stroke="#c6a064" stroke-width="1.5"/>
+          <path class="monkey-banana-peel" d="M202 155q-8 3-8 14l8-7q7 6 11 1-4-7-11-8Z" fill="#edc566" stroke="#bc944c" stroke-width="1.6"/>
+        </g>
+        <path d="m197 157 3 3m3-4 2 3" fill="none" stroke="#a17b57" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g class="monkey-wave-arm">
+        <path d="M199 132Q177 144 168 124l-4-15" fill="none" stroke="#a6754e" stroke-width="12" stroke-linecap="round"/>
+        <ellipse cx="165" cy="108" rx="7.5" ry="8" fill="#e5bd91" stroke="#8a6348" stroke-width="2"/>
+        <path d="m161 104 6 1m-7 3 7 1m-6 2 5 1" fill="none" stroke="#a17b57" stroke-width="1.4" stroke-linecap="round"/>
       </g>`,
     panda: `
       <path d="M181 135q12-24 41-23 37-1 49 32 17 45-17 56-30 12-60-1-31-14-13-64Z" fill="#303b40" stroke="#283439" stroke-width="3"/>
@@ -291,8 +297,8 @@ const ZooArt = (() => {
     </g>`,
     seal: `<g class="zoo-feeding feed-seal-fish">${fish(81, 85, '#82b8ce')}</g>`,
     monkey: `<g class="zoo-feeding">
-      <path d="M141 171q15 9 39 0l-4 8q-17 9-31 0Z" fill="#bd9b65" stroke="#91784e" stroke-width="2"/>
-      <path class="monkey-served-banana" d="M145 162q23 4 26-12l6-2q3 22-24 22Z" fill="#f4ce68" stroke="#b59149" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M178 180q17 8 43 0l-4 7q-18 8-34 0Z" fill="#bd9b65" stroke="#91784e" stroke-width="2"/>
+      <path class="monkey-served-banana" d="M185 171q23 5 25-13l6-2q4 23-23 24Z" fill="#f4ce68" stroke="#b59149" stroke-width="2" stroke-linejoin="round"/>
     </g>`,
     panda: `<g class="zoo-feeding feed-panda-bamboo">
       <path d="M218 146l41 24m-30-18 1-14m14 24 13-4" fill="none" stroke="#668d52" stroke-width="4.5" stroke-linecap="round"/>
@@ -387,7 +393,7 @@ const ZooArt = (() => {
   const showProps = {
     monkey: {
       intro: '<path d="M136 208q-4-39 22-80l45-64-15 0-52 57q-21 35-24 84Z" fill="#b18c62" stroke="#987654" stroke-width="3"/><path d="M147 154q14-22 37-42m-63 76 12-26" fill="none" stroke="#cda774" stroke-width="3" stroke-linecap="round"/>',
-      middle: '<g class="monkey-vine"><path d="M207 19q32 22 41 66" fill="none" stroke="#6c8b59" stroke-width="6" stroke-linecap="round"/><path d="M226 39q-14-2-18-14 13-1 18 14m9 14q11-14 22-10-3 12-22 10" fill="#8ba96c"/></g>',
+      middle: '<g class="monkey-vine"><path d="M207 19Q258 34 272 76" fill="none" stroke="#6c8b59" stroke-width="6" stroke-linecap="round"/><path d="M242 38q-14-2-18-14 13-1 18 14m15 17q11-14 22-10-3 12-22 10" fill="#8ba96c"/></g>',
       finale: '<path d="m132 91-12-6m5 17-13-1m133-31 10-8" fill="none" stroke="#e7ba64" stroke-width="4" stroke-linecap="round"/>',
     },
     snake: {
@@ -623,7 +629,7 @@ const ZooArt = (() => {
     </svg>`;
   }
   const thumbnailBounds = {
-    elephant: '100 81 244 134', giraffe: '148 25 186 185', seal: '108 90 230 106', monkey: '130 39 189 164',
+    elephant: '100 81 244 134', giraffe: '146 12 172 202', seal: '108 90 230 106', monkey: '153 47 157 156',
     panda: '158 43 132 170', penguin: '138 42 158 172', parrot: '124 45 153 185',
     kangaroo: '169 39 171 172', dolphin: '118 58 223 127', snake: '115 88 233 128', lion: '115 36 244 176',
   };

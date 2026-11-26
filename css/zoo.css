@@ -38,7 +38,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .elephant-ear { transform-origin: 195px 110px; }
 .penguin-foot.foot-far { --step-side: -1; }
 .kangaroo-leg { transform-origin: 235px 162px; }
-.monkey-legs { transform-origin: 224px 157px; }
+.monkey-legs { transform-origin: 223px 170px; }
 .lion-tail { transform-origin: 296px 139px; }
 .zoo-pet-trigger[role="button"] { cursor: pointer; outline: none; }
 .zoo-pet-trigger[role="button"]:focus-visible .zoo-pet-target { stroke: #fff7d2; stroke-width: 3px; stroke-dasharray: 6 5; }
@@ -91,7 +91,8 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .zoo-stage[data-petting="true"] .zoo-animal-art { animation-play-state: paused !important; }
 .zoo-stage[data-petting="true"] .elephant-trunk { animation: zoo-greet-trunk 2.2s ease-in-out both !important; }
 .zoo-stage[data-petting="true"] .giraffe-neck { animation: giraffe-bow 2.2s ease-in-out both !important; }
-.zoo-stage[data-petting="true"] .monkey-hold-arm { animation: zoo-greet-wave 2.2s ease-in-out both !important; }
+.zoo-stage[data-petting="true"] .monkey-hold-arm { display: none; }
+.zoo-stage[data-petting="true"] .monkey-wave-arm { display: block; animation: monkey-wave 2.2s ease-in-out both !important; }
 .zoo-stage[data-petting="true"] .panda-paw { animation: panda-wave 2.2s ease-in-out both !important; }
 .zoo-stage[data-petting="true"] .penguin-wing { animation: zoo-greet-wave 2.2s ease-in-out both !important; }
 .zoo-stage[data-petting="true"] .parrot-wing { animation: parrot-stretch 2.2s ease-in-out both !important; }
@@ -131,7 +132,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 @keyframes zoo-panda-amble { 0%,12% { transform: rotate(0); } 35%,53% { transform: rotate(360deg); } 75%,84% { transform: rotate(720deg); } 100% { transform: rotate(1080deg); } }
 @keyframes zoo-snake-coiled { 0%,10%,40%,48%,78%,85%,100% { opacity: 1; } 12%,37%,50%,75%,87%,98% { opacity: 0; } }
 @keyframes zoo-snake-gliding { 0%,10%,40%,48%,78%,85%,100% { opacity: 0; } 12%,37%,50%,75%,87%,98% { opacity: 1; } }
-@keyframes zoo-idle-look { 35%,48% { transform: rotate(-7deg); } 70% { transform: rotate(4deg); } }
+@keyframes zoo-idle-look { 35%,48% { transform: rotate(-4deg); } 70% { transform: rotate(3deg); } }
 @keyframes zoo-idle-trunk { 45%,60% { transform: rotate(8deg); } }
 @keyframes zoo-elephant-ear { 0%,35%,65%,100% { transform: none; } 45%,55% { transform: rotate(-6deg) scaleX(.94); } }
 @keyframes zoo-lion-tail { 0%,100% { transform: none; } 30%,65% { transform: rotate(9deg); } }
@@ -180,8 +181,8 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 [data-phase="intro"] [data-for-phase="intro"], [data-phase="middle"] [data-for-phase="middle"], [data-phase="finale"] [data-for-phase="finale"] { display: block; }
 .zoo-stage.zoo-paused svg * { animation-play-state: paused !important; }
 .elephant-trunk { transform-origin: 154px 126px; }
-.giraffe-neck { transform-origin: 224px 136px; }
-.giraffe-head { transform-origin: 194px 66px; }
+.giraffe-neck { transform-origin: 220px 132px; }
+.giraffe-head { transform-origin: 196px 58px; }
 .seal-head { transform-origin: 169px 140px; }
 .panda-head { transform-origin: 219px 135px; }
 .panda-paw { transform-origin: 253px 137px; }
@@ -196,9 +197,10 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .dolphin-tail { transform-origin: 284px 144px; }
 .lion-head { transform-origin: 186px 131px; }
 .lion-forepaw { transform-origin: 192px 150px; }
-.monkey-head { transform-origin: 190px 115px; }
-.monkey-hold-arm { transform-origin: 203px 114px; }
-.monkey-tail { transform-origin: 244px 150px; }
+.monkey-head { transform-origin: 219px 130px; }
+.monkey-hold-arm { transform-origin: 199px 132px; }
+.monkey-wave-arm { display: none; transform-origin: 199px 132px; }
+.monkey-tail { transform-origin: 245px 166px; }
 .monkey-vine-arm, .snake-glide { display: none; }
 .snake-upper { transform-origin: 207px 161px; }
 .snake-coils { transform-origin: 234px 182px; }
@@ -339,7 +341,8 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 [data-phase="middle"] .monkey-vine-arm { display: block; }
 [data-phase="middle"] .monkey-peel-arm { display: none; }
 [data-phase="middle"] .monkey-tail { animation: monkey-tail-sway 1.8s ease-in-out infinite; }
-[data-phase="finale"] .monkey-hold-arm { animation: monkey-wave 2s ease-in-out infinite; }
+[data-phase="finale"] .monkey-hold-arm { display: none; }
+[data-phase="finale"] .monkey-wave-arm { display: block; animation: monkey-wave 2s ease-in-out infinite; }
 [data-phase="intro"] .snake-upper { animation: snake-peek 3s ease-in-out infinite; }
 [data-animal="snake"] .zoo-animal-art { transform-origin: 234px 182px; }
 [data-animal="snake"][data-phase="middle"] .zoo-animal-art { animation: snake-slither 4.8s ease-in-out infinite; }
@@ -392,8 +395,8 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 }
 @keyframes giraffe-strip-leaf {
   0%,42% { transform: none; opacity: 1; }
-  50% { transform: translate(15px,1px) rotate(32deg) scale(.72); opacity: 1; }
-  55%,100% { transform: translate(26px,1px) rotate(55deg) scale(.2); opacity: 0; }
+  50% { transform: translate(11px,-10px) rotate(25deg) scale(.72); opacity: 1; }
+  55%,100% { transform: translate(18px,-17px) rotate(40deg) scale(.2); opacity: 0; }
 }
 @keyframes seal-catch-fish {
   22% { transform: translateX(-4px) rotate(8deg); }
@@ -524,22 +527,22 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
   84% { transform: translate(-16px,-20px); }
 }
 @keyframes monkey-lift-banana {
-  23%,30% { transform: rotate(-12deg); }
-  48%,58% { transform: rotate(33deg); }
-  64%,76% { transform: rotate(42deg); }
-  100% { transform: rotate(-8deg); }
+  23%,30% { transform: translateY(6px) rotate(8deg); }
+  48%,58% { transform: rotate(-55deg); }
+  64%,76% { transform: rotate(-73deg); }
+  100% { transform: none; }
 }
 @keyframes monkey-take-banana { 0%,27% { opacity: 1; } 31%,100% { opacity: 0; } }
 @keyframes monkey-grip-banana { 0%,26%,100% { opacity: 0; } 31%,91% { opacity: 1; } }
 @keyframes monkey-peel-banana {
-  0%,30%,80%,100% { d: path("M238 116C252 130 231 153 215 143"); }
-  49%,55% { d: path("M238 116C223 119 194 117 174 124"); }
-  66% { d: path("M238 116C222 130 203 145 180 138"); }
+  0%,30%,80%,100% { d: path("M246 131C269 143 265 168 244 164"); }
+  49%,55% { d: path("M246 131C238 139 227 145 219 136"); }
+  66% { d: path("M246 131C240 153 234 163 222 153"); }
 }
 @keyframes monkey-pull-peel {
-  0%,30%,80%,100% { transform: rotate(-20deg); transform-origin: 214px 143px; }
-  49%,55% { transform: translate(-40px,-19px); }
-  66% { transform: translate(-34px,-5px); }
+  0%,30%,80%,100% { transform: none; }
+  49%,55% { transform: translate(-25px,-28px); }
+  66% { transform: translate(-22px,-11px); }
 }
 @keyframes monkey-open-banana { 0%,51% { opacity: 1; } 55%,100% { opacity: 0; } }
 @keyframes monkey-eat-banana { 0%,51%,74%,100% { opacity: 0; } 56%,69% { opacity: 1; } }
@@ -749,9 +752,9 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 }
 @keyframes monkey-tail-sway { 25% { transform: rotate(24deg); } 75% { transform: rotate(-19deg); } }
 @keyframes monkey-wave {
-  22%,78% { transform: translateX(-8px) rotate(44deg); }
-  43% { transform: translateX(-10px) rotate(62deg); }
-  60% { transform: translateX(-8px) rotate(34deg); }
+  22%,78% { transform: rotate(-12deg); }
+  43% { transform: rotate(8deg); }
+  60% { transform: rotate(-8deg); }
 }
 @keyframes snake-peek {
   0%,100% { transform: translateY(8px) rotate(-21deg); }
