@@ -267,3 +267,9 @@ kids_english/
 - 每日打卡、混淆字母专项关（b/d 专项）
 - PWA 离线安装、家长进度面板
 - 下一个学习阶段：CVC 单词拼读（sat/pin/cat…）
+
+## 许可证
+
+除第三方资源及另有许可声明的文件外，本项目采用 [GNU General Public License v3.0](LICENSE)（SPDX：`GPL-3.0-only`）。
+
+第三方依赖、字体和音频保留各自原有许可证。字体许可见 [字体清单](fonts/FONTS-LICENSE.md)，音频来源、署名及许可见 [音频素材说明](sounds/farm-v1/CREDITS.md)。
