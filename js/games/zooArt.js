@@ -390,69 +390,154 @@ const ZooArt = (() => {
     lion: { middle: '<path d="M102 163q13-11 22-7m-23 18q17-3 26 0" fill="none" stroke="#ecd69e" stroke-width="4" stroke-linecap="round"/>', finale: '<path d="m115 88-12-10m26-6-6-14m91 2 9-13m16 26 17-8" stroke="#e0b063" stroke-width="4" stroke-linecap="round"/>' },
   };
   const flowingWater = '<path d="M0 158Q56 146 115 160t130-1 205-6v85H0Z" fill="#a3cfd3"/><path d="M0 183q76-18 158-5t167 5 125-11v66H0Z" fill="#88b8c9"/><path d="M0 219q89-23 168-11t140 6 142-8v32H0Z" fill="#77aabb"/><path d="M18 177h54m271-9h65m-204 35h42m-209 16h26m285 4h28m-58-31h42" stroke="#daefe8" stroke-width="3" fill="none" stroke-linecap="round"/>';
-  const hills = '<path d="M0 138Q69 87 133 128t125-2 192-1v113H0Z" fill="#c2d0aa"/><path d="M0 166q106-33 196-15t254-14v101H0Z" fill="#b6c895"/><path d="M0 200q112-34 242-24t208-11v73H0Z" fill="#d3d6a1"/><path d="M0 217q119-21 235-17t215-3v41H0Z" fill="#e5d8a9"/>';
+  const environments = {
+    elephant: { sky: ['#b9dbd5', '#f2e6bc'], sun: [322, 43, 23, '#f7d992'] },
+    giraffe: { sky: ['#c8e4ec', '#fff0c6'], sun: [83, 44, 22, '#f7d58a'] },
+    monkey: { sky: ['#77a69d', '#c6d6ad'], forest: true },
+    panda: { sky: ['#d7e6e2', '#eef1dc'], forest: true },
+    penguin: { sky: ['#b9dbea', '#ecf7fb'], sun: [337, 43, 19, '#fff5d0'] },
+    parrot: { sky: ['#a3d9cf', '#e1efd2'], forest: true },
+    kangaroo: { sky: ['#eed1ae', '#fae4bf'], sun: [132, 44, 25, '#f3b96c'] },
+    snake: { sky: ['#a5b9a3', '#e5dec1'], forest: true },
+    lion: { sky: ['#efc38f', '#ffe2a9'], sun: [350, 53, 31, '#edaa62'] },
+    seal: { sky: ['#cbdedb', '#f3efd6'] },
+    dolphin: { sky: ['#cbdedb', '#f3efd6'] },
+  };
   function tree(x, y, scale, color) {
     return `<g transform="translate(${x} ${y}) scale(${scale})"><path d="M0 70V11m0 37-19-23m19 16 20-17" fill="none" stroke="#9a845e" stroke-width="7" stroke-linecap="round"/><path d="M-43 21q2-27 21-25 12-22 29-1 28-9 38 20-27 17-57 8-18 8-31-2Z" fill="${color}"/><path d="M-35 14q9-15 25-12 25-8 44 9-30-11-69 3" fill="#d7dca4" opacity=".52"/></g>`;
   }
   function sprouts(xs, y, color) {
     return xs.map((x, i) => `<path d="M${x} ${y+i%3*5}q-11-9-9-17 9 1 10 13 5-9 13-8-4 8-14 12" fill="${color}"/>`).join('');
   }
+  function fern(x, y, scale, color) {
+    return `<g transform="translate(${x} ${y}) scale(${scale})" fill="${color}"><path d="M0 0q-35-17-36-45 24 9 36 45m0 0q-13-35 0-58 14 25 0 58m0 0q16-40 43-44Q35-14 0 0m0 0q-32 2-45-17Q-19-23 0 0m0 0q27-18 48-9Q29 7 0 0"/><path d="M0 0v-44M0 0l-27-34M0 0l33-34" fill="none" stroke="#c6d4a3" stroke-width="1.5" opacity=".55"/></g>`;
+  }
+  function dryGrass(xs, y, color) {
+    return xs.map((x,i) => `<path d="M${x} ${y+i%3*4}l-8-18m8 18-1-25m1 25 10-19m-10 19 16-6" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round"/>`).join('');
+  }
   function habitat(type, hunting) {
-    if (hunting) return hills + tree(411,68,.85,'#a5a876') + tree(125,88,.56,'#98ad7b') +
-      sprouts([18,101,156,282,338,411], 181, '#9bac72') + `
-      <path d="M0 198q109-22 224-10t226-2v24q-109 12-226 3T0 222Z" fill="#e5cf9f"/>
-      <path d="M111 206q29-3 61-1m156 5 35-3m29-12 35-3" fill="none" stroke="#c6af7f" stroke-width="2" stroke-linecap="round"/>
-      ${sprouts([8,144,238,366,436], 216, '#a1b073')}`;
-    if (type === 'monkey') return hills + tree(32,67,1.35,'#74a07a') + tree(414,49,1.65,'#759c74') +
-      tree(118,95,.62,'#99b27c') + tree(333,98,.77,'#94af78') + `
+    if (type === 'elephant') return `
+      <path d="M0 127q55-27 104-8t97 2 111-11 138 18v110H0Z" fill="#adc4a0"/>
+      ${tree(35,62,1.05,'#729b79')}${tree(410,59,1.3,'#789f7c')}
+      <path d="M0 161q79-27 150 5 47 14 112-4 111-24 188 10v66H0Z" fill="#d1bf91"/>
+      <path d="M0 155q67-23 113 26 32 32-10 57H0Z" fill="#84bdbd" stroke="#b5d7ca" stroke-width="5"/>
+      <path d="M0 201q64-26 105 10l-5 27H0Z" fill="#69a6ad"/>
+      <g class="habitat-water" fill="none" stroke="#d8efde" stroke-width="3" stroke-linecap="round"><path d="M13 178h37m-22 26h40m-64 20h29m39-38h15"/></g>
+      <ellipse cx="237" cy="209" rx="93" ry="15" fill="#b59b79" opacity=".6"/>
+      <path d="M344 194q-9-24 14-30 19-8 30 13 25-12 37 15l-6 15h-64Z" fill="#a8ab99"/>
+      <path d="M350 183q13-13 26-3m13 6q12-6 22 5" fill="none" stroke="#d2cfb1" stroke-width="4" stroke-linecap="round"/>
+      <g stroke="#698767" stroke-width="3" fill="none" stroke-linecap="round"><path d="M13 162v-35m4 36 9-27m-13 24-8-16M116 230l6-34m1 34 11-22"/><path d="M13 125v-10m13 18 3-10m93 71 2-8" stroke="#a88c56" stroke-width="5"/></g>
+      ${sprouts([157,335,413,435],231,'#8da46b')}`;
+    if (type === 'giraffe') return `
+      <path d="M0 132q112-9 219-2t231-9v117H0Z" fill="#d9d4a0"/>
+      <path d="M0 164q118-17 239-9t211-14v97H0Z" fill="#c9c58a"/>
+      ${tree(53,90,.63,'#91a376')}${tree(118,112,.34,'#a2ad7a')}
+      <g stroke-linecap="round"><path d="M390 197 378 96m3 27-48-35m49 23 35-32" fill="none" stroke="#9a8057" stroke-width="9"/>
+      <path d="M286 82q6-22 31-21 12-25 40-17 20-23 47-4 34-5 48 31-42 16-87 13-47 11-79-2Z" fill="#7e9d68"/>
+      <path d="M303 69q26-17 54-10 23-15 52-5 15-1 27 11-70-10-133 4" fill="#afc382"/>
+      <path d="M343 91q8 13 3 26m16-26q7 11 2 20" fill="none" stroke="#bba26b" stroke-width="3"/></g>
+      <path d="M0 205q96-23 195-9t255-9v51H0Z" fill="#e5d6a3"/>
+      ${dryGrass([17,62,104,344,418,443],216,'#a1a56a')}
+      <path d="M139 227h48m139-9h36m-310 12h28" stroke="#c4b47e" stroke-width="2" stroke-linecap="round"/>`;
+    if (type === 'monkey') return `
+      <path d="M0 53q32-40 79-15 28-39 72-12 43-18 65 18 54-32 86 5 48-45 86-20 36-17 62 14v195H0Z" fill="#7fa88d"/>
+      <path d="M0 117q52-35 98-6t104 3 124-12 124 5v131H0Z" fill="#5e947b"/>
+      <path d="M0 187q115-27 218 1t232-12v62H0Z" fill="#86aa83"/>
+      <path d="M12 238q21-83 12-163L18-5h32l3 89q-8 81 21 154Zm386 0q20-91 9-164L402-5h30l-5 99q-5 94 23 144Z" fill="#8c795d"/>
+      <path d="M34 11q12 82-3 146m387-145q-9 91 4 141" fill="none" stroke="#b39d73" stroke-width="5" stroke-linecap="round"/>
+      <g class="habitat-vines" fill="none" stroke="#436f59" stroke-width="4" stroke-linecap="round"><path d="M90-10q-19 87 12 143M342-10q31 86 1 132"/></g>
+      <path d="M0 0h450v31q-31 22-72-3-31 22-65-4-30 14-60-7-34 18-67-1-25 24-58 8-39 23-65 7Q24 51 0 32Z" fill="#4f8969"/>
+      <path d="M3 3q55 27 100-2m224 0q54 27 120 2" fill="none" stroke="#7ca975" stroke-width="9" stroke-linecap="round"/>
       <path d="M57 205q53-11 116-10 89 0 208-28" fill="none" stroke="#927653" stroke-width="13" stroke-linecap="round"/>
       <path d="M57 201q62-10 120-9 67 3 184-24" fill="none" stroke="#ba9968" stroke-width="4" stroke-linecap="round"/>
-      <path d="M157 24q12-24 39-9 18-21 54-8 25-5 35 16-16 18-42 8-23 8-40-1-27 9-46-6Z" fill="#9bb68a"/>
-      ${sprouts([18,80,115,304,356,413,433], 217, '#94ac75')}`;
-    if (type === 'snake') return hills + tree(365,77,1.13,'#9ea877') + `
+      ${fern(28,235,.9,'#47795d')}${fern(417,235,1.1,'#447a5b')}${sprouts([90,326,363],231,'#b0c38d')}`;
+    if (type === 'snake') return `
+      <path d="M0 60q66-26 118-4t102 8 130-21 100 24v171H0Z" fill="#acbfa0"/>
+      <path d="M21-4h15l17 138-14 37Zm363 0h20l-8 146-13 20Z" fill="#8c9678"/>
+      <path d="M0 159q89-26 183-4t267-14v97H0Z" fill="#b8b68d"/>
+      <path d="M304 157q-6-70 42-105 37-10 66 32 28 33 38 95l-67 21Z" fill="#92978b" stroke="#7e8479" stroke-width="3"/>
+      <path d="M329 168q0-56 25-69 24-7 42 32l14 44Z" fill="#5c6d62"/>
+      <path d="M352 104q-16 28-11 59l55 8q-10-53-34-68Z" fill="#45574e"/>
+      <path d="m327 91 22-27 25 9m18 14 20 31m12 16 10 29" fill="none" stroke="#c1c2a8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M0 193q87-15 169 6t281-5v44H0Z" fill="#d4c5a0"/>
+      <path d="M0 176 78 158q15 9 4 23L0 201" fill="#927958" stroke="#7b6a50" stroke-width="3"/>
+      <ellipse cx="77" cy="169" rx="12" ry="14" fill="#c6a477" stroke="#7b6a50" stroke-width="3"/><ellipse cx="77" cy="169" rx="6" ry="8" fill="none" stroke="#a08058" stroke-width="2"/>
       <path d="M94 213l25-24 42-11 42 9 110-3 21 9 22 18-40 13H133Z" fill="#b8a58a" stroke="#a28b6e" stroke-width="2"/>
       <path d="M119 206q62-23 103-9 31-6 102 8l10 9-52 5H146Z" fill="#d7bd97"/>
-      <path d="M41 174q17-20 36-15 22 2 28 20l-31 6H43Zm300-15q20-13 39-3l17 14-22 7-31-7Z" fill="#c2b18e" stroke="#a89979" stroke-width="2"/>
-      <path d="M56 170q20-8 35 1m257-8q16-6 29 0m-222 47 14-2m39 6 25-1m59-4 17 1" fill="none" stroke="#e3ceaa" stroke-width="3" stroke-linecap="round"/>
-      ${sprouts([27,76,104,327,371,411,433], 205, '#9bae73')}`;
+      ${fern(15,232,.75,'#6f9066')}${fern(425,225,.9,'#7c956a')}
+      <g fill="#b48e5c"><path d="m61 219 11-9 15 2-13 9Z"/><path d="m366 221 9-7 17 6-16 4Z"/></g>`;
     if (type === 'penguin') return `
-      <path d="M0 144 66 68l42 37 38-45 55 68 72-50 64 46 62-62 51 63v114H0Z" fill="#b8ccd2"/>
-      <path d="m40 99 26-31 24 21-17-3-11 8m52 3 32-37 34 42-30-14-16 12m244-17 21-21 23 29-21-9-12 8" fill="#eff1e7"/>
-      ${flowingWater}<path d="M0 203q50-3 82-31 42-43 116-3 78 33 252 9v60H0Z" fill="#deeaeb"/><path d="M0 215q66-13 107-39 36-20 91 0 86 29 252 13" fill="none" stroke="#f7f8ee" stroke-width="6"/>
-      <path d="m104 223 18-17 25 2 18 18 51-3 9-8 37 3 9 16" fill="none" stroke="#a8c7cd" stroke-width="2.5"/>`;
+      <path d="m0 135 44-59 35 30 39-62 59 85 47-39 56 42 42-59 41 40 36-60 51 72v63H0Z" fill="#a7cbdc"/>
+      <path d="m84 96 34-52 34 49-28-10-13 8-12-5m272-8 23-35 26 37-24-10-11 7M24 105l20-29 19 17-18-6-9 14" fill="#f4fcfc"/>
+      <path d="M0 139h450v99H0Z" fill="#5f9fbd"/>
+      <g class="habitat-water" stroke="#acd8e7" stroke-width="2.5" stroke-linecap="round"><path d="M8 162h51m303-12h63m-75 41h46m-376 21h34"/></g>
+      <path d="m35 145 30-8 27 8-6 9-39 1Zm309 28 37-10 43 8-10 11h-60Z" fill="#f1fbfa" stroke="#b7dce5" stroke-width="2"/>
+      <path d="M76 183q13-39 55-39l56 17q68-16 185 10l58 41-39 26H99l-43-26Z" fill="#b4d9e4"/>
+      <path d="M76 183q13-39 55-39l56 17q68-16 185 10l39 30q-106 20-212 7-71 13-133-8Z" fill="#f0f9f8" stroke="#d2eaf0" stroke-width="2"/>
+      <path d="m100 209 16-18 24 4 18 20m143-13-15-15-19 4m-91 30 26-6 22 9" fill="none" stroke="#a7cddc" stroke-width="2.5" stroke-linecap="round"/>`;
     if (type === 'seal' || type === 'dolphin') return `
       <path d="M0 143q54-35 121-7 39-28 130-3 115-42 199 7v98H0Z" fill="#c4d9c5"/>
       ${flowingWater}${type === 'seal' ? '<path d="M95 199q-5-16 30-21l140-2q32 2 59 24l-19 13H131Z" fill="#b8a496" stroke="#918276" stroke-width="2.5"/><path d="M109 194q35-12 74-8h100l18 10q-100 14-192-2Z" fill="#d9c7ad"/><path d="m130 204 28 2m103-4 24 2" stroke="#a48d78" stroke-width="2" stroke-linecap="round"/>' : '<path d="M0 217q19 0 32-19 9-17 29 1 11 12 29 10l8 29H0Zm354 21q-6-21 17-31 29-17 79 7v24Z" fill="#aabda4"/>'}
       <path d="M50 190q11-4 26 0m277 29q13-2 22-1m-179 13h27" fill="none" stroke="#c7e5dd" stroke-width="3" stroke-linecap="round"/>`;
     if (type === 'panda') {
-      const canes = [17,43,67,99,353,386,413,439].map((x,i) => `<g opacity="${i % 2 ? .75 : .94}"><path d="M${x} 186V${26+i%4*15}" stroke="${i%2?'#9cb482':'#799d70'}" stroke-width="6"/><path d="M${x-4} 73h8m-8 36h8m-8 36h8" stroke="#648661" stroke-width="2"/><path d="M${x} 100q-21-4-25-19 15 1 25 19m0 22q20-18 25-12-4 15-25 12" fill="#82a575"/></g>`).join('');
-      return hills + canes + sprouts([18,63,105,336,387,417], 211, '#91aa72');
+      const canes = [12,33,61,89,114,343,368,391,419,442].map((x,i) => `<g opacity="${i % 2 ? .8 : 1}"><path d="M${x} 214V${9+i%4*13}" stroke="${i%2?'#91af7a':'#668d6a'}" stroke-width="${i%2?6:8}"/><path d="M${x-4} 56h8m-8 43h8m-8 43h8m-8 43h8" stroke="#d1ddad" stroke-width="2"/><path d="M${x} 80q-26-4-31-22 19 1 31 22m0 35q24-24 35-17-7 18-35 17m0 43q-18-19-30-12 5 12 30 12" fill="#749e70"/></g>`).join('');
+      return `<path d="M0 146q22-83 50-62 33-84 61-12 28 69 59 1 29-73 68-14 40 68 67 8 30-63 67-16 46 39 78 47v140H0Z" fill="#b4cbc0"/>
+      <path d="M0 132q73-9 137 6t143-1 170 4v28H0Z" fill="#e6ede0" opacity=".75"/>
+      <path d="M0 190q99-28 222-8t228-6v62H0Z" fill="#b8c9a1"/>
+      ${canes}
+      <path d="M2 219q47-13 92-4t58 23H0Z" fill="#a3c6bd"/><path class="habitat-water" d="M10 227h25m21-6h25m21 13h21" stroke="#e4f1df" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="227" cy="211" rx="78" ry="13" fill="#d4d9b4"/>
+      <path d="M317 217q-8-17 7-25 20-4 27 10 16-5 22 17Z" fill="#a3b2a0"/><path d="M322 203q12-9 21 2" stroke="#d3d8bc" stroke-width="3" fill="none"/>
+      ${sprouts([24,84,378,434],233,'#74936a')}`;
     }
-    if (type === 'parrot') return hills + tree(48,68,1.35,'#79a77c') + tree(391,72,1.55,'#78a98c') + `
+    if (type === 'parrot') return `
+      <path d="M0 86q44-49 83-11 38-51 78-11 51-45 96 0 55-40 93-5 57-37 100-2v181H0Z" fill="#87bba1"/>
+      <path d="M0 151q57-37 108-7t123-6 117 0 102-5v105H0Z" fill="#68a78a"/>
+      <path d="M17 238Q53 144 42 19m382 219Q392 141 414 4" fill="none" stroke="#9b8b62" stroke-width="16"/>
+      <g fill="#458d70"><path d="M45 21Q0 4-8 61q32-27 53-40m0 0Q83-9 117 30 0-1-72-9m0 0Q97 31 103 86 0-1-58-65m0 0Q7 39 1 105q0-1 44-84M412 10Q359-6 333 37q37-15 79-27m0 0q37 1 51 57-27-28-51-57m0 0q-48 27-58 74 29-20 58-74"/></g>
+      <path d="M45 21q25 12 51 53m316-64q-25 19-50 62" fill="none" stroke="#98c18a" stroke-width="2.5"/>
+      <g fill="#dda45e"><circle cx="37" cy="43" r="6"/><circle cx="48" cy="47" r="6"/><circle cx="405" cy="31" r="6"/></g>
       <path d="M54 185q111 5 213-15 52-9 72-33" fill="none" stroke="#8e7959" stroke-width="12" stroke-linecap="round"/>
       <path d="M62 182q120 3 209-14 46-11 63-30" fill="none" stroke="#b79b72" stroke-width="3" stroke-linecap="round"/>
-      <path d="M297 158q19-22 35-19-8 17-35 19m12-6q14-7 28-2-10 13-28 2" fill="#91b47d"/>`;
-    if (type === 'lion') return hills + tree(411,68,.85,'#a5a876') + `
+      <path d="M297 158q19-22 35-19-8 17-35 19m12-6q14-7 28-2-10 13-28 2" fill="#b2cf88"/>
+      ${fern(40,258,1.35,'#397e62')}${fern(400,260,1.55,'#3f8969')}
+      <g fill="#efad8b"><path d="M24 210q-14-22-5-30 11 6 15 22 3-20 15-21 3 19-25 29Z"/><path d="M408 207q-13-23-3-28 10 7 11 22 6-20 17-18 0 18-25 24Z"/></g>`;
+    if (type === 'kangaroo') return `
+      <path d="M0 130 36 104h61l29 21 56-7 32 17 84-10 48-30h57l47 31v112H0Z" fill="#cf9d7b"/>
+      <path d="M0 171q93-25 189-10t261-13v90H0Z" fill="#d8a47e"/>
+      <path d="M0 208q137-24 252-6t198-18v54H0Z" fill="#e6b68d"/>
+      <g fill="none" stroke-linecap="round"><path d="M392 206q-20-69-9-157m0 62-39-46m40 28 32-45" stroke="#d5d2b4" stroke-width="13"/><path d="M392 202q-14-71-9-111m-2-39 2 16m-26 9 7 10" stroke="#9b977e" stroke-width="3"/></g>
+      <g fill="#8ca88f"><ellipse cx="342" cy="53" rx="41" ry="21" transform="rotate(-15 342 53)"/><ellipse cx="395" cy="31" rx="38" ry="21"/><ellipse cx="426" cy="69" rx="38" ry="24"/><ellipse cx="365" cy="92" rx="31" ry="15"/></g>
+      <g fill="#abc2a0"><path d="M330 53q20 6 27 23-20-1-27-23m52-22q20 7 26 25-21-2-26-25m31 37q19 2 28 19-19 1-28-19"/></g>
+      <path d="M29 180q15-27 48-19l16 24Z" fill="#b98166"/><path d="M40 174q17-10 32-6" fill="none" stroke="#edc5a0" stroke-width="4" stroke-linecap="round"/>
+      ${dryGrass([15,109,338,430],220,'#8d9b6e')}${sprouts([63,301,371],234,'#a4ae79')}
+      <path d="m124 219 11 1m156 11 14-2m-248 4 10-2" stroke="#bd8a66" stroke-width="2.5" stroke-linecap="round"/>`;
+    if (type === 'lion') return `
+      <path d="M0 126q101-17 200-5t250-9v126H0Z" fill="#cfb575"/>
+      <path d="M0 165q109-20 224-5t226-15v93H0Z" fill="#d9bd79"/>
+      ${tree(51,103,.45,'#8d9362')}${tree(409,96,.62,'#93976a')}
+      <path d="M352 162 367 128l26-10 22 21 35 8v56Z" fill="#b29c76"/>
+      <path d="m369 140 23-10 13 17m7 17 22-7" fill="none" stroke="#ddc29a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M0 203q126-27 235-11t215-4v50H0Z" fill="#eed2a0"/>
+      ${dryGrass([11,43,84,362,406,439],196,'#b99e57')}
+      ${hunting ? '<path d="M0 207q125-23 224-9t226-4v27q-111 4-226-2T0 232Z" fill="#e5bd87"/><path d="M41 217h43m250-4h32" stroke="#cba36c" stroke-width="2" stroke-linecap="round"/>' : `
       <path d="M104 214l18-23 52-7 30 4 53-2 62 15 10 16-50 11H141Z" fill="#beaa89" stroke="#a69072" stroke-width="2"/>
-      <path d="M123 202q86-18 193 5l-38 9-128-1Z" fill="#e0c49a"/><path d="m127 209 23 7m93-6 23 5m27-12 14 1" stroke="#a99979" stroke-width="2" stroke-linecap="round"/>`;
-    return hills + tree(387,72,1.2,'#8fac70') + tree(91,86,.64,'#9db384') +
-      `<ellipse cx="237" cy="205" rx="102" ry="10" fill="#af9e75" opacity=".3"/>` +
-      sprouts([23,69,91,339,361,408,430], 207, '#96ac70') +
-      '<path d="M33 181q46-9 87-8m245 18q37-6 61-4" fill="none" stroke="#c5bd87" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>';
+      <path d="M123 202q86-18 193 5l-38 9-128-1Z" fill="#e0c49a"/><path d="m127 209 23 7m93-6 23 5m27-12 14 1" stroke="#a99979" stroke-width="2" stroke-linecap="round"/>`}
+      ${dryGrass([16,77,374,435],237,'#c4a55f')}`;
+    return '';
   }
   function scene(type, preyId) {
-    const cool = ['seal','dolphin','penguin'].includes(type);
+    const environment = environments[type];
     const prey = type === 'lion' && huntPrey[preyId];
     const meal = food[type] || '';
     const foodBehindAnimal = type === 'dolphin' || type === 'seal';
     const layers = Object.entries(showProps[type] || {}).map(([phase, art]) => `<g class="zoo-show-layer" data-for-phase="${phase}">${art}</g>`).join('');
     return `<svg class="zoo-scene-art" viewBox="0 0 450 238" aria-hidden="true" focusable="false">
-      <defs><linearGradient id="zoo-sky-${type}" x2="0" y2="1"><stop stop-color="${cool ? '#cbdedb' : '#e6ead1'}"/><stop offset="1" stop-color="${cool ? '#f3efd6' : '#faecc7'}"/></linearGradient></defs>
+      <defs><linearGradient id="zoo-sky-${type}" x2="0" y2="1"><stop stop-color="${environment.sky[0]}"/><stop offset="1" stop-color="${environment.sky[1]}"/></linearGradient></defs>
       <rect width="450" height="238" fill="url(#zoo-sky-${type})"/>
-      <circle cx="73" cy="48" r="31" fill="#f5dfa5" opacity=".52"/><circle cx="73" cy="48" r="21" fill="#f2d28d"/>
-      <path d="M272 59q2-12 17-10 11-13 25-3 14-2 18 13ZM24 82q1-6 10-5 5-12 16-6 9-3 14 11Z" fill="#fffaf0" opacity=".92"/>
-      <path d="M349 52q5-5 11 0m5 3q5-5 11 0" fill="none" stroke="#a19f79" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
-      ${habitat(type, Boolean(prey))}
+      ${environment.sun ? `<circle cx="${environment.sun[0]}" cy="${environment.sun[1]}" r="${environment.sun[2]}" fill="${environment.sun[3]}"/>` : ''}
+      ${environment.forest ? '' : '<path d="M225 48q2-9 13-8 10-12 23-3 12-2 16 11ZM15 67q1-6 10-5 5-12 16-6 9-3 14 11Z" fill="#fffaf0" opacity=".7"/>'}
+      <g class="zoo-habitat" data-habitat="${type}">${habitat(type, Boolean(prey))}</g>
       ${layers}${foodBehindAnimal ? meal : ''}
       ${prey || ''}<g class="zoo-animal-art">${animals[type]}</g>
       ${foodBehindAnimal ? '' : meal}${prey ? huntForeground : ''}${props[type] || ''}
