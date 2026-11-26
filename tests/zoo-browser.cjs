@@ -22,6 +22,14 @@ const { createServer } = require('./preview.cjs');
     const tab = name => page.locator(`[data-zoo-animal="${name}"]`);
     const zoo = page.locator('section[data-screen="zoo"]');
     const stage = page.locator('.zoo-stage');
+    const greetWithMouse = async () => {
+      const target = action('pet').locator('.zoo-pet-target');
+      await stage.scrollIntoViewIfNeeded();
+      const box = await target.boundingBox();
+      // Approach the moving animal as a mouse user would; hover lets it wait for the child.
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    };
     const balance = () => page.evaluate(() => __abc.Store.farm().coins);
     const holdings = () => page.evaluate(() => __abc.Store.farm().zoo);
     const advance = ms => page.evaluate(ms => { window.zooTimeOffset += ms; }, ms);
@@ -36,6 +44,9 @@ const { createServer } = require('./preview.cjs');
     assert.equal(await action('admit').isDisabled(), true);
     assert.match(await action('admit').innerText(), /还差 340 金币/);
     assert.equal(await action('feed').count(), 0);
+    assert.equal(await action('show').count(), 0);
+    assert.equal(await action('pet').count(), 0);
+    assert.equal(await stage.evaluate(el => el.getAnimations({ subtree: true }).length), 0, 'locked previews are completely static');
     assert.equal(await holdings(), undefined);
     await action('admit').dispatchEvent('click');
     assert.equal(await balance(), 20, 'a disabled action cannot charge the wallet');
@@ -67,23 +78,45 @@ const { createServer } = require('./preview.cjs');
     for (const [id, admission, feed, show, feedAnimations, showAnimations] of residents) {
       await tab(id).click();
       assert.equal(await stage.getAttribute('data-animal'), id);
+      assert.equal(await action('pet').count(), 0, 'locked animals have no greeting target');
+      assert.equal(await stage.evaluate(el => el.getAnimations({ subtree: true }).length), 0, 'each locked habitat has no activity');
       assert.match(await action('admit').innerText(), new RegExp(admission + '\\s*金币'));
       await action('admit').click();
       assert.equal(await balance(), remaining, 'previewing and asking for confirmation are free');
       await action('cancel').click();
       assert.equal(await balance(), remaining);
+      assert.equal(await stage.evaluate(el => el.getAnimations({ subtree: true }).length), 0, 'cancelling admission does not unlock movement');
       await action('admit').click();
       await action('confirm').click();
       remaining -= admission;
       assert.equal(await balance(), remaining);
       assert.equal((await holdings())[id], true);
       assert.equal(await action('admit').count(), 0);
+      assert.equal(await action('pet').count(), 1, 'admission unlocks direct interaction');
+      const depth = await stage.evaluate(el => {
+        const motion = el.getAnimations({ subtree: true }).find(a => a.animationName?.startsWith('zoo-wander'));
+        if (!motion) return null;
+        const time = motion.currentTime, duration = motion.effect.getTiming().duration;
+        const frames = [.4, .75].map(fraction => {
+          motion.currentTime = duration * fraction;
+          const matrix = new DOMMatrix(getComputedStyle(motion.effect.target).transform);
+          return { size: matrix.a, x: matrix.e, y: matrix.f };
+        });
+        motion.currentTime = time;
+        return frames;
+      });
+      assert.ok(depth && depth[0].size !== depth[1].size && depth[0].y !== depth[1].y, id + ' moves through scene depth after admission');
+      if (id === 'elephant') { await action('pet').focus(); await action('pet').press('Enter'); }
+      else await greetWithMouse();
+      assert.equal(await stage.getAttribute('data-petting'), 'true');
+      assert.equal(await balance(), remaining, 'greeting and wandering never charge coins');
 
       if (id === 'lion') assert.match(await action('feed').innerText(), /看狮子追兔子/);
       await action('feed').click();
       remaining -= feed;
       assert.equal(await balance(), remaining);
       assert.equal(await stage.getAttribute('data-activity'), 'feed');
+      assert.equal(await action('pet').count(), 0, 'feeding suspends direct interaction');
       const tracks = await stage.evaluate((el, expected) => {
         const animations = el.getAnimations({ subtree: true });
         return expected.map(name => {
@@ -190,6 +223,9 @@ const { createServer } = require('./preview.cjs');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.setViewportSize({ width: 320, height: 640 });
     await tab('elephant').click();
+    await greetWithMouse();
+    assert.equal(await stage.evaluate(el => el.getAnimations({ subtree: true }).length), 0, 'reduced motion also applies to greetings');
+    assert.equal(await stage.locator('.zoo-touch-response').evaluate(el => getComputedStyle(el).opacity), '1');
     await action('feed').click();
     assert.equal(await balance(), 24);
     assert.equal(await stage.evaluate(el => el.getAnimations({ subtree: true }).length), 0);
@@ -205,7 +241,30 @@ const { createServer } = require('./preview.cjs');
     assert.equal(await holdings(), undefined, 'admitted animals are scoped to the active child');
     assert.equal(await action('admit').isDisabled(), true);
     assert.deepEqual(errors, []);
-    console.log('PASS: nine distinct feeding animations, reduced motion, 27 show acts, 30-second timer and background pause, shared wallet, single charge, save/reload and 320px layout.');
+
+    const touch = await browser.newPage({ viewport: { width: 820, height: 1180 }, hasTouch: true, isMobile: true, serviceWorkers: 'block' });
+    touch.on('pageerror', error => errors.push(error.message));
+    await touch.goto('http://127.0.0.1:' + server.address().port);
+    await touch.waitForFunction(() => window.__abc?.Profiles.mode === 'local');
+    await touch.evaluate(() => {
+      __abc.Store.farm(f => { f.coins = 1000; });
+      __abc.App.show('zoo');
+    });
+    await touch.locator('[data-zoo-animal="parrot"]').tap();
+    await touch.locator('[data-zoo-action="admit"]').tap();
+    await touch.locator('[data-zoo-action="confirm"]').tap();
+    const touchStage = touch.locator('.zoo-stage');
+    await touchStage.scrollIntoViewIfNeeded();
+    const target = await touch.locator('.zoo-pet-target').boundingBox();
+    await touch.touchscreen.tap(target.x + target.width / 2, target.y + target.height / 2);
+    assert.equal(await touchStage.getAttribute('data-petting'), 'true');
+    await touch.waitForFunction(() => !document.querySelector('.zoo-stage').dataset.petting);
+    assert.equal(await touch.locator('.zoo-roam').evaluate(el => getComputedStyle(el).animationPlayState), 'running', 'a touch greeting resumes roaming without a sticky hover or focus pause');
+    assert.equal(await touch.evaluate(() => __abc.Store.farm().coins), 460, 'touch greetings are free');
+    await touch.screenshot({ path: 'test-results/zoo-depth-tablet-v65.png', fullPage: true });
+    await touch.close();
+    assert.deepEqual(errors, []);
+    console.log('PASS: locked previews stay static; admission unlocks depth movement and free greetings; touch resumes roaming; nine feeding animations, reduced motion, 27 show acts, timer/background pause, wallet, save/reload and 320px layout.');
   } finally {
     await browser.close();
     server.close();

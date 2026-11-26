@@ -45,6 +45,18 @@ const Zoo = (() => {
       </div>
       <button class="zoo-farm-link" data-zoo-action="farm"><span aria-hidden="true">← 🏡</span> 回农场</button>`;
     page.onclick = onClick;
+    page.onkeydown = event => {
+      if (['Enter', ' '].includes(event.key) && event.target.closest('[data-zoo-action="pet"]')) {
+        event.preventDefault(); greet();
+      }
+    };
+    page.onpointermove = lookAround;
+    page.onpointerleave = resetLook;
+    page.onpointerdown = event => {
+      if (event.target.closest('[data-zoo-action="pet"]')) root().querySelector('.zoo-stage').dataset.held = 'true';
+    };
+    page.onpointerup = page.onpointercancel = releaseHold;
+    document.addEventListener('visibilitychange', visibilityChanged);
     render();
   }
   function leave() {
@@ -52,6 +64,9 @@ const Zoo = (() => {
     activity = '';
     confirming = false;
     root().onclick = null;
+    root().onkeydown = root().onpointermove = root().onpointerleave = null;
+    root().onpointerdown = root().onpointerup = root().onpointercancel = null;
+    document.removeEventListener('visibilitychange', visibilityChanged);
   }
 
   function actionButton(action, icon, label, cost, balance, detail = '') {
@@ -73,8 +88,10 @@ const Zoo = (() => {
     }
     return actionButton('admit', '🏡', '引入' + animal.name, animal.prices.admit, balance);
   }
-  function render() {
+  function render(settle = false) {
     const page = root(), farm = Store.farm(), animal = ANIMALS[selected], resident = owns(farm, selected);
+    const previous = page.querySelector('.zoo-roam');
+    const previousPose = settle && previous ? getComputedStyle(previous).transform : 'none';
     const prey = currentPrey();
     const feeding = activity === 'feed';
     page.querySelector('#zoo-wallet').innerHTML = coins(farm.coins);
@@ -89,8 +106,9 @@ const Zoo = (() => {
       <h2 id="zoo-resident-name">${animal.name} <span lang="en">${animal.english}</span></h2>
       <button class="zoo-listen" data-zoo-action="listen" aria-label="听${animal.name}的英文名称">🔊</button>
     </div>
-    <div class="zoo-stage" data-animal="${selected}" data-activity="${activity}" ${feeding ? `style="--zoo-feed-time: ${feedDuration(prey)}ms"` : ''}>
-      ${ZooArt.scene(selected, feeding ? prey?.id : undefined)}
+    <div class="zoo-stage" data-animal="${selected}" data-unlocked="${resident}" data-activity="${activity}" ${feeding ? `style="--zoo-feed-time: ${feedDuration(prey)}ms"` : ''}>
+      ${ZooArt.scene(selected, feeding ? prey?.id : undefined, { unlocked: resident, interactive: resident && !activity, label: animal.name })}
+      ${resident && !activity ? '<span class="zoo-touch-cue" aria-hidden="true">👆</span>' : ''}
     </div>
     ${activity === 'show' ? `<div class="zoo-timeline">
       <div class="zoo-timeline-label"><b id="zoo-show-act" role="status"></b><span id="zoo-show-time" aria-hidden="true">0 / ${SHOW_DURATION} 秒</span></div>
@@ -99,6 +117,37 @@ const Zoo = (() => {
     </div>` : ''}
     <div class="zoo-actions">${controls(animal, resident, farm.coins, prey)}</div>`;
     page.querySelector('#zoo-feedback').textContent = message;
+    visibilityChanged();
+    if (previousPose !== 'none' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      page.querySelector('.zoo-roam').animate([{ transform: previousPose }, { transform: 'none' }], { duration: 600, easing: 'ease-out' });
+    }
+  }
+  function visibilityChanged() {
+    root()?.querySelector('.zoo-stage')?.classList.toggle('zoo-paused', document.hidden);
+  }
+  function releaseHold() {
+    const stage = root().querySelector('.zoo-stage');
+    if (stage) delete stage.dataset.held;
+  }
+  function resetLook() {
+    const stage = root().querySelector('.zoo-stage');
+    stage?.style.setProperty('--look-x', '0px'); stage?.style.setProperty('--look-y', '0px');
+    releaseHold();
+  }
+  function lookAround(event) {
+    if (event.pointerType !== 'mouse' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const stage = event.target.closest('.zoo-stage');
+    if (!stage || stage.dataset.unlocked !== 'true') { resetLook(); return; }
+    const bounds = stage.getBoundingClientRect();
+    stage.style.setProperty('--look-x', ((event.clientX - bounds.left) / bounds.width * 2 - 1) * 5 + 'px');
+    stage.style.setProperty('--look-y', ((event.clientY - bounds.top) / bounds.height * 2 - 1) * 3 + 'px');
+  }
+  function greet() {
+    const stage = root().querySelector('.zoo-stage');
+    if (!stage || activity || !owns(Store.farm(), selected) || stage.dataset.petting) return;
+    stage.dataset.petting = 'true';
+    Sound.sfx('tap');
+    App.after(() => { if (stage.isConnected) delete stage.dataset.petting; }, 2200);
   }
   function focusAction(action) {
     root().querySelector(`[data-zoo-action="${action}"]:not(:disabled)`)?.focus({ preventScroll: true });
@@ -127,7 +176,7 @@ const Zoo = (() => {
     activity = action;
     const prey = currentPrey();
     message = action === 'feed' ? (prey ? '狮子在追' + prey.name : animal.name + '在吃' + animal.food) : '';
-    render();
+    render(true);
     Sound.stop();
     if (action === 'show') startShow(animal);
     else App.after(() => {
@@ -185,12 +234,13 @@ const Zoo = (() => {
     show.labels.forEach((label, index) => label.classList.toggle('current', phase === index));
   }
   function onClick(event) {
-    const button = event.target.closest('button');
+    const button = event.target.closest('button, [data-zoo-action="pet"]');
     if (!button || button.disabled) return;
     const id = button.dataset.zooAnimal, action = button.dataset.zooAction;
     if (action === 'farm') { App.show('farm'); return; }
     if (action === 'listen') { Sound.speak(ANIMALS[selected].english); return; }
     if (activity) return;
+    if (action === 'pet') { greet(); return; }
     if (id) {
       selected = id; confirming = false; message = '';
       render();

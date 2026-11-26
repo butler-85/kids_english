@@ -5,13 +5,13 @@ const ZooArt = (() => {
     elephant: `
       <path d="M310 124q29 13 24 36" fill="none" stroke="#657285" stroke-width="5" stroke-linecap="round"/>
       <path d="M333 155q-8 5-1 14 8-5 1-14" fill="#657285"/>
-      <path d="M199 145v51m90-51v51" fill="none" stroke="#a7b2bf" stroke-width="23" stroke-linecap="round"/>
-      <path d="M216 151v49m76-48v48" fill="none" stroke="#8999af" stroke-width="25" stroke-linecap="round"/>
-      <path d="M207 200h18m58 0h18" stroke="#637389" stroke-width="4" stroke-linecap="round"/>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:199px 145px"><path d="M199 145v51" fill="none" stroke="#a7b2bf" stroke-width="23" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:289px 145px"><path d="M289 145v51" fill="none" stroke="#a7b2bf" stroke-width="23" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:216px 151px"><path d="M216 151v49" stroke="#8999af" stroke-width="25" stroke-linecap="round"/><path d="M207 200h18" stroke="#637389" stroke-width="4" stroke-linecap="round"/><path d="M206 192q5-8 11 0" fill="none" stroke="#c5cdd3" stroke-width="3"/></g>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:292px 152px"><path d="M292 152v48" stroke="#8999af" stroke-width="25" stroke-linecap="round"/><path d="M283 200h18" stroke="#637389" stroke-width="4" stroke-linecap="round"/><path d="M282 192q5-8 11 0" fill="none" stroke="#c5cdd3" stroke-width="3"/></g>
       <ellipse cx="254" cy="130" rx="69" ry="49" fill="#98aaba" stroke="#64798b" stroke-width="3"/>
       <path d="M226 91q48-20 75 15-43-22-75-6" fill="#bfcad2" opacity=".75"/>
       <path d="M268 165q33-3 46-23-10 29-51 34Z" fill="#74899d" opacity=".42"/>
-      <path d="M206 192q5-8 11 0m65 0q5-8 11 0" fill="none" stroke="#c5cdd3" stroke-width="3" stroke-linecap="round"/>
       <ellipse cx="189" cy="124" rx="43" ry="39" fill="#a5b5c6" stroke="#64798b" stroke-width="3"/>
       <path d="M194 99q47-24 51 19-2 51-31 39-29-9-20-58Z" fill="#8e9db7" stroke="#64798b" stroke-width="3"/>
       <path d="M201 109q33-18 32 17-4 31-17 23-15-8-15-40" fill="#b4a1b7"/>
@@ -23,9 +23,10 @@ const ZooArt = (() => {
     giraffe: `
       <path d="M312 142q15 19 10 30" stroke="#a87c53" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="m318 169 7 1-3 9Z" fill="#94684b"/>
-      <path d="M224 145v54m65-52v52" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/>
-      <path d="M213 145v58m62-54v54" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/>
-      <path d="M207 202h12m50 0h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:224px 145px"><path d="M224 145v54" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:289px 147px"><path d="M289 147v52" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:213px 145px"><path d="M213 145v58" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M207 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:275px 149px"><path d="M275 149v54" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M269 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
       <ellipse cx="250" cy="141" rx="57" ry="34" fill="#efc879" stroke="#ac8253" stroke-width="3"/>
       <path d="m218 124 8-11 13 5 2 12-12 7-10-5m37 7 6-13 15-1 6 8-6 12-13 4m-37 5 8-7 11 5 1 10-9 6-12-3m55-46 7-8 12 3 4 7-7 7Z" fill="#b67a52"/>
       <path d="M238 113q30-6 48 8-23-8-47-3m-15 47q24 12 59-2-25 16-59 7" fill="#f8dda1" opacity=".85"/>
@@ -455,10 +456,8 @@ const ZooArt = (() => {
       <path d="M0 60q66-26 118-4t102 8 130-21 100 24v171H0Z" fill="#acbfa0"/>
       <path d="M21-4h15l17 138-14 37Zm363 0h20l-8 146-13 20Z" fill="#8c9678"/>
       <path d="M0 159q89-26 183-4t267-14v97H0Z" fill="#b8b68d"/>
-      <path d="M304 157q-6-70 42-105 37-10 66 32 28 33 38 95l-67 21Z" fill="#92978b" stroke="#7e8479" stroke-width="3"/>
-      <path d="M329 168q0-56 25-69 24-7 42 32l14 44Z" fill="#5c6d62"/>
-      <path d="M352 104q-16 28-11 59l55 8q-10-53-34-68Z" fill="#45574e"/>
-      <path d="m327 91 22-27 25 9m18 14 20 31m12 16 10 29" fill="none" stroke="#c1c2a8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M328 149q3-48 35-65 32-4 47 21l40 54v52H334Z" fill="#9ba28c"/>
+      <path d="m345 112 20-17 17 5m19 19 17 27" fill="none" stroke="#c1c2a8" stroke-width="4" stroke-linecap="round"/>
       <path d="M0 193q87-15 169 6t281-5v44H0Z" fill="#d4c5a0"/>
       <path d="M0 176 78 158q15 9 4 23L0 201" fill="#927958" stroke="#7b6a50" stroke-width="3"/>
       <ellipse cx="77" cy="169" rx="12" ry="14" fill="#c6a477" stroke="#7b6a50" stroke-width="3"/><ellipse cx="77" cy="169" rx="6" ry="8" fill="none" stroke="#a08058" stroke-width="2"/>
@@ -526,21 +525,84 @@ const ZooArt = (() => {
       ${dryGrass([16,77,374,435],237,'#c4a55f')}`;
     return '';
   }
-  function scene(type, preyId) {
+  const terrainColors = {
+    elephant: ['#e4d9ad', '#c1b07e', '#948563'], giraffe: ['#e2ddab', '#b4bb7e', '#87915f'],
+    monkey: ['#b3c7a0', '#809d77', '#526e59'], panda: ['#d2dfb7', '#a5ba91', '#768a70'],
+    penguin: ['#fbffff', '#cce8ee', '#76adc3'], parrot: ['#b0d2ac', '#73a586', '#486e59'],
+    kangaroo: ['#edc69c', '#d49e78', '#a77159'], snake: ['#ded2ad', '#b9ae88', '#85836b'],
+    lion: ['#f0daae', '#cfb278', '#9c835d'], seal: ['#dbe8df', '#a4c7c7', '#719da8'], dolphin: ['#dbe8df', '#a4c7c7', '#719da8'],
+  };
+  function depthRock(x, y, size, type) {
+    return `<g transform="translate(${x} ${y}) scale(${size})"><ellipse cy="10" rx="40" ry="11" fill="#304535" opacity=".16"/>
+      <path d="m-35 4 12-31 30-9 25 22 8 23-37 12Z" fill="url(#zoo-rock-${type})"/>
+      <path d="m-35 4 12-31 30-9-8 27Z" fill="#ece8cc" opacity=".45"/>
+      <path d="m-1-9 33-5 8 23-37 12Z" fill="#45574a" opacity=".19"/>
+      <path d="m-20-22 21-7 15 13" fill="none" stroke="#f5efd4" stroke-width="2" opacity=".6" stroke-linecap="round"/></g>`;
+  }
+  function depthGround(type) {
+    const ice = type === 'penguin';
+    return `<path d="M0 168q91-30 225-14t225-8v154H0Z" fill="${ice ? '#77afc6' : terrainColors[type][2]}" opacity=".45"/>
+      <ellipse cx="231" cy="273" rx="205" ry="23" fill="#263f39" opacity=".16"/>
+      <path d="M23 213q96-45 205-38t197 28l5 42q-86 56-211 48T19 249Z" fill="url(#zoo-bank-${type})"/>
+      <path d="M37 177q82-42 183-35t194 33l11 40q-74 53-206 47T23 221Z" fill="url(#zoo-ground-${type})" stroke="${ice ? '#e5f5f5' : terrainColors[type][1]}" stroke-width="2"/>
+      <path d="M24 222q98 44 197 40t203-46" fill="none" stroke="${ice ? '#f2ffff' : terrainColors[type][0]}" stroke-width="4" opacity=".65"/>
+      ${ice ? '<path d="m88 252 7 21m57-11 6 26m171-36-5 28m58-41 2 18" stroke="#bfe2ed" stroke-width="3" opacity=".7"/><path d="m61 215 31-21 25 8m202 40-24-20 18-12" fill="none" stroke="#9fc7d8" stroke-width="2"/>' : '<path d="M64 184q64-26 117-24m69 5q81 7 125 24" fill="none" stroke="#fff4d6" stroke-width="3" opacity=".3"/><path d="m59 252 16 5m44 17 19 3m189-5 20-6m-153 17 15 1" stroke="#fff0cb" stroke-width="2" opacity=".22" stroke-linecap="round"/>'}
+      ${type === 'elephant' ? '<path d="M26 187q27-35 68-22 28 13 16 49-22 29-70 22Z" fill="#849c88"/><path d="M29 184q32-28 61-16 24 12 13 41-23 25-64 21Z" fill="url(#zoo-water-elephant)"/><path class="habitat-water" d="M42 193q25-9 41-4m-39 18q21 4 37-2" fill="none" stroke="#d7eeea" stroke-width="2" stroke-linecap="round"/>' : ''}
+      ${['giraffe','kangaroo','lion'].includes(type) ? `<path d="M149 154q-38 31 41 49t127 46" fill="none" stroke="${type === 'kangaroo' ? '#f5d2ac' : '#f3e4bb'}" stroke-width="19" opacity=".45"/>` : ''}
+      ${type === 'panda' ? '<path d="M34 219q24 4 53 27l-16 7-34-15Z" fill="#8eb8b4"/><path class="habitat-water" d="m41 230 13 5m12 8 9 5" stroke="#d8eee6" stroke-width="2"/>' : ''}`;
+  }
+  function depthFixtures(type) {
+    if (type === 'monkey') return `<path d="M63 230q96-17 167-22t151-29" fill="none" stroke="#625d46" stroke-width="16" stroke-linecap="round"/><path d="M66 226q96-17 167-22t145-28" fill="none" stroke="#c7a977" stroke-width="5" stroke-linecap="round"/>
+      <path d="M77 216 57 262m308-79 27 50" stroke="#786b4e" stroke-width="10" stroke-linecap="round"/>`;
+    if (type === 'parrot') return `<path d="M67 257 83 169m0 24q85 20 163-2t125-34m-287 13 80-10m125 25 45-26" fill="none" stroke="#6b634a" stroke-width="11" stroke-linecap="round"/>
+      <path d="M80 173q4 45-5 72m10-55q93 19 159-1t124-35" fill="none" stroke="#c5a775" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M338 172q20-32 39-26-8 27-39 26m6-9q31-9 42 9-26 10-42-9" fill="#78a877"/>`;
+    if (type === 'lion') return `<ellipse cx="230" cy="237" rx="112" ry="15" fill="#8b784f" opacity=".2"/><path d="m117 216 34-24 125 1 46 21-9 27-111 7-84-15Z" fill="url(#zoo-rock-lion)"/><path d="m117 216 34-24 125 1 46 21-86 12Z" fill="#e0cca3"/><path d="m131 222 66 14 108-3" fill="none" stroke="#f5dfb1" stroke-width="2" opacity=".55"/>`;
+    if (type === 'snake') return depthRock(363,199,1.18,type) + '<path d="M339 201q1-34 22-38 21 7 27 36Z" fill="#455b4c"/><path d="M344 201q3-26 18-28 12 7 16 26Z" fill="#2f4138"/>';
+    return depthRock(373,198,type === 'elephant' ? .9 : .62,type);
+  }
+  function depthForeground(type) {
+    if (type === 'penguin') return `<path d="m-12 268 33-38 42 13 26 40-13 17H0Zm360 32 27-38 51-17 28 17v38Z" fill="url(#zoo-rock-penguin)"/><path d="m-12 268 33-38 42 13 26 40-53-17Zm389-6 51-17 28 17-37 11Z" fill="#f1fbfc"/>`;
+    const forest = ['monkey','panda','parrot','snake'].includes(type);
+    return (type === 'snake' ? '<path fill-rule="evenodd" d="m322 204 14-37 35-10 30 26 9 27-44 14ZM339 201q1-34 22-38 21 7 27 36Z" fill="url(#zoo-rock-snake)"/>' : '') + depthRock(32,267,forest ? .76 : .92,type) + depthRock(427,254,.78,type) +
+      (forest ? fern(13,299,1.35,'#365d49') + fern(432,294,1.2,'#416e51') : dryGrass([4,40,411,445],286,type === 'kangaroo' ? '#819273' : '#929252')) +
+      (type === 'panda' ? '<path d="M43 300 28 153m27 147L48 174" stroke="#426e50" stroke-width="7"/><path d="m26 189 9-1m-6 31 9-1m-7 31 9-1m6-35 8-1m-5 31 8-1" stroke="#bdd2a2" stroke-width="2"/>' : '');
+  }
+  function scene(type, preyId, { unlocked = false, interactive = false, label = '' } = {}) {
     const environment = environments[type];
     const prey = type === 'lion' && huntPrey[preyId];
     const meal = food[type] || '';
     const foodBehindAnimal = type === 'dolphin' || type === 'seal';
     const layers = Object.entries(showProps[type] || {}).map(([phase, art]) => `<g class="zoo-show-layer" data-for-phase="${phase}">${art}</g>`).join('');
-    return `<svg class="zoo-scene-art" viewBox="0 0 450 238" aria-hidden="true" focusable="false">
-      <defs><linearGradient id="zoo-sky-${type}" x2="0" y2="1"><stop stop-color="${environment.sky[0]}"/><stop offset="1" stop-color="${environment.sky[1]}"/></linearGradient></defs>
-      <rect width="450" height="238" fill="url(#zoo-sky-${type})"/>
+    const colors = terrainColors[type];
+    return `<svg class="zoo-scene-art" viewBox="0 0 450 300" ${interactive ? `role="group" aria-label="${label}的生活场景"` : 'aria-hidden="true"'} focusable="false">
+      <defs>
+        <linearGradient id="zoo-sky-${type}" x2="0" y2="1"><stop stop-color="${environment.sky[0]}"/><stop offset="1" stop-color="${environment.sky[1]}"/></linearGradient>
+        <linearGradient id="zoo-ground-${type}" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="${colors[0]}"/><stop offset="1" stop-color="${colors[1]}"/></linearGradient>
+        <linearGradient id="zoo-bank-${type}" x2="0" y2="1"><stop stop-color="${colors[1]}"/><stop offset="1" stop-color="${colors[2]}"/></linearGradient>
+        <linearGradient id="zoo-rock-${type}" x2="1" y2="1"><stop stop-color="${type === 'penguin' ? '#d6eff3' : '#c6c1a2'}"/><stop offset="1" stop-color="${type === 'penguin' ? '#7bb2ca' : '#878c73'}"/></linearGradient>
+        <linearGradient id="zoo-water-${type}" x2=".5" y2="1"><stop stop-color="#a3d2cb"/><stop offset="1" stop-color="#5896a6"/></linearGradient>
+        <radialGradient id="zoo-shadow-${type}"><stop stop-color="#233e37" stop-opacity=".29"/><stop offset="1" stop-color="#233e37" stop-opacity="0"/></radialGradient>
+        <linearGradient id="zoo-haze-${type}" x2="0" y2="1"><stop stop-color="${environment.sky[0]}" stop-opacity=".04"/><stop offset="1" stop-color="${environment.sky[1]}" stop-opacity=".28"/></linearGradient>
+      </defs>
+      <g class="zoo-layer-back" aria-hidden="true"><rect width="450" height="300" fill="url(#zoo-sky-${type})"/>
       ${environment.sun ? `<circle cx="${environment.sun[0]}" cy="${environment.sun[1]}" r="${environment.sun[2]}" fill="${environment.sun[3]}"/>` : ''}
       ${environment.forest ? '' : '<path d="M225 48q2-9 13-8 10-12 23-3 12-2 16 11ZM15 67q1-6 10-5 5-12 16-6 9-3 14 11Z" fill="#fffaf0" opacity=".7"/>'}
       <g class="zoo-habitat" data-habitat="${type}">${habitat(type, Boolean(prey))}</g>
-      ${layers}${foodBehindAnimal ? meal : ''}
-      ${prey || ''}<g class="zoo-animal-art">${animals[type]}</g>
-      ${foodBehindAnimal ? '' : meal}${prey ? huntForeground : ''}${props[type] || ''}
+      <rect width="450" height="238" fill="url(#zoo-haze-${type})"/></g>
+      <g class="zoo-layer-ground" aria-hidden="true">${depthGround(type)}${prey ? '' : depthFixtures(type)}</g>
+      <g transform="translate(0 18)"><g class="zoo-roam">
+        ${['parrot','monkey'].includes(type) ? '' : `<ellipse class="zoo-contact-shadow" cx="225" cy="209" rx="${type === 'elephant' ? 87 : 67}" ry="14" fill="url(#zoo-shadow-${type})" aria-hidden="true"/>`}
+        ${layers}${foodBehindAnimal ? meal : ''}${prey || ''}
+        <g class="zoo-pet-trigger" ${interactive ? `role="button" tabindex="0" data-zoo-action="pet" aria-label="和${label}打招呼"` : 'aria-hidden="true"'}>
+          ${interactive ? '<ellipse class="zoo-pet-target" cx="220" cy="130" rx="110" ry="103" fill="transparent"/>' : ''}
+          <g class="zoo-animal-art" aria-hidden="true">${animals[type]}</g>
+          <g class="zoo-touch-response" aria-hidden="true"><path d="M209 52q-12-13-21-3-7 10 21 25 28-15 21-25-9-10-21 3" fill="#eaa88a" stroke="#fff3df" stroke-width="2"/></g>
+        </g>
+        ${foodBehindAnimal ? '' : meal}${prey ? huntForeground : ''}${props[type] || ''}
+      </g></g>
+      <g class="zoo-layer-front" aria-hidden="true">${depthForeground(type)}</g>
+      ${unlocked ? '' : '<g class="zoo-scene-lock" transform="translate(399 263)" aria-hidden="true"><circle r="22" fill="#fff8e8" stroke="#d8c9a5" stroke-width="2"/><path d="M-7-3v-6a7 7 0 0 1 14 0v6" fill="none" stroke="#9b8e6e" stroke-width="3"/><rect x="-11" y="-4" width="22" height="18" rx="4" fill="#c8b17b"/><path d="M0 2v5" stroke="#fff9e6" stroke-width="3" stroke-linecap="round"/></g>'}
     </svg>`;
   }
   const thumbnailBounds = {
