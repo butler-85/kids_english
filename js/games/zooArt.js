@@ -7,16 +7,17 @@ const ZooArt = (() => {
       <path d="M333 155q-8 5-1 14 8-5 1-14" fill="#657285"/>
       <g class="zoo-walk-leg leg-far" style="transform-origin:199px 145px"><path d="M199 145v51" fill="none" stroke="#a7b2bf" stroke-width="23" stroke-linecap="round"/></g>
       <g class="zoo-walk-leg" style="transform-origin:289px 145px"><path d="M289 145v51" fill="none" stroke="#a7b2bf" stroke-width="23" stroke-linecap="round"/></g>
-      <g class="zoo-walk-leg" style="transform-origin:216px 151px"><path d="M216 151v49" stroke="#8999af" stroke-width="25" stroke-linecap="round"/><path d="M207 200h18" stroke="#637389" stroke-width="4" stroke-linecap="round"/><path d="M206 192q5-8 11 0" fill="none" stroke="#c5cdd3" stroke-width="3"/></g>
-      <g class="zoo-walk-leg leg-far" style="transform-origin:292px 152px"><path d="M292 152v48" stroke="#8999af" stroke-width="25" stroke-linecap="round"/><path d="M283 200h18" stroke="#637389" stroke-width="4" stroke-linecap="round"/><path d="M282 192q5-8 11 0" fill="none" stroke="#c5cdd3" stroke-width="3"/></g>
+      <g class="zoo-walk-leg" style="transform-origin:216px 151px"><path d="M203 148q13-6 25 0l1 47q0 12-15 12-15 0-14-12Z" fill="#91a3b4" stroke="#64798b" stroke-width="2.5"/><path d="M204 196q2-8 6 0m1 0q3-9 7 0m1 0q3-8 7 0" fill="none" stroke="#ced7d9" stroke-width="3" stroke-linecap="round"/></g>
+      <g class="zoo-walk-leg leg-far" style="transform-origin:292px 152px"><path d="M279 150q12-6 25 0l2 45q0 12-15 12-15 0-14-12Z" fill="#91a3b4" stroke="#64798b" stroke-width="2.5"/><path d="M280 196q2-8 6 0m1 0q3-9 7 0m1 0q3-8 7 0" fill="none" stroke="#ced7d9" stroke-width="3" stroke-linecap="round"/></g>
       <ellipse cx="254" cy="130" rx="69" ry="49" fill="#98aaba" stroke="#64798b" stroke-width="3"/>
       <path d="M226 91q48-20 75 15-43-22-75-6" fill="#bfcad2" opacity=".75"/>
       <path d="M268 165q33-3 46-23-10 29-51 34Z" fill="#74899d" opacity=".42"/>
       <ellipse cx="189" cy="124" rx="43" ry="39" fill="#a5b5c6" stroke="#64798b" stroke-width="3"/>
-      <path d="M194 99q47-24 51 19-2 51-31 39-29-9-20-58Z" fill="#8e9db7" stroke="#64798b" stroke-width="3"/>
-      <path d="M201 109q33-18 32 17-4 31-17 23-15-8-15-40" fill="#b4a1b7"/>
-      <path d="M204 114q9-7 18-3-9 1-15 7m15 26q6-8 8-17" fill="none" stroke="#c9b7c8" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="169" cy="119" r="5" fill="#354551"/><circle cx="170" cy="118" r="1.6" fill="#fff"/>
+      <g class="elephant-ear"><path d="M195 99q23-17 43 0 21 22 0 51-15 21-32 6-20-17-11-57Z" fill="#94a5b9" stroke="#64798b" stroke-width="2.8"/>
+      <path d="M202 109q17-13 29 0 13 19-1 36-9 11-18 0-12-15-10-36Z" fill="#b9adb9"/>
+      <path d="M207 113q9-5 17 0m4 23q6-10 3-18" fill="none" stroke="#d5c9d0" stroke-width="2.5" stroke-linecap="round"/></g>
+      <ellipse cx="168" cy="119" rx="6.8" ry="8" fill="#f4f4e9"/><ellipse cx="169" cy="120" rx="4.5" ry="5.7" fill="#354551"/><circle cx="170" cy="118" r="1.8" fill="#fff"/>
+      <ellipse cx="174" cy="132" rx="7" ry="3" fill="#c6b5ba" opacity=".55"/>
       <path d="M174 137q6 3 11-1" fill="none" stroke="#657285" stroke-width="2.5" stroke-linecap="round"/>
       <ellipse class="zoo-feeding feed-elephant-mouth" cx="179" cy="137" rx="8" ry="4" fill="#536473"/>
       <g class="elephant-trunk" fill="none" stroke-linecap="round"><path d="M154 126C152 146 139 172 117 155" stroke="#65798d" stroke-width="20"/><path d="M154 126C152 146 139 172 117 155" stroke="#aab9ca" stroke-width="15"/></g>`,
@@ -27,12 +28,13 @@ const ZooArt = (() => {
       <g class="zoo-walk-leg" style="transform-origin:289px 147px"><path d="M289 147v52" stroke="#dbaf60" stroke-width="10" stroke-linecap="round"/></g>
       <g class="zoo-walk-leg" style="transform-origin:213px 145px"><path d="M213 145v58" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M207 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
       <g class="zoo-walk-leg leg-far" style="transform-origin:275px 149px"><path d="M275 149v54" stroke="#ecc274" stroke-width="12" stroke-linecap="round"/><path d="M269 202h12" stroke="#8c6a4e" stroke-width="6" stroke-linecap="round"/></g>
-      <ellipse cx="250" cy="141" rx="57" ry="34" fill="#efc879" stroke="#ac8253" stroke-width="3"/>
-      <path d="m218 124 8-11 13 5 2 12-12 7-10-5m37 7 6-13 15-1 6 8-6 12-13 4m-37 5 8-7 11 5 1 10-9 6-12-3m55-46 7-8 12 3 4 7-7 7Z" fill="#b67a52"/>
+      <ellipse cx="250" cy="138" rx="56" ry="30" fill="#efc879" stroke="#ac8253" stroke-width="2.8"/>
+      <path d="M219 124q3-12 12-9l10 5-1 10-12 5q-11 1-9-11Zm40 10q0-12 12-13 14 0 12 12-3 12-16 12-11-1-8-11Zm-27 11q7-5 13 1 6 8-3 13-12 4-16-4-3-6 6-10ZM285 124q5-5 12 2 7 9-3 10-12-1-13-7-1-3 4-5Z" fill="#b98258"/>
       <path d="M238 113q30-6 48 8-23-8-47-3m-15 47q24 12 59-2-25 16-59 7" fill="#f8dda1" opacity=".85"/>
       <path d="m288 150 6-5 6 5-7 9-7-3m-32-39 10-4 6 6-8 5Z" fill="#ba8256"/>
       <g class="giraffe-neck">
-        <path d="M211 137 187 72l25-10 29 66q5 18-10 24-13 5-20-15Z" fill="#efc879" stroke="#ac8253" stroke-width="3"/>
+        <path d="M212 135 188 72l22-9 29 65q6 17-8 23-13 4-19-16Z" fill="#efc879" stroke="#ac8253" stroke-width="2.8"/>
+        <path d="M211 74q10 27 22 51" fill="none" stroke="#ab7953" stroke-width="4" stroke-linecap="round"/>
         <path d="m194 87 13-7 9 8-2 9-11 4m6 11 11-7 8 8-2 10-12 3" fill="#b67a52"/>
         <g class="giraffe-head">
           <path d="M181 56 176 38m20 15 4-17" stroke="#a87c53" stroke-width="5" stroke-linecap="round"/>
@@ -41,7 +43,7 @@ const ZooArt = (() => {
           <path d="M180 49q-14-11-18-2 1 12 15 14" fill="#e2ad69" stroke="#ab8255" stroke-width="2"/>
           <path d="M167 62q8-20 27-14 20 6 16 25-5 18-28 16-20-2-22-12-1-8 7-15Z" fill="#f1cc80" stroke="#ac8253" stroke-width="3"/>
           <ellipse cx="174" cy="76" rx="15" ry="10" fill="#f8dda2"/>
-          <circle cx="185" cy="62" r="4" fill="#4c493a"/><circle cx="186" cy="61" r="1.2" fill="#fff"/>
+          <ellipse cx="184" cy="62" rx="5.7" ry="6.5" fill="#fff6db"/><ellipse cx="185" cy="63" rx="3.9" ry="4.7" fill="#4c493a"/><circle cx="186" cy="61" r="1.5" fill="#fff"/>
           <path d="M166 76h1m5 4q4 3 8-1" fill="none" stroke="#8c634d" stroke-width="2" stroke-linecap="round"/>
           <path class="zoo-feeding feed-giraffe-tongue" d="M172 81q-10 6-19 4-10-3-8-11" pathLength="1" fill="none" stroke="#685473" stroke-width="5" stroke-linecap="round"/>
         </g>
@@ -63,10 +65,10 @@ const ZooArt = (() => {
       </g>`,
     monkey: `
       <path class="monkey-tail" d="M244 150q22 34 50 19 17-11 15-32-2-14-15-14-14 1-12 13 1 6 8 7" fill="none" stroke="#775639" stroke-width="10" stroke-linecap="round"/>
-      <path d="M230 148q22 8 22 40m-39-31q-24 5-11 31" fill="none" stroke="#866044" stroke-width="17" stroke-linecap="round"/>
+      <g class="monkey-legs"><path d="M230 148q22 8 22 40m-39-31q-24 5-11 31" fill="none" stroke="#866044" stroke-width="17" stroke-linecap="round"/>
       <ellipse cx="248" cy="188" rx="14" ry="7" fill="#ba8e61" stroke="#815e48" stroke-width="2"/>
-      <ellipse cx="199" cy="189" rx="14" ry="7" fill="#c3976a" stroke="#815e48" stroke-width="2"/>
-      <path d="M187 133q-1-28 22-34 24-8 39 19 12 27-5 43-16 13-35 4-24-9-21-32Z" fill="#a87950" stroke="#77573f" stroke-width="3"/>
+      <ellipse cx="199" cy="189" rx="14" ry="7" fill="#c3976a" stroke="#815e48" stroke-width="2"/><path d="m190 189 2 3m4-4 1 4m45-3 1 3m4-4 1 4" fill="none" stroke="#926c4d" stroke-width="1.4" stroke-linecap="round"/></g>
+      <path d="M185 133q-1-29 23-34 27-5 42 23 10 30-10 43-19 12-38 1-21-11-17-33Z" fill="#ae7f56" stroke="#77573f" stroke-width="2.8"/>
       <ellipse cx="217" cy="141" rx="21" ry="23" transform="rotate(-18 217 141)" fill="#d4ac79"/>
       <path d="M225 120q14 1 19 13-4-15-14-19Z" fill="#e2be8a"/>
       <g class="monkey-peel-arm">
@@ -90,9 +92,11 @@ const ZooArt = (() => {
       <g class="monkey-head">
         <circle cx="151" cy="90" r="16" fill="#b58961" stroke="#795840" stroke-width="3"/><circle cx="224" cy="88" r="16" fill="#b58961" stroke="#795840" stroke-width="3"/>
         <circle cx="151" cy="91" r="8" fill="#d2a181"/><circle cx="224" cy="89" r="8" fill="#d2a181"/>
-        <path d="M153 91q3-29 26-35 0-7 10-9l3 8q23 1 30 25 14 35-25 46-42 6-44-35Z" fill="#ae7951" stroke="#795840" stroke-width="3"/>
-        <path d="M166 95q-6-13 6-20 10-4 16 6 13-11 22 1 5 9-2 18 5 19-20 20-24 0-26-13-1-7 4-12Z" fill="#edc49a"/>
-        <circle cx="176" cy="92" r="4.1" fill="#4e4338"/><circle cx="198" cy="90" r="4.1" fill="#4e4338"/><circle cx="175" cy="91" r="1.2" fill="#fff7dc"/><circle cx="197" cy="89" r="1.2" fill="#fff7dc"/>
+        <path d="M151 90q0-30 30-36 5-6 12-4l-1 5q30 0 36 28 7 32-27 42-38 10-49-17-3-8-1-18Z" fill="#b6845a" stroke="#795840" stroke-width="2.8"/>
+        <path d="M162 91q-2-18 12-19 10-1 14 8 7-11 19-6 14 7 6 23 4 21-23 24-29 1-31-17-1-8 3-13Z" fill="#f0cda3"/>
+        <ellipse cx="176" cy="91" rx="5.6" ry="6.5" fill="#fff4dc"/><ellipse cx="198" cy="90" rx="5.6" ry="6.5" fill="#fff4dc"/>
+        <ellipse cx="177" cy="92" rx="3.9" ry="4.8" fill="#4e4338"/><ellipse cx="197" cy="91" rx="3.9" ry="4.8" fill="#4e4338"/><circle cx="178" cy="90" r="1.4" fill="#fff"/><circle cx="198" cy="89" r="1.4" fill="#fff"/>
+        <path d="M167 64q8-5 16-5" fill="none" stroke="#d9a875" stroke-width="3" stroke-linecap="round"/>
         <path d="m182 102 7-1m-14 8q9 8 19-1" fill="none" stroke="#9a694f" stroke-width="2.1" stroke-linecap="round"/>
         <ellipse class="zoo-feeding monkey-cheek" cx="181" cy="111" rx="7" ry="3.6" fill="#865c45"/>
       </g>`,
@@ -127,18 +131,19 @@ const ZooArt = (() => {
         <path class="zoo-feeding feed-panda-grip" d="M236 149q-13-5-14 3-1 7 12 9" fill="#425056" stroke="#283439" stroke-width="2" stroke-linecap="round"/>
       </g>`,
     penguin: `
-      <ellipse cx="230" cy="196" rx="24" ry="9" fill="#e6ac64" stroke="#b98556" stroke-width="2"/>
-      <ellipse cx="195" cy="196" rx="23" ry="9" fill="#e6ac64" stroke="#b98556" stroke-width="2"/>
+      <g class="penguin-foot foot-far" style="transform-origin:235px 189px"><path d="M226 185q9-4 15 1l15 13q-5 6-12 3-8 5-15 0-9 1-12-4Z" fill="#e7b36d" stroke="#b98556" stroke-width="2"/><path d="m238 191 6 8m-13-7-1 8" stroke="#c69456" stroke-width="1.5" stroke-linecap="round"/></g>
+      <g class="penguin-foot" style="transform-origin:196px 189px"><path d="M187 185q10-4 16 2l11 12q-6 6-13 3-7 5-15 0-9 1-12-4Z" fill="#edbc78" stroke="#b98556" stroke-width="2"/><path d="m197 191 5 8m-12-7-3 7" stroke="#c69456" stroke-width="1.5" stroke-linecap="round"/></g>
       <path class="penguin-wing penguin-wing-far" d="M255 116q34 15 36 39-24 6-46-18Z" fill="#536e7a" stroke="#3a565f" stroke-width="3"/>
-      <path d="M173 100q-4-40 28-52 31-11 51 12 20 26 20 71 8 59-47 60-56 4-62-45-1-25 10-46Z" fill="#516976" stroke="#36505f" stroke-width="3"/>
-      <path d="M200 55q-19 11-17 29 15-5 24-18 14 14 41 12-12-34-48-23Z" fill="#718895" opacity=".9"/>
-      <path d="M185 113q20-22 42-15 27 10 28 39 4 40-34 46-43 4-46-32-3-25 10-38Z" fill="#fbf5e8"/>
+      <path d="M173 100q-2-39 29-48 34-9 51 17 17 25 19 61 8 59-47 61-56 2-62-45-2-25 10-46Z" fill="#4b6572" stroke="#36505f" stroke-width="2.8"/>
+      <path d="M186 72q19-25 46-8" fill="none" stroke="#819ba4" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+      <path d="M185 103q16-10 28-5 22-8 34 14 11 19 9 41-2 31-35 32-39 0-45-32-3-28 9-50Z" fill="#faf8ec"/>
+      <path d="M247 122q13 35-7 51-10 9-28 9 36 10 43-23 3-20-8-37Z" fill="#dde5df"/>
       <path class="penguin-wing" d="M179 113q-34 22-34 45 13 17 42-25Z" fill="#496371" stroke="#36505f" stroke-width="3" stroke-linejoin="round"/>
-      <g class="penguin-head"><path d="M181 86q10-20 25-10 13-10 27 4 10 16-5 21-16 6-26-1-14 7-22-4-4-4 1-10Z" fill="#eee8d6"/>
-        <circle cx="193" cy="87" r="4" fill="#334b50"/><circle cx="219" cy="84" r="4" fill="#334b50"/>
+      <g class="penguin-head"><path d="M178 88q4-18 19-17 11 0 14 10 7-12 20-5 17 10 8 28-10 13-27 8-23 8-34-5-7-9 0-19Z" fill="#faf8ec"/>
+        <ellipse cx="194" cy="87" rx="4.8" ry="5.8" fill="#334b50"/><ellipse cx="220" cy="87" rx="4.8" ry="5.8" fill="#334b50"/><circle cx="195" cy="85" r="1.6" fill="#fff"/><circle cx="221" cy="85" r="1.6" fill="#fff"/>
         <path d="m193 98 15-7 15 5-13 12Z" fill="#e5a860" stroke="#af7d48" stroke-width="2"/><path d="m194 98 24-1" stroke="#c2884c" stroke-width="1.5"/>
         <g class="zoo-feeding feed-penguin-beak"><path d="m193 98 29-2-11 18Z" fill="#e5a860" stroke="#af7d48" stroke-width="2"/><path d="m194 98 27-2-13 12Z" fill="#714f47"/><path d="m193 98 15-7 15 5Z" fill="#edb773" stroke="#af7d48" stroke-width="1.4"/></g>
-        <path d="M180 101q8 8 16 8m41-14q-2 8-10 11" fill="none" stroke="#e7ba77" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="186" cy="101" rx="5.5" ry="2.5" fill="#e8bda0" opacity=".6"/><ellipse cx="231" cy="101" rx="5.5" ry="2.5" fill="#e8bda0" opacity=".6"/>
       </g>`,
     parrot: `
       <g class="parrot-tail" stroke="#365e87" stroke-width="2.5" stroke-linejoin="round">
@@ -146,6 +151,7 @@ const ZooArt = (() => {
         <path d="M218 147q10 35 29 78-23-10-38-47l-7-26Z" fill="#4278b8"/>
         <path d="M212 151q10 31 27 62" fill="none" stroke="#92d1e3" stroke-width="2"/>
       </g>
+      <g class="parrot-flight-wing wing-far"><path d="M208 112q-20-27-61-52-9 6 9 29l-21-12q-4 16 22 31l-23-6q4 20 37 25l31 4Z" fill="#3d92b5" stroke="#356a91" stroke-width="2.4" stroke-linejoin="round"/><path d="M207 114q-24-27-51-39 17 26 44 45Z" fill="#ebc96b"/></g>
       <path d="M188 89q31-17 51 10 20 27 2 51-13 20-35 14-23-7-26-32-2-23 8-43Z" fill="#e75f4e" stroke="#a74c43" stroke-width="3"/>
       <path d="M189 112q-5 32 19 44 8 3 17-1-25-16-25-43Z" fill="#f99268"/>
       <g class="parrot-wing" stroke-width="2.4" stroke-linejoin="round">
@@ -154,6 +160,7 @@ const ZooArt = (() => {
         <path d="M218 103q23-3 28 15-10 8-19 1-9 5-17 0 0-10 8-16Z" fill="#e96950" stroke="#b95742"/>
         <path d="m232 139 14 17m-3-19 14 21" fill="none" stroke="#9fd4e8" stroke-linecap="round"/>
       </g>
+      <g class="parrot-flight-wing wing-near" stroke-linejoin="round"><path d="M219 112q25-30 72-51 12 8-7 30l23-12q9 16-18 34l25-8q5 17-23 31l14-1q0 19-31 23-37 2-55-31Z" fill="#3d92bf" stroke="#356a91" stroke-width="2.4"/><path d="M220 111q24-21 57-31-12 30-41 48Z" fill="#efcc67" stroke="#ca9c43" stroke-width="2"/><path d="M219 107q18-11 30-5 5 16-14 27-18 5-22-8Z" fill="#e96950" stroke="#b95742" stroke-width="2"/><path d="m250 129 37-26m-31 35 35-17m-31 24 29-7" fill="none" stroke="#a0d5df" stroke-width="2" stroke-linecap="round"/></g>
       <g class="parrot-head">
         <path d="M164 98q-11-13-4-29 8-18 28-17 27 0 34 24 5 17-7 30-8 10-23 7-17-2-28-15Z" fill="#ed6953" stroke="#a74c43" stroke-width="3"/>
         <path d="M171 63q16-10 30 0" fill="none" stroke="#ffac80" stroke-width="4" stroke-linecap="round"/>
@@ -167,23 +174,23 @@ const ZooArt = (() => {
         <path class="zoo-feeding feed-parrot-beak" d="M147 106q9 1 16-5 1 12-8 14Z" fill="#495864" stroke="#34454d" stroke-width="1.8"/>
       </g>
       <g fill="none" stroke="#6b6663" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M224 158 222 172m-7 5q5-9 10-1m-3-4q7-3 10 3"/>
+        <path class="parrot-perch-foot" d="M224 158 222 172m-7 5q5-9 10-1m-3-4q7-3 10 3"/>
         <path class="parrot-free-foot" d="M204 155Q210 164 209 174M202 177Q207 169 213 175M209 174Q214 171 218 175"/>
       </g>`,
     kangaroo: `
-      <g class="kangaroo-tail"><path d="M244 158q58 10 90-14 3 25-43 44-28 11-65-5Z" fill="#b08563" stroke="#90674f" stroke-width="3"/><path d="M252 169q47 5 72-12" fill="none" stroke="#cbab84" stroke-width="4" stroke-linecap="round"/></g>
-      <path d="M221 165q27 10 25 31-17 7-27 1l-22-17Z" fill="#bd946d" stroke="#90674f" stroke-width="3"/>
+      <g class="kangaroo-tail"><path d="M243 157q37 20 96 35-31 10-65-6l-48-3Z" fill="#b98e68" stroke="#90674f" stroke-width="2.8"/><path d="M253 171q36 13 68 18" fill="none" stroke="#d8b58a" stroke-width="3.5" stroke-linecap="round"/></g>
+      <g class="kangaroo-leg leg-far"><path d="M221 165q27 10 25 31-17 7-27 1l-22-17Z" fill="#bd946d" stroke="#90674f" stroke-width="2.8"/></g>
       <ellipse cx="232" cy="138" rx="40" ry="47" fill="#c79a73" stroke="#90674f" stroke-width="3"/>
       <path d="M202 118q-12 45 20 57 25-16 17-46Z" fill="#e6c494"/>
-      <path d="M214 142q9 5 20 2" fill="none" stroke="#b58d65" stroke-width="2"/>
-      <path d="M223 151q25-7 35 15-6 27-40 32l-19 3q-19 2-11-9l25-8q-9-20 10-33Z" fill="#cc9f73" stroke="#946b53" stroke-width="3"/>
+      <path d="M205 144q15 12 33 0-2 23-15 25-14-5-18-25Z" fill="#d8ad7d"/><path d="M205 144q15 8 33 0" fill="none" stroke="#ac805d" stroke-width="2.2" stroke-linecap="round"/>
+      <g class="kangaroo-leg"><path d="M223 151q25-7 35 15-6 27-40 32l-19 3q-19 2-11-9l25-8q-9-20 10-33Z" fill="#cc9f73" stroke="#946b53" stroke-width="2.8"/><path d="M226 158q12-4 19 6" fill="none" stroke="#e4bd8d" stroke-width="3" stroke-linecap="round"/><path d="m190 195 5 1m3-3 4 2" stroke="#946b53" stroke-width="1.6" stroke-linecap="round"/></g>
       <path d="M212 110q-6 17-20 23-8 3-8-4l14-15 2-13m24 15q-9 25-23 26-8 2-7-5l15-14" fill="#be906b" stroke="#946b53" stroke-width="3" stroke-linecap="round"/>
       <g class="kangaroo-head">
         <path d="M213 86q-12-15-6-40 13-6 16 34m2 6q5-29 18-31 11 12-8 38" fill="#c99b74" stroke="#946b53" stroke-width="3"/>
         <path d="M212 51q2 18 7 23m21-13q-2 10-9 18" fill="none" stroke="#e1b9a2" stroke-width="5" stroke-linecap="round"/>
         <path d="M205 76q32-11 39 14 8 23-26 25-28 5-41-13-3-8 12-13Z" fill="#cc9e76" stroke="#946b53" stroke-width="3"/>
         <path d="M182 101q11 11 32 7-7 12-25 6-11-3-7-13Z" fill="#e7c59b"/>
-        <path d="M180 94q-13 7 2 13l7-11Z" fill="#6d5b4d"/><circle cx="207" cy="92" r="4.5" fill="#4d493b"/>
+        <path d="M180 94q-13 7 2 13l7-11Z" fill="#6d5b4d"/><ellipse cx="206" cy="92" rx="5.7" ry="6.8" fill="#fff0d5"/><ellipse cx="207" cy="93" rx="4" ry="5" fill="#4d493b"/><circle cx="208" cy="91" r="1.5" fill="#fff"/>
         <path d="M191 105q7 4 12 1" stroke="#946b53" stroke-width="2" fill="none" stroke-linecap="round"/>
         <path class="zoo-feeding feed-kangaroo-mouth" d="M185 104q10 7 21 2-4 10-14 7-5-2-7-9Z" fill="#aa7d64" stroke="#8d674f" stroke-width="1.6"/>
       </g>`,
@@ -219,10 +226,10 @@ const ZooArt = (() => {
         <ellipse class="zoo-feeding snake-bulge" cx="170" cy="123" rx="16" ry="13" fill="#a0b681" stroke="#62836a" stroke-width="2"/>
         <g class="snake-head">
           <path class="snake-tongue" d="M133 119q-12 2-22-1m3 1-8-4m8 4-7 3" fill="none" stroke="#b97672" stroke-width="2.7" stroke-linecap="round"/>
-          <path d="M133 108q12-16 36-10 21 4 26 20-4 16-22 18-25 1-40-11-7-7 0-17Z" fill="#9fb77e" stroke="#536e58" stroke-width="3"/>
+          <path d="M131 109q9-17 32-14 26 1 32 22-1 18-23 19-24 0-39-10-8-7-2-17Z" fill="#a8be86" stroke="#536e58" stroke-width="2.6"/>
           <path d="M129 119q19 8 46 5 6-1 11 0-4 10-24 10-22-1-33-11Z" fill="#e2d9a0"/>
-          <path d="m158 103 10 1 7 6-9 5-11-5Z" fill="#789763"/>
-          <circle cx="150" cy="111" r="5.4" fill="#e9cf87"/><circle cx="149" cy="111" r="3" fill="#4d543b"/><circle cx="148" cy="110" r="1" fill="#fff9e6"/>
+          <path d="M162 99q13 0 20 10" fill="none" stroke="#d0dba8" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="148" cy="110" rx="6.4" ry="7.3" fill="#fbf2cd"/><ellipse cx="147" cy="111" rx="4.1" ry="5.1" fill="#40513c"/><circle cx="148" cy="109" r="1.6" fill="#fffdf0"/>
           <path d="M131 118q13 7 29 6m-26-10h2" fill="none" stroke="#647954" stroke-width="2" stroke-linecap="round"/>
           <g class="zoo-feeding snake-gape">
             <path d="M130 117q17 9 34 5-4 23-23 18-11-4-11-23Z" fill="#b7ca91" stroke="#536e58" stroke-width="2"/>
@@ -235,20 +242,21 @@ const ZooArt = (() => {
         <path d="M296 139q48 1 38-34-1-8 5-9" fill="none" stroke="#a77b51" stroke-width="6" stroke-linecap="round"/>
         <path d="M332 103q-7-14 4-20 12 2 10 15-4 9-14 5" fill="#8f644d"/>
       </g>
-      <path class="lion-foreleg-far" d="M208 151v45" stroke="#bb915f" stroke-width="15" stroke-linecap="round"/>
-      <path class="lion-hindleg-far" d="M282 149v47" stroke="#bb915f" stroke-width="15" stroke-linecap="round"/>
-      <path class="lion-forepaw" d="M194 150q-4 33 1 48h-17" fill="none" stroke="#d6aa72" stroke-width="18" stroke-linecap="round"/>
-      <path class="lion-hindpaw" d="M280 151q9 20 2 47l-17 1" stroke="#d6aa72" stroke-width="18" stroke-linecap="round" fill="none"/>
+      <path class="lion-foreleg-far" d="M208 151q-3 24 0 45" fill="none" stroke="#bb915f" stroke-width="15" stroke-linecap="round"/>
+      <path class="lion-hindleg-far" d="M282 149q7 22 0 47" fill="none" stroke="#bb915f" stroke-width="15" stroke-linecap="round"/>
+      <g class="lion-forepaw"><path d="M194 150q-4 33 1 48h-17" fill="none" stroke="#d6aa72" stroke-width="18" stroke-linecap="round"/><path d="m176 198v5m6-5v5" stroke="#a87f55" stroke-width="1.8" stroke-linecap="round"/></g>
+      <g class="lion-hindpaw"><path d="M280 151q9 20 2 47l-17 1" stroke="#d6aa72" stroke-width="18" stroke-linecap="round" fill="none"/><path d="m263 199v5m6-5v5" stroke="#a87f55" stroke-width="1.8" stroke-linecap="round"/></g>
       <ellipse cx="240" cy="138" rx="63" ry="37" fill="#dbb47b" stroke="#a77954" stroke-width="3"/>
       <path d="M214 116q33-18 63 3-34-7-65 4m19 44q31 5 59-14-11 18-50 24" fill="#efd09a" opacity=".9"/>
       <g class="lion-head">
-        <path d="M137 125q-21-18-8-47 5-24 29-29 17-14 39-4 27 2 35 27 15 19 1 42-4 27-33 34-22 16-46-2Z" fill="#ab7657" stroke="#875f49" stroke-width="3"/>
-        <path d="M140 112q-13-20 3-37m53-22q23 4 28 27m-55 65q16 4 33-7" fill="none" stroke="#c39065" stroke-width="5" stroke-linecap="round"/>
+        <path d="M139 59q9-16 28-13 15-12 30-1 20-1 26 17 18 8 15 29 10 17-3 31-1 21-22 26-14 15-31 9-20 6-31-10-21-3-23-24-13-16-4-32-3-23 15-32Z" fill="#b47f59" stroke="#875f49" stroke-width="2.8"/>
+        <path d="M141 108q-9-18 3-31m19-20q10-7 20-3m22 8q14 6 17 20m-71 46q7 13 22 15m21 1q14-3 19-12" fill="none" stroke="#d09d6c" stroke-width="4" stroke-linecap="round"/>
         <g class="lion-front-face">
           <circle cx="152" cy="76" r="12" fill="#dcb075" stroke="#9e704a" stroke-width="2"/><circle cx="206" cy="72" r="12" fill="#dcb075" stroke="#9e704a" stroke-width="2"/>
-          <path d="M145 101q-3-29 30-39 31-2 43 24 13 34-22 48-22 8-45-7-11-11-6-26Z" fill="#e6ba7f" stroke="#af7d50" stroke-width="2.4"/>
-          <path d="M158 112q15-12 23-2 13-10 25-1 8 15-10 20-25 8-41-4-5-6 3-13Z" fill="#f3d8a6"/>
-          <circle cx="163" cy="96" r="4.2" fill="#493f35"/><circle cx="196" cy="93" r="4.2" fill="#493f35"/>
+          <path d="M145 100q-2-29 33-34 31-2 40 25 10 30-21 43-24 9-43-8-11-11-9-26Z" fill="#e9bf84" stroke="#af7d50" stroke-width="2.4"/>
+          <path d="M157 112q12-12 24-3 14-10 25 0 8 14-10 21-25 6-40-4-5-6 1-14Z" fill="#f7dfb1"/>
+          <ellipse cx="164" cy="97" rx="5.8" ry="6.8" fill="#fff1d2"/><ellipse cx="196" cy="96" rx="5.8" ry="6.8" fill="#fff1d2"/><ellipse cx="165" cy="98" rx="4" ry="4.9" fill="#493f35"/><ellipse cx="195" cy="97" rx="4" ry="4.9" fill="#493f35"/><circle cx="166" cy="96" r="1.5" fill="#fff"/><circle cx="196" cy="95" r="1.5" fill="#fff"/>
+          <path d="m159 117 3 1m38-1 3-1" fill="none" stroke="#bf996c" stroke-width="1.6" stroke-linecap="round"/>
           <path d="M173 108q9-4 18-1l-9 8Z" fill="#71554c"/><path d="M181 115q-2 6-10 4m10-4q4 5 11 3" fill="none" stroke="#956d55" stroke-width="2" stroke-linecap="round"/>
         </g>
         <g class="zoo-feeding lion-hunt-face">

@@ -106,6 +106,37 @@ const { createServer } = require('./preview.cjs');
         return frames;
       });
       assert.ok(depth && depth[0].size !== depth[1].size && depth[0].y !== depth[1].y, id + ' moves through scene depth after admission');
+      const movement = await stage.evaluate((el, id) => {
+        const sample = (selector, fraction, property = 'transform') => {
+          const target = el.querySelector(selector);
+          const animation = target.getAnimations().find(a => a.animationName?.startsWith('zoo-'));
+          if (!animation) throw new Error('Missing movement for ' + selector);
+          const original = animation.currentTime;
+          animation.currentTime = Number(animation.effect.getTiming().duration) * fraction;
+          const value = getComputedStyle(target)[property];
+          animation.currentTime = original;
+          return value;
+        };
+        if (['elephant', 'giraffe', 'lion', 'penguin'].includes(id)) {
+          const leg = id === 'lion' ? '.lion-forepaw' : id === 'penguin' ? '.penguin-foot' : '.zoo-walk-leg';
+          return { rest: sample(leg, .04), restLater: sample(leg, .37), step: sample(leg, id === 'penguin' ? .18 : .17) };
+        }
+        if (id === 'parrot') return {
+          perched: sample('.wing-near', .4, 'opacity'), flying: sample('.wing-near', .23, 'opacity'), folded: sample('.parrot-wing', .23, 'opacity'),
+        };
+        if (id === 'kangaroo') return { shadow: sample('.zoo-contact-shadow', .22), legs: sample('.kangaroo-leg', .22) };
+        return null;
+      }, id);
+      if (movement?.rest) {
+        assert.equal(movement.rest, movement.restLater, id + ' rests its feet when standing');
+        assert.notEqual(movement.rest, movement.step, id + ' takes steps while moving');
+      }
+      if (id === 'parrot') assert.deepEqual(movement, { perched: '0', flying: '1', folded: '0' }, 'the parrot unfolds its flight wings only in the air');
+      if (id === 'kangaroo') {
+        const shadow = movement.shadow.match(/matrix\(([^)]+)\)/)[1].split(',').map(Number);
+        assert.ok(shadow[5] > 20 && shadow[0] < .9, 'the jumping kangaroo leaves a smaller shadow down on the ground');
+        assert.notEqual(movement.legs, 'none', 'the kangaroo tucks its legs during a jump');
+      }
       if (id === 'elephant') { await action('pet').focus(); await action('pet').press('Enter'); }
       else await greetWithMouse();
       assert.equal(await stage.getAttribute('data-petting'), 'true');

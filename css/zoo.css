@@ -30,7 +30,16 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .zoo-layer-back { transform: translate(calc(var(--look-x) * -.45), calc(var(--look-y) * -.3)); }
 .zoo-layer-front { transform: translate(var(--look-x), var(--look-y)); }
 .zoo-layer-ground { pointer-events: none; }
-.zoo-roam { transform-origin: 225px 210px; }
+.zoo-roam { transform-origin: 225px 210px; --life-play-state: running; --stroll-time: 22s; }
+[data-animal="giraffe"] .zoo-roam { --stroll-time: 27s; }
+[data-animal="lion"] .zoo-roam { --stroll-time: 26s; }
+.parrot-flight-wing { display: none; opacity: 0; transform-origin: 222px 112px; }
+.parrot-flight-wing.wing-far { transform-origin: 204px 112px; --wing-side: -1; }
+.elephant-ear { transform-origin: 195px 110px; }
+.penguin-foot.foot-far { --step-side: -1; }
+.kangaroo-leg { transform-origin: 235px 162px; }
+.monkey-legs { transform-origin: 224px 157px; }
+.lion-tail { transform-origin: 296px 139px; }
 .zoo-pet-trigger[role="button"] { cursor: pointer; outline: none; }
 .zoo-pet-trigger[role="button"]:focus-visible .zoo-pet-target { stroke: #fff7d2; stroke-width: 3px; stroke-dasharray: 6 5; }
 .zoo-touch-response { opacity: 0; pointer-events: none; }
@@ -46,24 +55,37 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .zoo-stage[data-animal="snake"][data-unlocked="true"][data-activity=""] .zoo-roam { animation: zoo-wander-snake 24s ease-in-out infinite; }
 .zoo-stage[data-animal="lion"][data-unlocked="true"][data-activity=""] .zoo-roam { animation: zoo-wander-lion 26s ease-in-out infinite; }
 .zoo-stage[data-unlocked="true"][data-activity=""] .zoo-animal-art { animation: zoo-idle-breathe 4s ease-in-out infinite; transform-origin: 220px 205px; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .parrot-wing { animation: zoo-idle-parrot-wing 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .parrot-wing { animation: zoo-parrot-folded 19s linear infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .parrot-flight-wing { display: block; animation: zoo-parrot-flight-wings 19s linear infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .parrot-flight-wing.wing-far { --wing-side: -1; }
+.zoo-stage[data-unlocked="true"][data-activity=""] :is(.parrot-perch-foot,.parrot-free-foot) { transform-origin: 216px 156px; animation: zoo-parrot-tuck 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .parrot-tail { animation: zoo-parrot-tail 19s ease-in-out infinite; }
 .zoo-stage[data-unlocked="true"][data-activity=""] .elephant-trunk { animation: zoo-idle-trunk 6s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .elephant-ear { animation: zoo-elephant-ear 7s ease-in-out infinite; }
 .zoo-stage[data-unlocked="true"][data-activity=""] .giraffe-head { animation: zoo-idle-look 7s ease-in-out infinite; }
 .zoo-stage[data-unlocked="true"][data-activity=""] .monkey-head { animation: zoo-idle-look 5s ease-in-out infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .zoo-walk-leg { animation: zoo-leg-step 1.5s ease-in-out infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .zoo-walk-leg.leg-far { animation-delay: -.75s; }
+.zoo-stage[data-unlocked="true"][data-activity=""] :is(.zoo-walk-leg,.lion-forepaw,.lion-hindpaw,.lion-foreleg-far,.lion-hindleg-far) { animation: zoo-leg-stroll var(--stroll-time) ease-in-out infinite; }
+.zoo-walk-leg.leg-far, .lion-hindpaw, .lion-foreleg-far { --step-side: -1; }
+.lion-hindpaw, .lion-hindleg-far { transform-origin: 280px 151px; }
+.lion-foreleg-far { transform-origin: 208px 151px; }
 .zoo-stage[data-animal="panda"][data-unlocked="true"][data-activity=""] .zoo-animal-art { transform-origin: 222px 132px; animation: zoo-panda-amble 25s ease-in-out infinite; }
-.zoo-stage[data-animal="penguin"][data-unlocked="true"][data-activity=""] .zoo-animal-art { animation: zoo-penguin-waddle 1.3s ease-in-out infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .lion-forepaw { animation: zoo-leg-step 1.5s ease-in-out infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .lion-hindpaw { transform-origin: 280px 151px; animation: zoo-leg-step 1.5s ease-in-out -.75s infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .snake-coils { animation: zoo-snake-coiled 24s step-end infinite; }
-.zoo-stage[data-unlocked="true"][data-activity=""] .snake-glide { display: block; animation: zoo-snake-gliding 24s step-end infinite; }
+.zoo-stage[data-animal="penguin"][data-unlocked="true"][data-activity=""] .zoo-animal-art { animation: zoo-penguin-waddle 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .penguin-foot { animation: zoo-penguin-step 19s ease-in-out infinite; }
+.zoo-stage[data-animal="kangaroo"][data-unlocked="true"][data-activity=""] .zoo-animal-art { transform-origin: 228px 195px; animation: zoo-kangaroo-spring 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .kangaroo-leg { animation: zoo-kangaroo-tuck 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .kangaroo-tail { animation: zoo-kangaroo-balance 19s ease-in-out infinite; }
+.zoo-stage[data-animal="kangaroo"][data-unlocked="true"][data-activity=""] .zoo-contact-shadow { transform-origin: 225px 209px; animation: zoo-kangaroo-ground-shadow 19s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .monkey-legs { animation: zoo-monkey-tuck 18s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .monkey-tail { animation: zoo-monkey-balance 18s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .lion-tail { animation: zoo-lion-tail 6s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .snake-coils { animation: zoo-snake-coiled 24s linear infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] .snake-glide { display: block; animation: zoo-snake-gliding 24s linear infinite; }
 .zoo-stage[data-unlocked="true"][data-activity=""] .snake-glide path { animation: snake-wave-body 2.5s ease-in-out infinite; }
+.zoo-stage[data-unlocked="true"][data-activity=""] :is(.zoo-animal-art,.zoo-walk-leg,.lion-forepaw,.lion-hindpaw,.lion-foreleg-far,.lion-hindleg-far,.penguin-foot,.parrot-flight-wing,.parrot-wing,.parrot-tail,.parrot-perch-foot,.parrot-free-foot,.kangaroo-leg,.kangaroo-tail,.monkey-legs,.monkey-tail,.zoo-contact-shadow,.snake-coils,.snake-glide,.snake-glide path) { animation-play-state: var(--life-play-state); }
 .zoo-stage[data-held="true"] .zoo-roam, .zoo-stage[data-petting="true"] .zoo-roam,
-.zoo-roam:has(:focus-visible) { animation-play-state: paused !important; }
-.zoo-stage:is([data-held="true"], [data-petting="true"]) :is(.zoo-walk-leg, .lion-forepaw, .lion-hindpaw, .snake-coils, .snake-glide, .snake-glide path) { animation-play-state: paused !important; }
+.zoo-roam:has(:focus-visible) { --life-play-state: paused; animation-play-state: paused !important; }
 @media (hover: hover) and (pointer: fine) {
-  .zoo-roam:hover, .zoo-roam:hover :is(.zoo-walk-leg, .lion-forepaw, .lion-hindpaw, .snake-coils, .snake-glide, .snake-glide path) { animation-play-state: paused !important; }
+  .zoo-roam:hover { --life-play-state: paused; animation-play-state: paused !important; }
 }
 .zoo-stage[data-petting="true"] .zoo-touch-response { animation: zoo-greeting-heart 2.2s ease-out both; }
 .zoo-stage[data-petting="true"] .zoo-animal-art { animation-play-state: paused !important; }
@@ -88,16 +110,45 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 @keyframes zoo-wander-monkey { 0%,16%,100% { transform: none; } 24% { transform: translate(-25px,-24px) scale(.94); } 31%,45% { transform: translate(-41px,4px) scale(.93); } 58% { transform: translate(5px,-34px) scale(.85); } 70%,84% { transform: translate(41px,-11px) scale(.86); } }
 @keyframes zoo-wander-kangaroo { 0%,14%,100% { transform: none; } 22% { transform: translate(-20px,-40px) scale(.87); } 29%,43% { transform: translate(-42px,-20px) scale(.79); } 54% { transform: translate(2px,-49px) scale(.88); } 63%,79% { transform: translate(39px,5px) scale(1.03); } 89% { transform: translate(19px,-31px) scale(1); } }
 @keyframes zoo-wander-snake { 0%,10%,100% { transform: none; } 37%,48% { transform: translate(76px,-19px) scale(.71); } 75%,85% { transform: translate(-44px,6px) scale(1.01); } }
-@keyframes zoo-wander-lion { 0%,18%,100% { transform: none; } 38%,52% { transform: translate(-23px,-26px) scale(.79); } 73%,84% { transform: translate(26px,1px) scale(1); } }
+@keyframes zoo-wander-lion { 0%,9%,100% { transform: none; } 30%,42% { transform: translate(-23px,-26px) scale(.79); } 65%,76% { transform: translate(26px,1px) scale(1); } }
 @keyframes zoo-idle-breathe { 50% { transform: scale(1.008,.986); } }
-@keyframes zoo-leg-step { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg) translateY(-2px); } }
-@keyframes zoo-penguin-waddle { 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+/* Feet share the route's clock, including its rests, so stopping never leaves them marching in place. */
+@keyframes zoo-leg-stroll {
+  0%,9%,30%,42%,65%,76%,100% { transform: none; }
+  11%,15%,19%,23%,27%,44%,48%,52%,56%,60%,64%,78%,82%,86%,90%,94%,98% { transform: rotate(calc(var(--step-side, 1) * -7deg)); }
+  13%,17%,21%,25%,29%,46%,50%,54%,58%,62%,80%,84%,88%,92%,96% { transform: rotate(calc(var(--step-side, 1) * 7deg)); }
+}
+@keyframes zoo-penguin-waddle {
+  0%,12%,33%,44%,65%,78%,100% { transform: none; }
+  15%,21%,27%,47%,53%,59%,81%,87%,93% { transform: rotate(-4deg); }
+  18%,24%,30%,50%,56%,62%,84%,90%,97% { transform: rotate(4deg); }
+}
+@keyframes zoo-penguin-step {
+  0%,12%,33%,44%,65%,78%,100% { transform: none; }
+  15%,21%,27%,47%,53%,59%,81%,87%,93% { transform: rotate(calc(var(--step-side, 1) * -12deg)) translateY(-2px); }
+  18%,24%,30%,50%,56%,62%,84%,90%,97% { transform: rotate(calc(var(--step-side, 1) * 12deg)); }
+}
 @keyframes zoo-panda-amble { 0%,12% { transform: rotate(0); } 35%,53% { transform: rotate(360deg); } 75%,84% { transform: rotate(720deg); } 100% { transform: rotate(1080deg); } }
-@keyframes zoo-snake-coiled { 0%,38%,76%,100% { opacity: 1; } 11%,49%,86% { opacity: 0; } }
-@keyframes zoo-snake-gliding { 0%,38%,76%,100% { opacity: 0; } 11%,49%,86% { opacity: 1; } }
+@keyframes zoo-snake-coiled { 0%,10%,40%,48%,78%,85%,100% { opacity: 1; } 12%,37%,50%,75%,87%,98% { opacity: 0; } }
+@keyframes zoo-snake-gliding { 0%,10%,40%,48%,78%,85%,100% { opacity: 0; } 12%,37%,50%,75%,87%,98% { opacity: 1; } }
 @keyframes zoo-idle-look { 35%,48% { transform: rotate(-7deg); } 70% { transform: rotate(4deg); } }
 @keyframes zoo-idle-trunk { 45%,60% { transform: rotate(8deg); } }
-@keyframes zoo-idle-parrot-wing { 0%,15%,32%,46%,68%,82%,100% { transform: none; } 19%,25%,29%,51%,58%,63%,87%,93% { transform: rotate(-47deg) scaleY(.8); } 22%,27%,54%,61%,90% { transform: rotate(10deg); } }
+@keyframes zoo-elephant-ear { 0%,35%,65%,100% { transform: none; } 45%,55% { transform: rotate(-6deg) scaleX(.94); } }
+@keyframes zoo-lion-tail { 0%,100% { transform: none; } 30%,65% { transform: rotate(9deg); } }
+@keyframes zoo-parrot-folded { 0%,15%,32%,46%,68%,82%,100% { opacity: 1; } 16%,31%,47%,67%,83%,99% { opacity: 0; } }
+@keyframes zoo-parrot-flight-wings {
+  0%,15%,32%,46%,68%,82%,100% { opacity: 0; transform: none; }
+  16%,19%,22%,25%,28%,31%,47%,50%,53%,56%,59%,62%,65%,67%,83%,86%,89%,92%,95%,98%,99% { opacity: 1; transform: rotate(calc(var(--wing-side, 1) * -16deg)) scaleY(.85); }
+  17.5%,20.5%,23.5%,26.5%,29.5%,48.5%,51.5%,54.5%,57.5%,60.5%,63.5%,66%,84.5%,87.5%,90.5%,93.5%,96.5% { opacity: 1; transform: rotate(calc(var(--wing-side, 1) * 17deg)); }
+}
+@keyframes zoo-parrot-tuck { 0%,15%,32%,46%,68%,82%,100% { transform: none; } 20%,27%,51%,62%,87%,95% { transform: translateY(-7px) scaleY(.65); } }
+@keyframes zoo-parrot-tail { 0%,15%,32%,46%,68%,82%,100% { transform: none; } 23%,57%,90% { transform: rotate(14deg); } }
+@keyframes zoo-kangaroo-spring { 0%,10%,32%,40%,66%,76%,100% { transform: none; } 14%,29%,43%,63%,79% { transform: scale(1.035,.94); } 22%,54%,89% { transform: rotate(-6deg) scale(.98,1.02); } }
+@keyframes zoo-kangaroo-tuck { 0%,14%,29%,43%,63%,79%,100% { transform: none; } 22%,54%,89% { transform: rotate(18deg); } }
+@keyframes zoo-kangaroo-balance { 0%,14%,29%,43%,63%,79%,100% { transform: none; } 22%,54%,89% { transform: rotate(-14deg); } }
+@keyframes zoo-kangaroo-ground-shadow { 0%,14%,29%,43%,63%,79%,100% { transform: none; opacity: 1; } 22% { transform: translateY(32px) scale(.75,.8); opacity: .65; } 54% { transform: translateY(46px) scale(.7,.8); opacity: .6; } 89% { transform: translateY(33px) scale(.75,.8); opacity: .65; } }
+@keyframes zoo-monkey-tuck { 0%,16%,31%,45%,70%,84%,100% { transform: none; } 24%,58%,92% { transform: rotate(-9deg) translateY(-5px); } }
+@keyframes zoo-monkey-balance { 0%,16%,31%,45%,70%,84%,100% { transform: none; } 24%,92% { transform: rotate(14deg); } 58% { transform: rotate(-13deg); } }
 @keyframes zoo-greeting-heart { 0% { transform: translateY(12px) scale(.9); opacity: 0; } 20%,70% { opacity: 1; } 100% { transform: translateY(-16px); opacity: 0; } }
 @keyframes zoo-greet-trunk { 35%,65% { transform: rotate(42deg); } }
 @keyframes zoo-greet-wave { 25%,65% { transform: rotate(40deg); } 45%,82% { transform: rotate(15deg); } }
@@ -297,6 +348,18 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 [data-phase="middle"] .snake-glide path { animation: snake-wave-body 1.6s ease-in-out infinite; }
 [data-phase="finale"] .snake-coils { animation: snake-coil-up 3s ease-in-out infinite; }
 [data-phase="finale"] .snake-tongue { transform-origin: 134px 119px; animation: snake-flick-tongue 1.5s ease-in-out infinite; }
+[data-animal="giraffe"][data-phase="middle"] .zoo-walk-leg,
+[data-animal="lion"][data-phase="intro"] :is(.lion-forepaw,.lion-hindpaw,.lion-foreleg-far,.lion-hindleg-far) { animation: zoo-show-step 1.2s ease-in-out infinite; }
+[data-animal="penguin"][data-phase="intro"] .penguin-foot { animation: zoo-show-step .8s ease-in-out infinite; }
+[data-animal="parrot"][data-phase="middle"] .parrot-wing { opacity: 0; }
+[data-animal="parrot"][data-phase="middle"] .parrot-flight-wing { display: block; opacity: 1; animation: zoo-flight-wingbeat .45s ease-in-out infinite; }
+[data-animal="parrot"][data-phase="middle"] :is(.parrot-perch-foot,.parrot-free-foot) { transform: translateY(-6px); }
+[data-animal="kangaroo"][data-phase="middle"] .kangaroo-leg { animation: zoo-kangaroo-show-tuck 4s ease-in-out infinite; }
+[data-animal="kangaroo"][data-phase="middle"] .zoo-contact-shadow { transform-origin: 225px 209px; animation: zoo-kangaroo-show-shadow 4s ease-in-out infinite; }
+@keyframes zoo-show-step { 0%,100% { transform: rotate(calc(var(--step-side, 1) * -7deg)); } 50% { transform: rotate(calc(var(--step-side, 1) * 7deg)); } }
+@keyframes zoo-flight-wingbeat { 0%,100% { transform: rotate(calc(var(--wing-side, 1) * -16deg)) scaleY(.85); } 50% { transform: rotate(calc(var(--wing-side, 1) * 17deg)); } }
+@keyframes zoo-kangaroo-show-tuck { 0%,24%,51%,77%,100% { transform: none; } 13%,36%,64%,89% { transform: rotate(18deg); } }
+@keyframes zoo-kangaroo-show-shadow { 0%,100% { transform: translateX(-72px); } 13% { transform: translateX(-49px) scale(.75,.8); } 24% { transform: translateX(-35px); } 36% { transform: translateX(-6px) scale(.7,.8); } 51% { transform: translateX(19px); } 64% { transform: translateX(52px) scale(.75,.8); } 77% { transform: translateX(69px); } 89% { transform: translateX(1px) scale(.7,.8); } }
 @keyframes elephant-reach-and-curl {
   0%,100% { d: path("M154 126C152 146 139 172 117 155"); }
   24%,33% { d: path("M154 126C150 161 123 173 108 188"); }
@@ -657,6 +720,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
   51% { transform: translate(19px,0) scaleY(.94); }
   64% { transform: translate(52px,-37px) rotate(-8deg); }
   77% { transform: translateX(69px); }
+  89% { transform: translate(1px,-50px) rotate(6deg); }
   100% { transform: translateX(-72px); }
 }
 @keyframes kangaroo-tail { 28%,75% { transform: rotate(-12deg); } 50% { transform: rotate(7deg); } }
