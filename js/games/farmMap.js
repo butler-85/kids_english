@@ -1,9 +1,36 @@
 /* One connected farm. World coordinates stay independent of the camera and the saved farm. */
 const FarmMap = (() => {
-  function layout(animals) {
+  const DROP_AREAS = {
+    egg: { x: 380, y: 220, width: 380, height: 276, cols: 6, rows: 5 },
+    honey: { x: 980, y: 150, width: 630, height: 140, cols: 10, rows: 3 },
+    pearl: { x: 1035, y: 875, width: 560, height: 260, cols: 9, rows: 5, pond: true },
+    milk: { x: 420, y: 740, width: 350, height: 140, cols: 6, rows: 3 },
+    wool: { x: 120, y: 975, width: 600, height: 140, cols: 9, rows: 3 },
+  };
+  function dropSpots(item, needed) {
+    const area = DROP_AREAS[item];
+    let factor = 0, points, spacing;
+    do {
+      factor++; points = [];
+      const cols = area.cols * factor, rows = area.rows * factor;
+      spacing = Math.min(area.width / (cols - 1) - 4 / factor, area.height / (rows - 1) - 2 / factor);
+      for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+        const x = area.x + col * area.width / (cols - 1), y = area.y + row * area.height / (rows - 1);
+        if (area.pond && ((x - 1315) / 330) ** 2 + ((y - 1005) / 150) ** 2 > 1) continue;
+        // Mix the cell index so the first few drops spread out instead of forming rows.
+        let seed = Math.imul(row * cols + col + 1, 0x45d9f3b);
+        seed = Math.imul(seed ^ (seed >>> 16), 0x45d9f3b);
+        seed = (seed ^ (seed >>> 16)) >>> 0;
+        points.push({ x: x + ((seed % 5) - 2) / factor, y: y + ((seed % 3) - 1) / factor, order: seed });
+      }
+    } while (points.length < needed);
+    return { unit: Math.max(1, 62 / spacing), points: points.sort((a, b) => a.order - b.order) };
+  }
+  function layout(animals, drops = []) {
     const counts = { land: 0, bee: 0, fish: 0 };
     animals.forEach(a => counts[a.type === 'bee' ? 'bee' : a.type === 'fish' ? 'fish' : 'land']++);
-    const unit = Math.max(1, Math.sqrt(counts.land / 30), Math.sqrt(counts.bee / 12), Math.sqrt(counts.fish / 6));
+    const scatter = Object.fromEntries(Object.keys(DROP_AREAS).map(item => [item, dropSpots(item, Math.max(0, ...drops.filter(d => d.item === item).map(d => d.slot + 1)))]));
+    const unit = Math.max(1, Math.sqrt(counts.land / 30), Math.sqrt(counts.bee / 12), Math.sqrt(counts.fish / 6), ...Object.values(scatter).map(s => s.unit));
     const box = (x, y, width, height) => ({ x: x * unit, y: y * unit, width: width * unit, height: height * unit });
     const land = box(65, 195, 760, 950), flowers = box(950, 115, 660, 220), pond = box(995, 855, 640, 300);
     const barn = box(80, 180, 250, 235);
@@ -12,8 +39,7 @@ const FarmMap = (() => {
       homes: { chick: box(390, 240, 330, 220), hen: box(390, 240, 330, 220), cat: box(120, 755, 320, 220), dog: box(405, 815, 320, 220),
         cow: box(310, 725, 415, 240), sheep: box(140, 920, 470, 220) },
       zones: { yard: box(90, 160, 700, 430), field: box(1000, 360, 500, 350), pets: box(85, 685, 740, 460), pond },
-      pickups: { egg: [650 * unit, 465 * unit], honey: [1235 * unit, 290 * unit], pearl: [1095 * unit, 855 * unit],
-        milk: [661 * unit, 923 * unit], wool: [311 * unit, 1065 * unit] },
+      dropSpots: Object.fromEntries(Object.entries(scatter).map(([item, s]) => [item, s.points.map(p => ({ x: p.x * unit, y: p.y * unit }))])),
       plots: Array.from({ length: 12 }, (_, i) => ({ x: (1025 + (i % 3) * 145) * unit, y: (350 + Math.floor(i / 3) * 90) * unit, width: 124, height: 82 })) };
   }
   function art(map) {
@@ -74,9 +100,9 @@ const FarmMap = (() => {
     const a=FarmLife.state().actors.find(a=>a.uid===uid);
     if (a) center(a.x+a.width/2,a.y+a.height/2,.95);
   }
-  function focusProduct(item) {
-    const spot = map?.pickups[item];
-    if (spot) center(spot[0], spot[1], .95);
+  function focusProduct(item, id) {
+    const drop = [...(world?.querySelectorAll('[data-pickup]') || [])].find(el => el.dataset.pickup === item && (id == null || el.dataset.dropId === String(id)));
+    if (drop) center(parseFloat(drop.style.left), parseFloat(drop.style.top), .95);
   }
   function setDragging(on) { if (dragging===on) return; dragging=on; viewport?.classList.toggle('is-dragging',on); document.dispatchEvent(new CustomEvent('farm-camera-drag',{detail:on})); }
   function detach() {

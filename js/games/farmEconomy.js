@@ -117,13 +117,32 @@ const FarmEconomy = (() => {
     const day = productionDay(now), clocks = ensure(f).production;
     return f.animals.some(a => producerNeedsSync(f, a, clocks[a.uid], day));
   }
+  function appendGroundUnits(b, drop, count) {
+    const used = new Set(Object.values(b.groundProducts || {}).filter(d => d.item === drop.item).flatMap(d => (d.units || []).map(u => u.slot)));
+    let slot = 0;
+    for (let i = 0; i < count; i++) {
+      while (used.has(slot)) slot++;
+      drop.units.push({ id: b.nextGroundId = (b.nextGroundId || 0) + 1, slot });
+      used.add(slot);
+    }
+  }
+  function normalizeGroundProducts(b) {
+    // Upgrade old per-animal piles once; each unit keeps its identity and place after pickup/reload.
+    for (const drop of Object.values(b.groundProducts || {})) {
+      if (!drop.units) drop.units = [];
+      if (drop.units.length < drop.count) appendGroundUnits(b, drop, drop.count - drop.units.length);
+    }
+  }
   function addGroundProduct(b, uid, item, count) {
+    normalizeGroundProducts(b);
     const drops = b.groundProducts ||= {};
-    const drop = drops[uid] ||= { item, count: 0 };
+    const drop = drops[uid] ||= { item, count: 0, units: [] };
+    appendGroundUnits(b, drop, count);
     drop.count += count;
   }
   function syncProducers(f, now = Date.now()) {
     const b = ensure(f);
+    normalizeGroundProducts(b);
     const day = productionDay(now), cap = b.upgrades.coop ? 5 : 3;
     for (const a of f.animals) {
       const clock = b.production[a.uid];
@@ -168,19 +187,26 @@ const FarmEconomy = (() => {
     for (const { item, count } of Object.values(ensure(f).groundProducts || {})) counts[item] = (counts[item] || 0) + count;
     return counts;
   }
-  function pickUpProduct(f, item, now = Date.now()) {
+  function groundDrops(f) {
+    const b = ensure(f);
+    normalizeGroundProducts(b);
+    return Object.entries(b.groundProducts || {}).flatMap(([uid, drop]) => drop.units.map(unit => ({ ...unit, uid, item: drop.item })));
+  }
+  function pickUpProduct(f, item, now = Date.now(), id = null) {
     syncProducers(f, now);
     const b = ensure(f), drops = b.groundProducts || {};
-    let count = 0;
     for (const [uid, drop] of Object.entries(drops)) {
       if (drop.item !== item) continue;
-      count += drop.count;
-      delete drops[uid];
+      const index = id === null ? 0 : drop.units.findIndex(unit => unit.id === id);
+      if (index < 0 || !drop.units[index]) continue;
+      const [unit] = drop.units.splice(index, 1);
+      drop.count--;
+      if (!drop.count) delete drops[uid];
+      b.products[item] = (b.products[item] || 0) + 1;
+      b.xp++;
+      return { item, count: 1, id: unit.id };
     }
-    if (!count) return false;
-    b.products[item] = (b.products[item] || 0) + count;
-    b.xp += count;
-    return { item, count };
+    return false;
   }
   function stock(f, key) { const b = ensure(f); return ITEMS[key]?.seed ? (f.fruit[key] || 0) : (b.products[key] || 0); }
   function consume(f, key, count) { if (ITEMS[key].seed) f.fruit[key] -= count; else ensure(f).products[key] -= count; }
@@ -324,5 +350,5 @@ const FarmEconomy = (() => {
     delete f.care[uid]; delete ensure(f).production[uid];
     return quote;
   }
-  return { ITEMS, PRODUCERS, MISSIONS, ANIMAL_LIMITS, ANIMAL_PRICES, SUPPLIES, GROW_MAX, GROW_DAYS, AFFECTION_MAX, CROP_STAGES, careDay, dailyCare, growthDays, animalCapacity, adult, animalQuote, careAnimal, sellAnimal, ensure, start, level, identifyAnimals, addAnimal, needsProductionSync, syncProducers, production, prepareLivestockProduct, groundStock, pickUpProduct, stock, ready, deliver, plant, cropState, cropWaterCost, waterPlot, harvest, upgradeInfo, upgrade, mission, claim, sell };
+  return { ITEMS, PRODUCERS, MISSIONS, ANIMAL_LIMITS, ANIMAL_PRICES, SUPPLIES, GROW_MAX, GROW_DAYS, AFFECTION_MAX, CROP_STAGES, careDay, dailyCare, growthDays, animalCapacity, adult, animalQuote, careAnimal, sellAnimal, ensure, start, level, identifyAnimals, addAnimal, needsProductionSync, syncProducers, production, prepareLivestockProduct, groundStock, groundDrops, pickUpProduct, stock, ready, deliver, plant, cropState, cropWaterCost, waterPlot, harvest, upgradeInfo, upgrade, mission, claim, sell };
 })();

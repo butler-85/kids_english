@@ -87,6 +87,26 @@ test('young and adult companions have distinct daily habits and full friendship 
   }
 });
 
+test('individual products have separate hit areas in their own regions, including large legacy stocks', () => {
+  const items = ['egg','honey','pearl','milk','wool'];
+  for (const count of [1, 30, 85]) {
+    const drops = items.flatMap(item => Array.from({ length: count }, (_, slot) => ({ item, slot })));
+    const map = context.MapLayout([], drops), u = map.unit;
+    const boxes = drops.map(d => ({ item: d.item, ...map.dropSpots[d.item][d.slot], w: 60, h: 60 }));
+    boxes.forEach((p, i) => {
+      const box = { ...p, x: p.x - 30, y: p.y - 30 };
+      assert.ok(box.x >= 0 && box.y >= 0 && box.x + 60 <= map.width && box.y + 60 <= map.height);
+      assert.ok(boxes.slice(i + 1).every(q => !overlaps(box, { ...q, x: q.x - 30, y: q.y - 30 })), 'individual pickup targets never overlap');
+      assert.ok(map.plots.every(q => !overlaps(box, { ...q, w: q.width * u, h: q.height * u })), 'products do not cover crops');
+      assert.ok(box.x + 60 < 824 * u || box.x > 936 * u, 'products stay off the main road');
+      if (p.item === 'egg') assert.ok(p.x / u > 345 && p.y / u < 530, 'eggs stay beside the coop, above the west road');
+      if (p.item === 'honey') assert.ok(p.x / u > 950 && p.y / u < 315, 'honey stays in the flower field');
+      if (p.item === 'pearl') assert.ok(((p.x / u - 1315) / 335) ** 2 + ((p.y / u - 1005) / 155) ** 2 <= 1, 'pearls stay in the pond shallows');
+    });
+    assert.equal(JSON.stringify(context.MapLayout([], drops)), JSON.stringify(map), 'a restored save has deterministic positions');
+  }
+});
+
 test('one expanded farm contains every companion, with shared land, safe buildings and water boundaries', () => {
   for (const count of [1, 9, 25]) {
     const animals = ['chick', 'cat', 'dog', 'bee', 'fish'].flatMap(type => Array.from({ length: count }, (_, i) => ({ uid: type+i, type })));

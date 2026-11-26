@@ -219,7 +219,7 @@ const { createServer } = require('./preview.cjs');
     await page.locator('[data-target="farm"]').click();
     assert.equal(await stock('egg'), 0, 'an uncollected product survives the reload on the ground');
     await page.locator('[data-find-product="egg"]').click();
-    assert.equal(await stock('egg'), 0, 'finding the pile only moves the camera');
+    assert.equal(await stock('egg'), 0, 'finding a drop only moves the camera');
     await pickup('egg').dblclick();
     assert.equal(await stock('egg'), 1);
     assert.equal(await pickup('egg').count(), 0);
@@ -228,7 +228,7 @@ const { createServer } = require('./preview.cjs');
     assert.equal(await page.evaluate(() => __abc.FarmEconomy.cropState(__abc.Store.farm().plots[8]).watered), true);
     assert.deepEqual(await page.evaluate(uid => __abc.Store.farm().care[uid], firstBee), firstBeeCare);
     assert.equal(await page.evaluate(uid => __abc.Store.farm().care[uid].growth, secondBee), 0);
-    // Each mature bee owns its production clock. A shared pile does not reset either clock.
+    // Each mature bee owns its production clock; picking one drop does not reset either clock.
     await page.evaluate(([first, second]) => {
       __abc.Store.farm(f => {
         f.care[first].growth = 5; f.care[second].growth = 4;
@@ -253,8 +253,9 @@ const { createServer } = require('./preview.cjs');
       return time.getTime();
     });
     await page.clock.setFixedTime(tomorrow);
-    await pickup('honey').waitFor();
-    assert.match(await pickup('honey').getAttribute('aria-label'), /2 份/);
+    await pickup('honey').first().waitFor();
+    assert.equal(await pickup('honey').count(), 2);
+    assert.match(await pickup('honey').first().getAttribute('aria-label'), /1 份/);
     assert.equal(await stock('honey'), 1, 'the daily rollover creates map drops only');
     const remainingBee = await page.evaluate(uid => ({ care: { ...__abc.Store.farm().care[uid] }, clock: { ...__abc.Store.farm().business.production[uid] } }), secondBee);
     await page.locator('#care-shop').click();
@@ -265,6 +266,9 @@ const { createServer } = require('./preview.cjs');
     assert.equal(await page.evaluate(uid => __abc.Store.farm().care[uid], firstBee), undefined);
     assert.deepEqual(await page.evaluate(uid => ({ care: __abc.Store.farm().care[uid], clock: __abc.Store.farm().business.production[uid] }), secondBee), remainingBee);
     await page.locator('#btn-tofarm').click();
+    await page.locator('[data-find-product="honey"]').click();
+    await pickup('honey').first().click();
+    assert.equal(await stock('honey'), 2, 'one tap picks up only one honey');
     await page.locator('[data-find-product="honey"]').click();
     await pickup('honey').click();
     assert.equal(await stock('honey'), 3, 'the sold bee’s drop remained on the map');

@@ -83,9 +83,9 @@ const Pets = (() => {
   }
   function openShop(kind = 'animal') { shopKind = kind; App.show('shop'); }
   function focusProduct(item) {
-    const drop = document.getElementById('farm-product-' + item);
+    const drop = document.querySelector(`#farm-map-drops [data-pickup="${item}"]`);
     if (!drop) return;
-    FarmMap.focusProduct(item);
+    FarmMap.focusProduct(item, drop.dataset.dropId);
     document.getElementById('farm-map-viewport').scrollIntoView({ block: 'nearest' });
     drop.focus({ preventScroll: true });
   }
@@ -93,37 +93,38 @@ const Pets = (() => {
     const layer = document.getElementById('farm-map-drops');
     const guide = document.getElementById('farm-pickup-guide');
     const counts = FarmEconomy.groundStock(f);
-    const piles = Object.entries(map.pickups).filter(([item]) => counts[item] > 0);
-    layer.innerHTML = piles.map(([item, [x, y]]) => {
-      const { name, icon } = FarmEconomy.ITEMS[item], count = counts[item];
-      return `<button id="farm-product-${item}" class="farm-ground-item" data-pickup="${item}" style="left:${x}px;top:${y}px" aria-label="拾取 ${count} 份${name}">
-        <span class="ground-item-icon" aria-hidden="true">${icon}</span><small aria-hidden="true">×${count}</small></button>`;
+    const drops = FarmEconomy.groundDrops(f);
+    const items = Object.keys(counts).filter(item => counts[item] > 0);
+    layer.innerHTML = drops.map(({ item, id, slot }) => {
+      const { name, icon } = FarmEconomy.ITEMS[item], { x, y } = map.dropSpots[item][slot];
+      return `<button class="farm-ground-item" data-pickup="${item}" data-drop-id="${id}" style="left:${x}px;top:${y}px;--drop-tilt:${(id * 7) % 19 - 9}deg" aria-label="拾取 1 份${name}">
+        <span class="ground-item-icon" aria-hidden="true">${icon}</span></button>`;
     }).join('');
-    guide.hidden = !piles.length;
-    guide.innerHTML = piles.length ? '<b>待拾取</b>' + piles.map(([item]) => {
+    guide.hidden = !items.length;
+    guide.innerHTML = items.length ? '<b aria-hidden="true">🧺 👆</b>' + items.map(item => {
       const { name, icon } = FarmEconomy.ITEMS[item];
-      return `<button data-find-product="${item}" aria-label="在地图上找${name}"><span aria-hidden="true">${icon}</span> ${name} ×${counts[item]}</button>`;
+      return `<button data-find-product="${item}" aria-label="在地图上找${name}，还有 ${counts[item]} 份"><span aria-hidden="true">${icon}</span></button>`;
     }).join('') : '';
     guide.querySelectorAll('[data-find-product]').forEach(button => {
       button.onclick = () => focusProduct(button.dataset.findProduct);
     });
     layer.querySelectorAll('[data-pickup]').forEach(button => {
-      const item = button.dataset.pickup;
-      button.onfocus = () => { if (button.matches(':focus-visible')) FarmMap.focusProduct(item); };
+      const item = button.dataset.pickup, id = Number(button.dataset.dropId);
+      button.onfocus = () => { if (button.matches(':focus-visible')) FarmMap.focusProduct(item, id); };
       button.onclick = () => {
+        if (!button.isConnected) return;
         const hadFocus = document.activeElement === button;
         let picked;
-        Store.farm(g => picked = FarmEconomy.pickUpProduct(g, item));
+        Store.farm(g => picked = FarmEconomy.pickUpProduct(g, item, Date.now(), id));
         if (!picked) return;
         const updated = Store.farm();
-        renderGroundProducts(updated, map);
-        FarmBusiness.mount();
-        renderCare();
+        if (FarmEconomy.groundDrops(updated).some(d => !map.dropSpots[d.item]?.[d.slot])) renderFarmScene();
+        else { renderGroundProducts(updated, map); FarmBusiness.mount(); renderCare(); }
         if (hadFocus) document.getElementById('farm-map-viewport').focus({ preventScroll: true });
-        const { icon, name, word } = FarmEconomy.ITEMS[item];
+        const { icon, word } = FarmEconomy.ITEMS[item];
         Sound.sfx('star');
-        Sound.speak(word + '! Into the basket!', { now: false });
-        App.toast(icon + ' ' + name + ' ×' + picked.count + ' → 🧺');
+        Sound.speak(word + '! Into the basket!', { now: false, dedupe: true });
+        App.toast(icon + ' → 🧺');
       };
     });
   }
@@ -131,8 +132,9 @@ const Pets = (() => {
     FarmMap.detach(); FarmLife.detach();
     const now = Date.now();
     renderedCareDay = FarmEconomy.careDay(now);
-    const f = Store.farm(), animals = f.animals, map = FarmMap.layout(animals);
+    const f = Store.farm(), animals = f.animals;
     if (FarmEconomy.needsProductionSync(f, now)) Store.farm(g => FarmEconomy.syncProducers(g, now));
+    const map = FarmMap.layout(animals, FarmEconomy.groundDrops(f));
     if (!animals.some(a => a.uid === selected)) selected = animals[0]?.uid || null;
     document.getElementById('farm-body').innerHTML = `
       <div class="farm-shell connected-farm">

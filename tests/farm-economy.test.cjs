@@ -77,10 +77,47 @@ test('daily production stays on the ground until picked up, with offline caps an
   assert.equal(E.groundStock(f).egg, 3);
   E.sellAnimal(f, 'starter-chick', careTime(10));
   f = JSON.parse(JSON.stringify(f));
-  assert.equal(E.pickUpProduct(f, 'egg', careTime(11)).count, 3, 'drops outlive the animal');
+  for (let i = 0; i < 3; i++) assert.equal(E.pickUpProduct(f, 'egg', careTime(11)).count, 1, 'individual drops outlive the animal');
   assert.equal(E.pickUpProduct(f, 'egg', careTime(12)), false);
   assert.equal(E.stock(f, 'egg'), 4);
 });
+test('legacy piles split without loss and a picked unit cannot collect another unit or reuse its identity', () => {
+  let f = fresh();
+  const b = E.ensure(f);
+  b.groundProducts = {
+    sold: { item: 'egg', count: 3 }, other: { item: 'egg', count: 2 },
+    bee: { item: 'honey', count: 2 }, fish: { item: 'pearl', count: 2 },
+    cow: { item: 'milk', count: 2 }, sheep: { item: 'wool', count: 2 },
+  };
+  const original = E.groundDrops(f);
+  assert.equal(original.length, 13);
+  assert.equal(new Set(original.map(d => d.id)).size, 13);
+  assert.equal(new Set(original.filter(d => d.item === 'egg').map(d => d.slot)).size, 5);
+  assert.equal(E.stock(f, 'egg'), 0);
+  const target = original.find(d => d.uid === 'other');
+  assert.equal(E.pickUpProduct(f, 'honey', careTime(1), target.id), false);
+  assert.equal(E.pickUpProduct(f, 'egg', careTime(1), target.id).count, 1);
+  assert.equal(E.pickUpProduct(f, 'egg', careTime(1), target.id), false);
+  assert.equal(b.xp, 1);
+  assert.equal(E.stock(f, 'egg'), 1);
+  assert.equal(JSON.stringify(E.groundDrops(f)), JSON.stringify(original.filter(d => d.id !== target.id)), 'other drops keep their ids and slots');
+  f = JSON.parse(JSON.stringify(f)); E.syncProducers(f, careTime(1));
+  const afterReload = JSON.stringify(E.groundDrops(f));
+  E.groundDrops(f);
+  assert.equal(JSON.stringify(E.groundDrops(f)), afterReload, 'reading and reloading do not redistribute or duplicate drops');
+  const hen = E.addAnimal(f, 'chick', careTime(1)); f.care[hen.uid].growth = 5;
+  E.syncProducers(f, careTime(1)); E.syncProducers(f, careTime(2));
+  const freshDrop = E.groundDrops(f).find(d => d.uid === hen.uid);
+  assert.equal(freshDrop.slot, target.slot, 'new production can use the freed location');
+  assert.notEqual(freshDrop.id, target.id, 'a stale tap cannot collect replacement production');
+  assert.equal(E.pickUpProduct(f, 'egg', careTime(2), target.id), false);
+  for (const drop of E.groundDrops(f)) assert.equal(E.pickUpProduct(f, drop.item, careTime(2), drop.id).count, 1);
+  assert.equal(E.groundDrops(f).length, 0);
+  assert.equal(E.stock(f, 'egg'), 6);
+  for (const item of ['honey','pearl','milk','wool']) assert.equal(E.stock(f, item), 2);
+  assert.equal(f.business.xp, 14);
+});
+
 test('repeat adoption gives each animal a unique id, stable number and independent care, even in the same millisecond', () => {
   const f = fresh(); E.start(f, 1000);
   const a = E.addAnimal(f, 'chick', 1000), b = E.addAnimal(f, 'chick', 1000);
@@ -165,7 +202,9 @@ test('same-species companions mature and produce independently across reload and
   assert.equal(E.production(restored, b.uid).count, 0);
   assert.equal(E.pickUpProduct(restored, 'honey', careTime(2)).count, 1);
   assert.equal(E.pickUpProduct(restored, 'honey', careTime(2)), false);
-  assert.equal(E.pickUpProduct(restored, 'honey', careTime(3)).count, 2);
+  assert.equal(E.pickUpProduct(restored, 'honey', careTime(3)).count, 1);
+  assert.equal(E.groundStock(restored).honey, 1);
+  assert.equal(E.pickUpProduct(restored, 'honey', careTime(3)).count, 1);
   assert.equal(E.stock(restored, 'honey'), 3);
 });
 test('expansion enforces level, price and maximum, and preserves planted beds', () => {

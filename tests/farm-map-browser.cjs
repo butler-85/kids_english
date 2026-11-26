@@ -119,7 +119,39 @@ const fs = require('node:fs');
       if (touch) await page.touchscreen.tap(drop.x + drop.width / 2, drop.y + drop.height / 2);
       else await page.mouse.click(drop.x + drop.width / 2, drop.y + drop.height / 2);
       await pickup.waitFor({ state: 'detached' });
-      assert.equal(await eggs(), 1, 'tapping the drop moves exactly one pile into storage');
+      assert.equal(await eggs(), 1, 'tapping a drop moves exactly one item into storage');
+      // Legacy piles become separate targets; a tap and a delayed duplicate cannot sweep a region.
+      await page.evaluate(() => {
+        __abc.Store.farm(f => {
+          f.business.groundProducts = Object.fromEntries(['egg','honey','pearl','milk','wool'].map(item => ['demo-' + item, { item, count: 3 }]));
+        });
+        __abc.Pets.renderFarmScene();
+      });
+      assert.equal(await page.locator('[data-pickup]').count(), 15);
+      assert.equal(await page.locator('.farm-ground-item small').count(), 0);
+      for (const item of ['egg','honey','pearl','milk','wool']) {
+        const selector = `[data-pickup="${item}"]`;
+        const before = await page.evaluate(item => __abc.FarmEconomy.stock(__abc.Store.farm(), item), item);
+        const remaining = await page.locator(selector).evaluateAll(els => els.slice(1).map(el => ({ id: el.dataset.dropId, left: el.style.left, top: el.style.top })));
+        await clickControl(`[data-find-product="${item}"]`);
+        const first = page.locator(selector).first();
+        await first.evaluate(el => { window.__oldDrop = el; });
+        const r = await first.boundingBox();
+        assert.ok(r.width >= 44 && r.height >= 44, 'focused pickups have touch-sized targets');
+        if (touch) await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2);
+        else await page.mouse.click(r.x + r.width / 2, r.y + r.height / 2);
+        await page.evaluate(() => window.__oldDrop.click());
+        assert.equal(await page.locator(selector).count(), 2);
+        assert.equal(await page.evaluate(item => __abc.FarmEconomy.stock(__abc.Store.farm(), item), item), before + 1);
+        assert.deepEqual(await page.locator(selector).evaluateAll(els => els.map(el => ({ id: el.dataset.dropId, left: el.style.left, top: el.style.top }))), remaining);
+      }
+      await page.evaluate(() => __abc.FarmMap.overview());
+      await viewport.screenshot({ path: 'test-results/farm-scattered-products-' + width + '.png' });
+      const remainingDrops = await page.locator('[data-pickup]').evaluateAll(els => els.map(el => ({ id: el.dataset.dropId, left: el.style.left, top: el.style.top })));
+      await page.reload();
+      await page.waitForFunction(() => window.__abc?.Profiles.mode === 'local');
+      await page.locator('[data-target="farm"]').click();
+      assert.deepEqual(await page.locator('[data-pickup]').evaluateAll(els => els.map(el => ({ id: el.dataset.dropId, left: el.style.left, top: el.style.top }))), remainingDrops);
       // Empty farms still allow map navigation.
       await page.evaluate(()=>{__abc.Store.farm(f=>{f.animals=[];f.care={};});__abc.Pets.renderFarmScene();});
       assert.equal(await page.locator('[data-animal]').count(),0);
