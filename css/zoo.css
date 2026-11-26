@@ -132,7 +132,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 .giraffe-neck { transform-origin: 224px 136px; }
 .giraffe-head { transform-origin: 194px 66px; }
 .seal-head { transform-origin: 169px 140px; }
-.panda-head { transform-origin: 211px 132px; }
+.panda-head { transform-origin: 219px 135px; }
 .panda-paw { transform-origin: 253px 137px; }
 .penguin-head { transform-origin: 205px 106px; }
 .penguin-wing { transform-origin: 180px 118px; }
@@ -168,7 +168,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 [data-activity="feed"] .feed-seal-fish { transform-origin: 81px 85px; animation: seal-fish-toss var(--zoo-feed-time) both; }
 [data-activity="feed"] .feed-seal-mouth { animation: seal-gulp var(--zoo-feed-time) both; }
 [data-activity="feed"] .panda-paw { animation: panda-lift-paw var(--zoo-feed-time) both; }
-[data-activity="feed"] .feed-panda-bamboo { transform-origin: 198px 169px; animation: panda-lift-bamboo var(--zoo-feed-time) both; }
+[data-activity="feed"] .feed-panda-bamboo { transform-origin: 253px 137px; animation: panda-lift-bamboo var(--zoo-feed-time) both; }
 [data-activity="feed"] .feed-panda-grip { animation: panda-grip var(--zoo-feed-time) both; }
 [data-activity="feed"] .feed-panda-mouth { animation: panda-nibble var(--zoo-feed-time) both; }
 [data-activity="feed"] .feed-panda-leaf-tip { animation: panda-eat-first-leaf var(--zoo-feed-time) both; }
@@ -352,14 +352,15 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
 }
 @keyframes panda-lift-paw {
   21% { transform: translate(-8px,7px) rotate(-7deg); }
-  47%,58% { transform: translate(-5px,-18px) rotate(6deg); }
-  67%,82% { transform: translate(-1px,-15px) rotate(1deg); }
+  47%,58% { transform: translate(3px,-12px) rotate(6deg); }
+  67%,82% { transform: translate(2px,-10px) rotate(1deg); }
 }
 @keyframes panda-lift-bamboo {
-  0%,21% { transform: none; opacity: 1; }
-  46%,59% { transform: translate(23px,-26px) rotate(-3deg); opacity: 1; }
-  70%,83% { transform: translate(20px,-23px) rotate(-10deg); opacity: 1; }
-  100% { transform: translate(14px,11px) rotate(-6deg); opacity: 0; }
+  0% { transform: none; opacity: 1; }
+  21% { transform: translate(-8px,7px) rotate(-7deg); opacity: 1; }
+  47%,58% { transform: translate(3px,-12px) rotate(6deg); opacity: 1; }
+  67%,82% { transform: translate(2px,-10px) rotate(1deg); opacity: 1; }
+  100% { transform: none; opacity: 0; }
 }
 @keyframes panda-grip {
   0%,20%,96%,100% { opacity: 0; }
@@ -624,7 +625,7 @@ body[data-screen="zoo"] .tb-btn { background: #e8eddd; box-shadow: none; }
   72% { transform: translateX(53px) rotate(360deg); }
   100% { transform: translateX(-18px) rotate(360deg); }
 }
-@keyframes panda-wave { 22%,76% { transform: rotate(70deg) translate(-5px,-6px); } 47% { transform: rotate(54deg); } }
+@keyframes panda-wave { 22%,76% { transform: rotate(160deg); } 47% { transform: rotate(185deg); } }
 @keyframes penguin-walk {
   0%,100% { transform: translateX(-13px) rotate(-4deg); }
   25% { transform: translateX(-1px) rotate(6deg); }
